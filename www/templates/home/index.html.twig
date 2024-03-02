@@ -4,5 +4,8 @@
 {% endblock %}
 
 {% block body %}
+	{{ include('partials/_navbar.html.twig') }}
 	<h1 {{ stimulus_controller('test') }}>{{ title }}</h1>
+
+	{{ include('partials/_footer.html.twig') }}
 {% endblock %}

@@ -1,0 +1,70 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: $bg-color-secondary; 
+    color: $white; 
+    font-family: $font-family-primary;
+  
+    &Content {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+  
+      &Section {
+        display: flex;
+        flex-direction: column;
+  
+        &Title {
+          font-size: 1.5em;
+          margin-bottom: 10px;
+          font-weight: $font-weight-semibold; 
+        }
+  
+        &Links {
+          list-style: none;
+          padding: 0;
+  
+          li {
+            margin-bottom: 12px;
+  
+            a {
+              text-decoration: none;
+              color: $white;
+              transition: color 0.3s ease;
+  
+              &:hover {
+                color: $primary;
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    &Bottom {
+      width: 100%;
+      border-top: 1px solid $white;
+      padding-top: 10px;
+  
+      &Links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 32px;
+  
+        a {
+          text-decoration: none;
+          color: $white;
+          transition: color 0.3s ease;
+  
+          &:hover {
+            color: $primary;
+          }
+        }
+      }
+    }
+  }
+  
