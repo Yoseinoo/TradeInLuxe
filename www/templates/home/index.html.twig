@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}TradeInLuxe - Accueil{% endblock %}
+{% block title %}TradeInLuxe - Accueil
+{% endblock %}
 
 {% block body %}
-    <h1>{{ title }}</h1>
+	<h1 {{ stimulus_controller('test') }}>{{ title }}</h1>
 {% endblock %}
