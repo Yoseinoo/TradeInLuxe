@@ -52,13 +52,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isEnabled = true;
 
+    #[Assert\NotBlank()]
     private ?string $plainPassword = null;
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Assert\NotBlank()]
     private ?string $password = null;
 
     #[ORM\Column]

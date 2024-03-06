@@ -1,0 +1,93 @@
+.formulaire {
+    padding: 64px 12px;
+
+    &Card {
+        margin: auto;
+        width: 500px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+        font-family: $font-family-primary;
+
+        &Title {
+            font-family: $font-family-primary;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 2.3em;
+        }
+
+        &Form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            &Input {
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+
+            &Termes {
+                text-align: center;
+            }
+
+            &Submit {
+                font-size: 1.2em;
+                padding: 10px;
+                margin: 20px 0 0;
+                color: $secondary;
+                background-color: $primary;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            &Liens {
+                text-align: center;
+                margin-top: 16px;
+
+                a {
+                    color: $secondary;
+                    margin-left: 4px;
+                }
+
+            }
+        }
+
+        &ContainerShowPassword {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            input{
+                width: 100%;
+            }
+            span{
+                position: absolute;
+                right: 12px;
+                cursor: pointer;
+            }
+        }
+
+    }
+}
+
+.errorMessage {
+    text-align: center;
+    color: $error;
+
+    li {
+        list-style: none;
+    }
+}
+
+@media (max-width: 430px) {
+    .formulaire {
+        &Card {
+            width: 350px;
+        }
+    }
+}

@@ -7,5 +7,9 @@
 	{{ include('partials/_navbar.html.twig') }}
 	<h1 {{ stimulus_controller('test') }}>{{ title }}</h1>
 
+	{% for message in app.flashes('success') %}
+		{{message}}
+	{% endfor %}
+
 	{{ include('partials/_footer.html.twig') }}
 {% endblock %}
