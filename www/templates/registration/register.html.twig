@@ -6,7 +6,7 @@
 {% block body %}
 	{{ include('partials/_navbar.html.twig') }}
 	<main>
-		<section class="formulaire" {{stimulus_controller('inscription-form')}}>
+		<section class="formulaire" {{stimulus_controller('authentification-form')}}>
 			<div class="formulaireCard">
 				<h1 class="formulaireCardTitle">Inscription</h1>
 				{{ form_start(form, {'attr': {'class': 'formulaireCardForm'}}) }}
@@ -34,7 +34,7 @@
 				{{ form_label(form.plainPassword.first)}}
 				<div class="formulaireCardContainerShowPassword">
 					{{ form_widget(form.plainPassword.first)}}
-					<span data-action="click->inscription-form#showPassword">
+					<span data-action="click->authentification-form#showPassword">
 						<i class="fa-regular fa-eye"></i>
 					</span>
 				</div>
@@ -57,7 +57,7 @@
 				{% endif %}
 				{{ form_widget(form.submit)}}
 				<div class="formulaireCardFormLiens">
-					<span>Déjà un compte ?<a class="" href="#">Se connecter</a>
+					<span>Vous avez déjà un compte ?<a href="{{path('app_login')}}">Se connecter</a>
 					</span>
 				</div>
 				{{ form_end(form) }}

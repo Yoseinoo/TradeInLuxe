@@ -22,6 +22,16 @@
             flex-direction: column;
             gap: 8px;
 
+            &Info{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                a {
+                    @extend .formulaireCardFormSubmit;
+                    text-decoration: none;
+                  }
+            }
+
             &Input {
                 padding: 10px;
                 margin: 10px 0;
