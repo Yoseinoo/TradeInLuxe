@@ -43,6 +43,13 @@
 						{{ form_errors(form.plainPassword.first) }}
 					</div>
 				{% endif %}
+				<div id="passwordRequirements" class="formulaireCardFormRequirement">
+					<span id="lowercase">Au moins une minuscule</span>
+					<span id="uppercase">Au moins une majuscule</span>
+					<span id="digit">Au moins un chiffre</span>
+					<span id="specialChar">Au moins un caractère spécial</span>
+					<span id="length">Longueur minimale de 6 caractères</span>
+				</div>
 				{{ form_label(form.plainPassword.second)}}
 				{{ form_widget(form.plainPassword.second)}}
 				<div class="formulaireCardFormTermes">

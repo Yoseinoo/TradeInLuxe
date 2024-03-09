@@ -39,6 +39,26 @@
                 border-radius: 5px;
             }
 
+            &Requirement{
+                display: none;
+                flex-direction: column;
+                margin: auto;
+                gap: 8px;
+                margin-bottom: 4px;
+                span {
+                    color: $error;
+                    transition: color 0.3s ease;
+                  }
+        
+                  span.valid {
+                    color: $valid;
+                  }
+        
+                  span.invalid {
+                    color: $error;
+                  }
+            }
+
             &Termes {
                 text-align: center;
             }

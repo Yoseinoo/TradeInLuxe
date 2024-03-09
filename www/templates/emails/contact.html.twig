@@ -1,11 +1,28 @@
-<p>Une nouvelle demande de contact a été reçue</p>
+{% extends 'base.html.twig' %}
 
-<ul>
-    <li>Prénom : {{data.firstname}}</li>
-    <li>Email : {{data.email}}</li>
-</ul>
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+{% endblock %}
 
-<p>
-    <strong>Message</strong>: <br>
-    {{data.message|nl2br}}
-</p>
+{% block body %}
+	<div class="container mt-4">
+		<h1 class="mb-4">Une nouvelle demande concernant :
+			{{ data.service.getSujet() }}!</h1>
+
+		<ul class="list-unstyled">
+			<li>
+				<strong>Prénom :</strong>
+				{{data.firstname}}</li>
+			<li>
+				<strong>Email :</strong>
+				{{data.email}}</li>
+		</ul>
+
+		<p class="mt-3">
+			<strong>Message :</strong>
+			<br>
+			{{data.message|nl2br}}
+		</p>
+	</div>
+{% endblock %}

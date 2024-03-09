@@ -96,7 +96,23 @@ class RegistrationFormType extends AbstractType
                 'min' => 6,
                 'minMessage' => 'Votre mot de passe doit comporter au moins {{ limit }} caractères.',
                 'max' => 4096,
-            ])
+            ]),
+            new Assert\Regex([
+                'pattern' => '/(?=.*[a-z])/',
+                'message' => 'Votre mot de passe doit contenir au moins une lettre minuscule.',
+            ]),
+            new Assert\Regex([
+                'pattern' => '/(?=.*[A-Z])/',
+                'message' => 'Votre mot de passe doit contenir au moins une lettre majuscule.',
+            ]),
+            new Assert\Regex([
+                'pattern' => '/(?=.*\d)/',
+                'message' => 'Votre mot de passe doit contenir au moins un chiffre.',
+            ]),
+            new Assert\Regex([
+                'pattern' => '/(?=.*[\W_])/',
+                'message' => 'Votre mot de passe doit contenir au moins un caractère spécial.',
+            ]),
             ],
             'invalid_message' => 'Les mots de passe ne correspondent pas.'
             ])
