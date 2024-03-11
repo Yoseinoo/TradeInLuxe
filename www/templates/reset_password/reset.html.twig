@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe - Réinitialisation du mot de passe
+{% endblock %}
+
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+	<main>
+		<section class="formulaire">
+			<div class="formulaireCard" {{stimulus_controller('authentification-form')}}>
+				<h1 class="formulaireCardTitle">Réinitialiser votre mot de passe</h1>
+				<p class="formulaireCardTexte">Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.</p>
+				{{ form_start(form, {'attr': {'class': 'formulaireCardForm'}}) }}
+				{{ form_label(form.plainPassword.first)}}
+				<div class="formulaireCardContainerShowPassword">
+					{{ form_widget(form.plainPassword.first)}}
+					<span data-action="click->authentification-form#showPassword">
+						<i class="fa-regular fa-eye"></i>
+					</span>
+				</div>
+				{% if form.plainPassword.first.vars.errors|length > 0 %}
+					<div class="errorMessage">
+						{{ form_errors(form.plainPassword.first) }}
+					</div>
+				{% endif %}
+				<div id="passwordRequirements" class="formulaireCardFormRequirement">
+					<span id="lowercase">Au moins une minuscule</span>
+					<span id="uppercase">Au moins une majuscule</span>
+					<span id="digit">Au moins un chiffre</span>
+					<span id="specialChar">Au moins un caractère spécial</span>
+					<span id="length">Longueur minimale de 6 caractères</span>
+				</div>
+				{{ form_label(form.plainPassword.second)}}
+				{{ form_widget(form.plainPassword.second)}}
+
+				{{ form_widget(form.submit)}}
+				{{ form_end(form) }}
+			</div>
+		</section>
+	</main>
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}
