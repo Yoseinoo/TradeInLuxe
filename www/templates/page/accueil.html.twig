@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe - Accueil
+{% endblock %}
+
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+	{{ include('partials/_categories.html.twig') }}
+	<main>
+		<section class="accueil">
+			<video autoplay loop muted playsinline>
+				<source src="{{ asset('build/images/accueil/bgAccueilVideo.mp4') }}" type="video/mp4">
+				Votre navigateur ne prend pas en charge la balise vidéo.
+			</video>
+			<div class="accueilContent">
+				<h1 class="accueilContentTitle">Découvrez une nouvelle dimension de l'élégance
+					<br>
+					en échangeant des articles de luxe</h1>
+				<p>??Barre de recherche ??</p>
+			</div>
+		</section>
+		<section class="produits" {{stimulus_controller('accueil')}}>
+			<div class="produitsContent">
+				<h2 class="produitsContentTitle">Nos produits phares</h2>
+				<div class="produitsContentGrid">
+					<div class="produitsContentGridLeft imageBox" data-accueil-target="chaussure" data-accueil-chemin="{{ asset('build/images/accueil/chaussuresHover.jpg') }}">
+						<img src="{{ asset('build/images/accueil/chaussures.jpg') }}" alt="image"/>
+						<a href="#" class="overlay">Voir plus</a>
+					</div>
+					<div class="produitsContentGridRight">
+						<div class="imageBox" data-accueil-target="sac" data-accueil-chemin="{{ asset('build/images/accueil/sacCategorieHover.png') }}">
+							<img src="{{ asset('build/images/accueil/sacCategorie.png') }}" alt="image"/>
+							<a href="#" class="overlay">Voir plus</a>
+						</div>
+						<div class="imageBox" data-accueil-target="vetement" data-accueil-chemin="{{ asset('build/images/accueil/vetementHover.png') }}">
+							<img src="{{ asset('build/images/accueil/vetement.png') }}" alt="image"/>
+							<a href="#" class="overlay">Voir plus</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	{% for flashMessage in app.flashes('success') %}
+		{% set parts = flashMessage|split('|') %}
+		<div data-controller="message" data-message-type-value="{{ parts[2] }}" data-message-title-value="{{ parts[0] }}" data-message-message-value="{{ parts[1] }}"></div>
+	{% endfor %}
+
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}

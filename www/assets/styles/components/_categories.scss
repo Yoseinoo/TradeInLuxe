@@ -1,0 +1,53 @@
+.container{
+    position: sticky;
+    top: 66px;
+    font-family: $font-family-primary;
+    font-size: 1.2em;
+    z-index: 1;
+    &Categories{
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+        background-color: whitesmoke;
+        margin: 0;
+        padding: 8px 32px;
+        li{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 45px;
+            border-right: 1px solid $muted;
+            &:last-child{
+                border: none;
+            } 
+            a{
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                color: $secondary;
+                gap: 32px;
+                img{
+                    width: 20%;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 430px) {
+    .container{
+        font-size: 1em;
+        &Categories{
+            padding: 8px 8px;
+            li{
+                a{
+                    gap: inherit;
+                    img{
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
