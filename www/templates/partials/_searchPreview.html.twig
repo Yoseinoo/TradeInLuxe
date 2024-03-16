@@ -1,0 +1,22 @@
+<div class="resultat">
+	{% for produit in produits %}
+		<a class="resultatLien" href="#{{produit.id}}">
+			<div class="resultatLienContent">
+				<div class="resultatLienContentList">
+					{# TEST <img
+															                        alt="{{ produit.name }}"
+															                        src="{{ asset('build/images/accueil/chaussures.jpg') }}"
+															                        class="resultatLienContentListImage"
+															                    >  #}
+					{# <img
+															                        alt="{{ produit.name }}"
+															                        src="{{ asset('/uploads/products/'~produit.imageFilename) }}"
+															                        class="resultatLienContentListImage"
+															                    >  #}<span class="resultatLienContentListName"> {{ produit.name }}</span>
+				</div>
+			</div>
+		</a>
+	{% else %}
+		<div class="resultatLien">Aucun résultat trouvé !</div>
+	{% endfor %}
+</div>

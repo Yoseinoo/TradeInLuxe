@@ -22,7 +22,89 @@
         &Title{
             font-size: 2em;
             text-align: center;
+            margin: 64px 0;
             z-index: 1;
+        }
+        &Search{
+            display: flex;
+            justify-content: center;
+            &Form{
+                width: 50%;
+                padding-right: 15px;
+                padding-left: 15px;
+                &Content{
+                    display: flex;
+                    flex-direction: column;
+                    position: relative;
+                    &Input{
+                        @extend .formulaireCardFormInput;
+                        margin: 0 !important;
+                        font-size: 1em;
+                    }
+                    &Icon{
+                            color: #a4a4a4;
+                            position: absolute;
+                            right: 16px;
+                            top: 10px;
+                        }
+                    .fa-xmark:hover{
+                        color: #7e7e7e !important;
+                        cursor: pointer;
+                    }
+                    &Preview {
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        width: 100%;
+                        border-radius: 5px;
+                        border-top: none;
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                        .resultat{
+                            display: flex;
+                            flex-direction: column;
+                            padding-left: 0;
+                            margin-bottom: 0;
+                            border-radius: 0.25rem;
+                            &Lien{
+                                position: relative;
+                                display: block;
+                                padding: 0.75rem 1.25rem;
+                                background-color: $white;
+                                border: 1px solid rgba(0, 0, 0, .125);
+                                color: $secondary;
+                                text-decoration: none;
+                                &:first-child{
+                                    border-top-left-radius: inherit;
+                                    border-top-right-radius: inherit;
+                                }
+                                &:last-child{
+                                    border-bottom-right-radius: inherit;
+                                    border-bottom-left-radius: inherit;
+                                }
+                                &:hover{
+                                    background-color: whitesmoke;
+                                }
+                                &Content{
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    &List{
+                                        display: flex;
+                                        align-items: center;
+                                        &Image{
+                                            width: 8%;
+                                        }
+                                        &Name{
+                                        padding: 0 0.25rem;
+                                    }
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         &Texte{
             font-size: 16px;
@@ -87,6 +169,22 @@
         &Content{
             &Title{
                 font-size: 1.9em;
+            }
+            &Search{
+                &Form{
+                    width: 100%;
+                    &Content{
+                        display: flex;
+                        flex-direction: column;
+                        position: relative;
+                        &Input{
+                            width: inherit;
+                        }
+                        .resultatLienContentListImage{
+                            width: 10%;
+                        }
+                    }
+                }
             }
         }
     }

@@ -2,36 +2,36 @@
 
 namespace App\Repository;
 
-use App\Entity\SubjectContact;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Categorie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<SubjectContact>
+ * @extends ServiceEntityRepository<Categorie>
  *
- * @method SubjectContact|null find($id, $lockMode = null, $lockVersion = null)
- * @method SubjectContact|null findOneBy(array $criteria, array $orderBy = null)
- * @method SubjectContact[]    findAll()
- * @method SubjectContact[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Categorie|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Categorie|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Categorie[]    findAll()
+ * @method Categorie[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SubjectContactRepository extends ServiceEntityRepository
+class CategorieRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, SubjectContact::class);
+        parent::__construct($registry, Categorie::class);
     }
 
-    public function save(SubjectContact $entity, bool $flush = false): void
+    public function save(Categorie $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
         if ($flush) {
             $this->getEntityManager()->flush();
         }
     }
-    
-    public function getOne($params = ''): ?SubjectContact
+
+    public function getOne($params = ''): ?Categorie
     {
-        $queryBuilder = $this->createQueryBuilder('subjectContact');
+        $queryBuilder = $this->createQueryBuilder('categorie');
 
         $this->getParams($queryBuilder, $params);
 
@@ -48,7 +48,7 @@ class SubjectContactRepository extends ServiceEntityRepository
 
     public function getAll($params = ''): array
     {
-        $queryBuilder = $this->createQueryBuilder('subjectContact');
+        $queryBuilder = $this->createQueryBuilder('categorie');
 
         $this->getParams($queryBuilder, $params);
 
@@ -64,16 +64,16 @@ class SubjectContactRepository extends ServiceEntityRepository
     {
         parse_str($params, $args);
 
-        if (!empty($args['sujet'])) {
+        if (!empty($args['name'])) {
             $queryBuilder->andWhere(
-                $queryBuilder->expr()->eq('subjectContact.sujet', ':sujet')
+                $queryBuilder->expr()->eq('categorie.name', ':name')
             )
-            ->setParameter('sujet', $args['sujet']);
+            ->setParameter('name', $args['name']);
         }
 
         if (isset($args['isEnabled'])) {
             $queryBuilder->andWhere(
-                $queryBuilder->expr()->eq('subjectContact.isEnabled', ':isEnabled')
+                $queryBuilder->expr()->eq('categorie.isEnabled', ':isEnabled')
             )
             ->setParameter('isEnabled', $args['isEnabled'], \PDO::PARAM_BOOL);
         }
@@ -81,53 +81,56 @@ class SubjectContactRepository extends ServiceEntityRepository
         if (isset($args['deleted'])) {
             if ($args['deleted'] === 'true') {
                 $queryBuilder->andWhere(
-                    $queryBuilder->expr()->isNotNull('subjectContact.deletedAt')
+                    $queryBuilder->expr()->isNotNull('categorie.deletedAt')
                 );
             } elseif ($args['deleted'] === 'false') {
                 $queryBuilder->andWhere(
-                    $queryBuilder->expr()->isNull('subjectContact.deletedAt')
+                    $queryBuilder->expr()->isNull('categorie.deletedAt')
                 );
             }
         }
 
         if (!empty($args['orderby'])) {
             $direction = $args['order'] ?? 'asc'; 
-            $queryBuilder->orderBy('subjectContact.' . $args['orderby'], $direction);
+            $queryBuilder->orderBy('categorie.' . $args['orderby'], $direction);
         }
 
         if (!empty($args['search'])) {
             $queryBuilder->andWhere(
                 $queryBuilder->expr()->orX(
-                    $queryBuilder->expr()->eq('subjectContact.id', ':searchInt'),
-                    $queryBuilder->expr()->like('LOWER(subjectContact.sujet)', ':search'),
-                    $queryBuilder->expr()->like('LOWER(subjectContact.email)', ':searchEmail'),
+                    $queryBuilder->expr()->eq('categorie.id', ':searchInt'),
+                    $queryBuilder->expr()->like('LOWER(categorie.name)', ':search'),
                 )
             );
             $queryBuilder->setParameter('search', '%' . strtolower($args['search']) . '%');
             $queryBuilder->setParameter('searchInt', (int) $args['search']);
-            $queryBuilder->setParameter('searchEmail', '%' . strtolower($args['search']) . '%');
         }
     }
 
+    
+
+
+    
+
 //    /**
-//     * @return SubjectContact[] Returns an array of SubjectContact objects
+//     * @return Categorie[] Returns an array of Categorie objects
 //     */
 //    public function findByExampleField($value): array
 //    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
+//        return $this->createQueryBuilder('c')
+//            ->andWhere('c.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
+//            ->orderBy('c.id', 'ASC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?SubjectContact
+//    public function findOneBySomeField($value): ?Categorie
 //    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
+//        return $this->createQueryBuilder('c')
+//            ->andWhere('c.exampleField = :val')
 //            ->setParameter('val', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()
