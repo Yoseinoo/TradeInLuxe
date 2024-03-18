@@ -3,16 +3,9 @@
 		<a class="resultatLien" href="#{{produit.id}}">
 			<div class="resultatLienContent">
 				<div class="resultatLienContentList">
-					{# TEST <img
-															                        alt="{{ produit.name }}"
-															                        src="{{ asset('build/images/accueil/chaussures.jpg') }}"
-															                        class="resultatLienContentListImage"
-															                    >  #}
-					{# <img
-															                        alt="{{ produit.name }}"
-															                        src="{{ asset('/uploads/products/'~produit.imageFilename) }}"
-															                        class="resultatLienContentListImage"
-															                    >  #}<span class="resultatLienContentListName"> {{ produit.name }}</span>
+					<img alt="{{ produit.name }}" src="{{ asset(produit.image.path) }}" class="resultatLienContentListImage">
+					<span class="resultatLienContentListName">
+						{{ produit.name }}</span>
 				</div>
 			</div>
 		</a>

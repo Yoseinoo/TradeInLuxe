@@ -26,6 +26,10 @@ class Produit
     #[ORM\Column(type: Types::TEXT, nullable: false)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne()]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Image $image = null;
+
     #[ORM\Column]
     private ?bool $isEnabled = true;
 
@@ -88,6 +92,18 @@ class Produit
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

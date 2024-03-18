@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Image;
 use App\Entity\Produit;
 use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
@@ -39,23 +40,28 @@ class CategorieFixtures extends Fixture implements FixtureGroupInterface
 
         $produits = [
             'Chaussures' => [
-                ['name' => 'Sneakers Balenciaga Triple S', 'description' => 'Sneakers emblématiques de la marque de luxe Balenciaga, avec une semelle imposante et un design avant-gardiste.'],
-                ['name' => 'Chaussures à lacets Louis Vuitton', 'description' => 'Chaussures à lacets élégantes de la maison de couture Louis Vuitton, fabriquées en cuir de veau lisse de qualité supérieure.'],
+                ['name' => 'Chaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg"],
             ],
             'Sacs' => [
-                ['name' => 'Sac à dos Gucci GG Supreme', 'description' => 'Sac à dos GG Supreme de Gucci, avec motif monogramme et détails en cuir. Un accessoire de mode emblématique.'],
+                ['name' => 'Sac CarryAll PM', 'description' => "Pièce chic et confortable réalisée en toile Monogram avec une garniture en cuir naturel, ce sac CarryAll PM s'emporte partout. Son intérieur spacieux et bien pensé comporte deux grandes poches intérieures pour une organisation optimale. Également en toile Monogram, une pochette amovible munie d'une fermeture à glissière est attachée au sac par un lacet en cuir.", "image" => "build/images/accueil/sacCategorie.png"],
             ],
             'Vêtements' => [
-                ['name' => 'Veste en cuir Saint Laurent', 'description' => 'Veste en cuir de la marque Saint Laurent, avec une silhouette classique et des finitions de qualité supérieure.'],
+                ['name' => 'Cardigan brodé en coton', 'description' => "Présenté lors du défilé Printemps-Été 2024, ce cardigan marron en coton s'agrémente de portraits de Henry Taylor brodés sur une maille fine rehaussée de LV contrastés. Des boutons perle offrent un esprit tailoring à cette pièce sophistiquée qui peut s'associer aux modèles habillés de la collection ornés du même motif.", "image" => "build/images/uploads/vetements/cardigan.png"],
             ],
         ];
 
         foreach ($produits as $categorie => $items) {
             foreach ($items as $item) {
+                $image = new Image();
+                $image->setPath($item['image']);
+
                 $entity = new Produit();
                 $entity->setCategorie($this->categorieRepository->getOne('name='. $categorie));
                 $entity->setName($item['name']);
                 $entity->setDescription($item['description']);
+                $entity->setImage($image);
+
+                $manager->persist($image);
 
                 $manager->persist($entity);
             }

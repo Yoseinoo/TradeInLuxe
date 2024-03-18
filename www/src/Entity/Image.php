@@ -19,10 +19,7 @@ class Image
     private ?string $path = null;
 
     #[ORM\Column]
-    private ?int $reference = null;
-
-    #[ORM\Column]
-    private ?bool $isEnabled = null;
+    private ?bool $isEnabled = true;
 
     #[ORM\Column]
     #[Assert\NotNull()]
@@ -63,19 +60,7 @@ class Image
         return $this;
     }
 
-    public function getReference(): ?int
-    {
-        return $this->reference;
-    }
-
-    public function setReference(?int $reference): self
-    {
-        $this->reference = $reference;
-
-        return $this;
-    }
-
-    public function isIsEnabled(): ?bool
+    public function isEnabled(): ?bool
     {
         return $this->isEnabled;
     }

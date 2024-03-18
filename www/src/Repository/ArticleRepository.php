@@ -32,6 +32,8 @@ class ArticleRepository extends ServiceEntityRepository
     public function getOne($params = ''): ?Article
     {
         $queryBuilder = $this->createQueryBuilder('article');
+        $queryBuilder->addSelect('image')
+            ->leftJoin('article.image', 'image');
 
         $this->getParams($queryBuilder, $params);
 
@@ -49,6 +51,8 @@ class ArticleRepository extends ServiceEntityRepository
     public function getAll($params = ''): array
     {
         $queryBuilder = $this->createQueryBuilder('article');
+        $queryBuilder->addSelect('image')
+            ->leftJoin('article.image', 'image');
 
         $this->getParams($queryBuilder, $params);
 
