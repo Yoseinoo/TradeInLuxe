@@ -14,12 +14,15 @@ export default class extends Controller {
   }
 
   onSearchInput(event) {
-    this.search();
+    
     const inputValue = this.inputTarget.value.trim();
     if (inputValue === "") {
       this.iconSearchTarget.style.display = "block";
       this.iconDeleteTarget.style.display = "none";
+      this.resultTarget.innerHTML = "<div class='resultatLien'>Aucun résultat trouvé !</div>";
+      return;
     } else {
+      this.search();
       this.iconSearchTarget.style.display = "none";
       this.iconDeleteTarget.style.display = "block";
     }
