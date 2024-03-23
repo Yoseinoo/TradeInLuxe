@@ -48,5 +48,10 @@ export default class extends Controller {
     this.iconSearchTarget.style.display = "block";
     this.iconDeleteTarget.style.display = "none";
     this.search();
+  
+    // Synchroniser également le deuxième champ de recherche
+    const input2 = document.querySelector('.accueilContent .accueilContentSearchFormContentInput');
+    input2.value = "";
+    input2.dispatchEvent(new Event('input'));
   }
 }

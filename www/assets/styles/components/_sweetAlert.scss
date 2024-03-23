@@ -1,8 +1,10 @@
 .swal2-popup{
     font-family: $font-family-primary;
+    border-radius: 0;
 }
 
 .swal2-styled {
     color: $secondary !important;
     background-color: $primary !important;
+    border-radius: 0 !important;
 }

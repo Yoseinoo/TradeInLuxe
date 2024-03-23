@@ -6,7 +6,7 @@
 {% block body %}
 	{{ include('partials/_navbar.html.twig') }}
 	{{ include('partials/_categories.html.twig') }}
-	<main>
+	<main {{stimulus_controller('accueil')}}>
 		<section class="accueil">
 			<video autoplay loop muted playsinline>
 				<source src="{{ asset('build/images/accueil/bgAccueilVideo.mp4') }}" type="video/mp4">
@@ -19,7 +19,7 @@
 				<div class="accueilContentSearch">
 					<div class="accueilContentSearchForm">
 						<div class="accueilContentSearchFormContent" {{ stimulus_controller('search-preview', { url: path('app_search') } ) }}>
-							<input class="accueilContentSearchFormContentInput" type="text" name="q" data-action="search-preview#onSearchInput" data-search-preview-target="input" placeholder="Recherchez des articles..."><i class="fa-solid fa-magnifying-glass accueilContentSearchFormContentIcon" style="color: #a4a4a4;" data-search-preview-target="iconSearch"></i>
+							<input class="accueilContentSearchFormContentInput" autocomplete="off" type="text" name="q" data-action="search-preview#onSearchInput" data-search-preview-target="input" placeholder="Recherchez des articles..."><i class="fa-solid fa-magnifying-glass accueilContentSearchFormContentIcon" style="color: #a4a4a4;" data-search-preview-target="iconSearch"></i>
 							<i class="fa-solid fa-xmark accueilContentSearchFormContentIcon" style="color: #a4a4a4; display: none;" data-search-preview-target="iconDelete" data-action="click->search-preview#deleteResearch"></i>
 							<div class="accueilContentSearchFormContentPreview" data-search-preview-target="result"></div>
 						</div>
@@ -27,7 +27,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="produits" {{stimulus_controller('accueil')}}>
+		<section class="produits">
 			<div class="produitsContent">
 				<h2 class="produitsContentTitle">Nos produits phares</h2>
 				<div class="produitsContentGrid">

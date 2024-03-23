@@ -1,16 +1,35 @@
-<nav class="navigation">
+<nav class="navigation" {{stimulus_controller('navigation')}}>
 	<div class="navigationLogo">
-		<a href="{{path('app_accueil')}}"><img src="{{ asset('build/images/logo/tradeInLuxeLogo.svg') }}" alt="Logo"></a>
+		<a href="{{path('app_accueil')}}"><img src="{{ asset('build/images/logo/tradeInLuxeLogo.svg') }}" alt="Logo" class="navigationLogoImage"></a>
 		<a href="{{path('app_accueil')}}">
-			<span>TRADEINLUXE</span>
+			<span class="navigationLogoTitre" id="nameSite">TRADEINLUXE</span>
 		</a>
+		<div class="accueilContentSearch" id="navSearchBar">
+			<div class="accueilContentSearchForm">
+				<div class="accueilContentSearchFormContent" {{ stimulus_controller('search-preview', { url: path('app_search') } ) }}>
+					<input class="accueilContentSearchFormContentInput" type="text" autocomplete="off" name="q" data-action="search-preview#onSearchInput" data-search-preview-target="input" placeholder="Recherchez des articles..."><i class="fa-solid fa-magnifying-glass accueilContentSearchFormContentIcon" style="color: #a4a4a4;" data-search-preview-target="iconSearch"></i>
+					<i class="fa-solid fa-xmark accueilContentSearchFormContentIcon" style="color: #a4a4a4; display: none;" data-search-preview-target="iconDelete" data-action="click->search-preview#deleteResearch"></i>
+					<div class="accueilContentSearchFormContentPreview" data-search-preview-target="result"></div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="navigationBoutons">
-		{% if app.user %}
-			<a class="navigationBoutonsConnexion" href="{{path('app_logout')}}">Déconnexion</a>
-		{% else %}
-			<a class="navigationBoutonsInscription" href="{{path('app_register')}}">S'inscrire</a>
-			<a class="navigationBoutonsConnexion" href="{{path('app_login')}}">Se connecter</a>
-		{% endif %}
+	<div class="navigationBoutons" data-navigation-target="menu">
+		<ul>
+			{% if app.user %}
+				<li>
+					<a class="navigationBoutonsConnexion" href="{{path('app_logout')}}">Déconnexion</a>
+				</li>
+			{% else %}
+				<li>
+					<a class="navigationBoutonsInscription" href="{{path('app_register')}}">S'inscrire</a>
+				</li>
+				<li>
+					<a class="navigationBoutonsConnexion" href="{{path('app_login')}}">Se connecter</a>
+				</li>
+			{% endif %}
+		</ul>
 	</div>
+	<i class="fa-solid fa-bars burger" data-navigation-target="burger" data-action="click->navigation#showMenu"></i>
+	<i class="fa-solid fa-xmark closeBurger" data-navigation-target="closeBurger" data-action="click->navigation#closeMenu"></i>
 </nav>

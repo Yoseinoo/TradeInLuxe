@@ -36,6 +36,20 @@ export default class extends Controller {
         this.resetImage(this.vetementTarget, defaultSrcVetement)
       );
     }
+    window.addEventListener("scroll", () => {
+      this.detectScroll();
+    });
+    window.addEventListener("resize", () => {
+      this.handleResize();
+    });
+    this.syncSearch();
+  }
+
+  handleResize() {
+    if (window.innerWidth > 430) {
+      var nameSite = document.getElementById("nameSite");
+      nameSite.style.display = "";
+    }
   }
 
   changeImage(target) {
@@ -46,4 +60,60 @@ export default class extends Controller {
   resetImage(target, defaultSrc) {
     target.querySelector("img").src = defaultSrc;
   }
+
+  detectScroll() {
+    var produitsSection = document.querySelector(".produits");
+    var produitsSectionPosition = produitsSection.getBoundingClientRect().top;
+
+    // Récupérer la barre de recherche de la barre de navigation
+    var navSearchBar = document.getElementById("navSearchBar");
+    var nameSite = document.getElementById("nameSite");
+
+    // Hauteur de défilement à partir du haut de la fenêtre
+    var scrollHeight = window.scrollY;
+
+    // Si l'écran est plus petit que 430px, affiche la barre de recherche
+    if (window.innerWidth <= 430) {
+      if (produitsSectionPosition <= scrollHeight) {
+        navSearchBar.style.display = "block";
+        nameSite.style.display = "none";
+      } else {
+        navSearchBar.style.display = "none";
+        nameSite.style.display = "block";
+      }
+    } else {
+      // Si la section des produits est visible dans la fenêtre, affiche la barre de recherche
+      if (produitsSectionPosition <= scrollHeight) {
+        navSearchBar.style.display = "block";
+      } else {
+        navSearchBar.style.display = "none";
+      }
+    }
+  }
+
+  syncSearch() {
+    const input1 = document.querySelector('.navigationLogo .accueilContentSearchFormContentInput');
+    const input2 = document.querySelector('.accueilContent .accueilContentSearchFormContentInput');
+  
+    let isSyncing = false; 
+  
+    input1.addEventListener('input', function() {
+      if (!isSyncing) {
+        isSyncing = true;
+        input2.value = this.value;
+        input2.dispatchEvent(new Event('input'));
+        isSyncing = false;
+      }
+    });
+  
+    input2.addEventListener('input', function() {
+      if (!isSyncing) {
+        isSyncing = true;
+        input1.value = this.value;
+        input1.dispatchEvent(new Event('input'));
+        isSyncing = false;
+      }
+    });
+  }
+  
 }
