@@ -25,6 +25,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             $user->setEmail('martinsimongo@gmail.com')
             ->setFirstname('Martin')
             ->setLastname('Simon')
+            ->setIsVerified(true)
             ->setPlainPassword('password');
 
             $manager->persist($user);
@@ -35,6 +36,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             $user->setEmail($faker->email())
             ->setFirstname($faker->firstName())
             ->setLastname($faker->lastName())
+            ->setIsVerified(true)
             ->setPlainPassword('password');
 
             $manager->persist($user);
