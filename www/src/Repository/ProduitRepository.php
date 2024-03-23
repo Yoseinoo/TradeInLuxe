@@ -32,8 +32,6 @@ class ProduitRepository extends ServiceEntityRepository
     public function getOne($params = ''): ?Produit
     {
         $queryBuilder = $this->createQueryBuilder('produit');
-        $queryBuilder->addSelect('image')
-            ->leftJoin('produit.image', 'image');
 
 
         $this->getParams($queryBuilder, $params);
@@ -52,8 +50,6 @@ class ProduitRepository extends ServiceEntityRepository
     public function getAll($params = ''): array
     {
         $queryBuilder = $this->createQueryBuilder('produit');
-        $queryBuilder->addSelect('image')
-            ->leftJoin('produit.image', 'image');
 
         $this->getParams($queryBuilder, $params);
 

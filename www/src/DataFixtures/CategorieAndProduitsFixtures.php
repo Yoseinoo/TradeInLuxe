@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Image;
 use App\Entity\Produit;
 use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
@@ -10,7 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
-class CategorieFixtures extends Fixture implements FixtureGroupInterface
+class CategorieAndProduitsFixtures extends Fixture implements FixtureGroupInterface
 {
 
     public function __construct(
@@ -20,7 +19,7 @@ class CategorieFixtures extends Fixture implements FixtureGroupInterface
 
     public static function getGroups(): array
     {
-        return ['CategorieFixtures'];
+        return ['CategorieAndProduitsFixtures'];
     }
     
     public function load(ObjectManager $manager): void
@@ -52,16 +51,12 @@ class CategorieFixtures extends Fixture implements FixtureGroupInterface
 
         foreach ($produits as $categorie => $items) {
             foreach ($items as $item) {
-                $image = new Image();
-                $image->setPath($item['image']);
 
                 $entity = new Produit();
                 $entity->setCategorie($this->categorieRepository->getOne('name='. $categorie));
                 $entity->setName($item['name']);
                 $entity->setDescription($item['description']);
-                $entity->setImage($image);
-
-                $manager->persist($image);
+                $entity->setPathImage($item['image']);
 
                 $manager->persist($entity);
             }

@@ -26,9 +26,8 @@ class Produit
     #[ORM\Column(type: Types::TEXT, nullable: false)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne()]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Image $image = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pathImage = null;
 
     #[ORM\Column]
     private ?bool $isEnabled = true;
@@ -96,14 +95,14 @@ class Produit
         return $this;
     }
 
-    public function getImage(): ?Image
+    public function getPathImage(): ?string
     {
-        return $this->image;
+        return $this->pathImage;
     }
 
-    public function setImage(?Image $image): static
+    public function setPathImage(string $pathImage): self
     {
-        $this->image = $image;
+        $this->pathImage = $pathImage;
 
         return $this;
     }

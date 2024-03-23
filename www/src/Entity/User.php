@@ -40,6 +40,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::ARRAY, nullable: true)]
     private array $roles = [];
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pathImage = null;
+
     #[ORM\Column(length: 180, nullable: true)]
     #[Assert\Length(min:2, max:180)]
     private ?string $street = null;
@@ -135,6 +138,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getPathImage(): ?string
+    {
+        return $this->pathImage;
+    }
+
+    public function setPathImage(string $pathImage): self
+    {
+        $this->pathImage = $pathImage;
 
         return $this;
     }
