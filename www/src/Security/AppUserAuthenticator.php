@@ -48,7 +48,7 @@ class AppUserAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
+        // Modifie le app_accueil par la route pour le profil
         return new RedirectResponse($this->urlGenerator->generate('app_accueil'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }

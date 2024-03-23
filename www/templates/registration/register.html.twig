@@ -7,6 +7,10 @@
 	{{ include('partials/_navbar.html.twig') }}
 	<main>
 		<section class="formulaire" {{stimulus_controller('authentification-form')}}>
+			{% for flashMessage in app.flashes('danger') %}
+				{% set parts = flashMessage|split('|') %}
+				<div data-controller="message" data-message-type-value="{{ parts[2] }}" data-message-title-value="{{ parts[0] }}" data-message-message-value="{{ parts[1] }}"></div>
+			{% endfor %}
 			<div class="formulaireCard">
 				<h1 class="formulaireCardTitle">Inscription</h1>
 				{{ form_start(form, {'attr': {'class': 'formulaireCardForm'}}) }}

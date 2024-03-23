@@ -62,7 +62,7 @@ class ResetPasswordController extends AbstractController
 
         $this->addFlash(
             'success',
-            'Succès !|S\'il existe un compte correspondant à votre adresse email, un email vient d\'être envoyé contenant un lien que vous pouvez utiliser pour réinitialiser votre mot de passe. Ce lien expirera dans 1 heure. Si vous ne recevez pas d\'email, veuillez vérifier votre dossier spam.|success'
+            'Succès !|S\'il existe un compte correspondant à votre adresse email, vous recevrez un lien de réinitialisation. Ce lien expirera dans 1 heure. Si vous ne recevez pas d\'email, veuillez vérifier votre dossier spam.|success'
         );
 
         return $this->redirectToRoute('app_forgot_password_request');
