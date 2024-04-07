@@ -82,7 +82,7 @@
                                     border-bottom-left-radius: inherit;
                                 }
                                 &:hover{
-                                    background-color: whitesmoke;
+                                    background-color: $bg-color-secondary;
                                 }
                                 &Content{
                                     display: flex;
@@ -131,7 +131,7 @@
                 position: relative;
                 border: 4px solid #ffffff;
                 padding: 4px;
-                background-color: whitesmoke;
+                background-color: $bg-color-secondary;
               
                 img{
                     max-width: 100%;
@@ -147,7 +147,7 @@
                     transform: translate(-50%, -50%);
                     opacity: 0; 
                     transition: opacity 0.3s ease;
-                    background-color: $bg-color-secondary;
+                    background-color: $bg-color-primary;
                     padding: 12px 24px; 
                     width: max-content;
                 }

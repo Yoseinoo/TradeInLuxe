@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe -
+	{{title}}
+{% endblock %}
+
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+	{{ include('partials/_categories.html.twig') }}
+	<main>
+		<section class="containerDescription" {{stimulus_controller('categorie')}}>
+			<div class="containerDescriptionContent">
+				<h1 class="containerDescriptionContentTitle">{{title}}</h1>
+				<p class="containerDescriptionContentTexte" data-categorie-target="description">{{description|raw}}</p>
+				<a data-action="click->categorie#showMore" class="containerDescriptionContentBouton" data-categorie-target="showMoreButton">Voir plus</a>
+				<a data-action="click->categorie#showLess" class="containerDescriptionContentBouton" data-categorie-target="showLessButton" style="display: none;">Voir moins</a>
+			</div>
+		</section>
+		<section class="produit">
+			<div class="produitFiltre">
+				<div class="produitFiltreMarque">
+					<h2>Marques</h2>
+					<ul>
+						<li>AAA</li>
+						<li>bbb</li>
+						<li>ccc</li>
+						<li>ddd</li>
+						<li>eee</li>
+					</ul>
+				</div>
+				<div class="produitFiltreSexe">
+					<h2>Genres</h2>
+					<ul>
+						<li>Hommes</li>
+						<li>Femmes</li>
+						<li>Autres</li>
+					</ul>
+				</div>
+				<div class="produitFiltreTaille">
+					<h2>Tailles</h2>
+					<ul>
+						<li>42</li>
+						<li>23</li>
+						<li>22</li>
+					</ul>
+				</div>
+			</div>
+			<div class="produitContent">
+				{% if pager|length %}
+					<div class="produitContentGrid">
+						{% for produit in pager %}
+							<a class="produitContentGridCard">
+								<img src="{{ asset(produit.pathImage) }}" class="produitContentGridCardImage" alt="Image 1">
+								<hp class="produitContentGridCardName">{{ produit.name }}</hp>
+							</a>
+						{% endfor %}
+
+					</div>
+
+					{% if pager.haveToPaginate %}
+						<div class="containerPagination">
+							{{ pagerfanta(pager) }}
+						</div>
+					{% endif %}
+				{% else %}
+					<div class="noresult">
+						<h3 class="noresultTitle">Désolé, aucun résultat n’a été trouvé</h3>
+						<p class="noresultTexte">Veuillez modifier vos critères de recherche.</p>
+					</div>
+				{% endif %}
+			</div>
+		</section>
+	</main>
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}
+{# Faire les filtres (voir comment les gérés + faire fonctionner) + voir si on sépare dans différents templates le cards des filtres (comme ça en fonction de la catégorie on include les bons filtres) et on assemble tout dans le index.html.twig de catégorie + Responsive de la partie catégorie #}

@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Produit;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Produit>
@@ -61,6 +62,17 @@ class ProduitRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function getAllQueryBuilder($params = ''): QueryBuilder
+    {
+        $queryBuilder = $this->createQueryBuilder('produit')
+            ->select('produit')
+        ;
+
+        $this->getParams($queryBuilder, $params);
+
+        return $queryBuilder;
+    }
+
     private function getParams($queryBuilder, $params = '')
     {
         parse_str($params, $args);
@@ -70,6 +82,13 @@ class ProduitRepository extends ServiceEntityRepository
                 $queryBuilder->expr()->eq('produit.name', ':name')
             )
             ->setParameter('name', $args['name']);
+        }
+
+        if (!empty($args['categorie'])) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('produit.categorie', ':categorie')
+            )
+            ->setParameter('categorie', $args['categorie']);
         }
 
         if (isset($args['isEnabled'])) {
