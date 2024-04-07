@@ -149,6 +149,7 @@
                     transition: opacity 0.3s ease;
                     background-color: $bg-color-secondary;
                     padding: 12px 24px; 
+                    width: max-content;
                 }
                 &:hover{
                     img{
