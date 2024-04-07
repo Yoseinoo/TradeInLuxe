@@ -1,0 +1,28 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+// Couleurs
+$primary : #DFCBA9;
+$secondary: #000000;
+$white:#FFFFFF;
+$error: #FC3B46;
+$valid: #40C69F;
+$muted: #959595;
+$bg-color-secondary: #2E2E2E;
+
+// Polices
+$font-family-primary: 'Fahkwang', sans-serif;
+$font-family-secondary: 'Garet', sans-serif;
+
+// Poids des polices
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extralight: 200;
+$font-weight-light: 300;
+$font-weight-heavy: 800;
+// Styles des polices
+$font-style-normal: normal;
+$font-style-italic: italic;

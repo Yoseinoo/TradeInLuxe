@@ -1,0 +1,50 @@
+.engagements{
+    &Content{
+        font-family: $font-family-primary;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        &Title{
+            font-size: 2em;
+        }
+        &Texte{
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+    }
+}
+
+.valeurs{
+    margin-bottom: 40px;
+    &Content{
+        font-family: $font-family-primary;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        &Title{
+            font-size: 1.8em;
+        }
+        &Liste{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            li{
+                margin-bottom: 24px;
+            }
+            li::before {
+                content: counter(list-item);
+                display: inline-block;
+                width: 20px; 
+                height: 20px;
+                border-radius: 50%; 
+                background-color: $primary; 
+                color: $secondary; 
+                font-size: 14px; 
+                line-height: 20px; 
+                text-align: center; 
+                margin-right: 10px; 
+            }
+        }
+    }
+}

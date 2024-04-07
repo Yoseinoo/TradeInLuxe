@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe - Connexion
+{% endblock %}
+
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+	<main>
+		<section class="formulaire" {{stimulus_controller('authentification-form')}}>
+			<div class="formulaireCard">
+				<h1 class="formulaireCardTitle">Connexion</h1>
+				<form name="connexion" method="post" class="formulaireCardForm" data-bitwarden-watching="1">
+					{% if error %}
+						<div class="errorMessage">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+					{% endif %}
+					{% for flashMessage in app.flashes('success') %}
+						{% set parts = flashMessage|split('|') %}
+						<div data-controller="message" data-message-type-value="{{ parts[2] }}" data-message-title-value="{{ parts[0] }}" data-message-message-value="{{ parts[1] }}"></div>
+					{% endfor %}
+					{% if app.user %}
+						<div class="formulaireCardFormInfo">
+							Vous êtes déjà connecté en tant que :
+							{{ app.user.userIdentifier }},
+							<a href="{{ path('app_logout') }}">Déconnexion</a>
+						</div>
+					{% endif %}
+					<label class="formulaireCardFormLabel required" for="inputEmail">Email</label>
+					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="formulaireCardFormInput" autocomplete="email" minlenght="2" maxlenght="180" placeholder="exemple@email.com" required autofocus>
+					<label class="formulaireCardFormLabel required" for="inputPassword">Mot de passe</label>
+					<div class="formulaireCardContainerShowPassword">
+						<input type="password" name="password" id="inputPassword" class="formulaireCardFormInput" autocomplete="current-password" data-authentification-form-target="password" required>
+						<span data-action="click->authentification-form#showPassword">
+							<i class="fa-regular fa-eye" aria-hidden="true"></i>
+						</span>
+					</div>
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+					<div class="formulaireCardFormTermes">
+						<label>
+							<input type="checkbox" name="_rememberme" checked>
+							Se souvenir de moi
+						</label>
+					</div>
+					<button type="submit" id="login_submit" name="submit" class="formulaireCardFormSubmit">Se connecter</button>
+					<div class="formulaireCardFormLiens">
+						<span>Vous n'êtes pas encore inscrit ?<a href="{{path('app_register')}}">S'inscrire</a>
+						</span>
+					</div>
+					<div class="formulaireCardFormLiens">
+						<a href="{{path('app_forgot_password_request')}}">Mot de passe oublié ?</a>
+					</div>
+				</form>
+			</div>
+		</section>
+	</main>
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}

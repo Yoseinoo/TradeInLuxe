@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe - Contact
+{% endblock %}
+
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+	<main>
+		<section class="formulaire">
+			<div class="formulaireCard">
+				<h1 class="formulaireCardTitle">Contact</h1>
+				{{ form_start(form, {'attr': {'class': 'formulaireCardForm'}}) }}
+				{{ form_label(form.service)}}
+				{{ form_widget(form.service)}}
+				{% if form.service.vars.errors|length > 0 %}
+					<div class="errorMessage">
+						{{ form_errors(form.service) }}
+					</div>
+				{% endif %}
+				{{ form_label(form.firstname)}}
+				{{ form_widget(form.firstname)}}
+				{% if form.firstname.vars.errors|length > 0 %}
+					<div class="errorMessage">
+						{{ form_errors(form.firstname) }}
+					</div>
+				{% endif %}
+				{{ form_label(form.email)}}
+				{{ form_widget(form.email)}}
+				{% if form.email.vars.errors|length > 0 %}
+					<div class="errorMessage">
+						{{ form_errors(form.email) }}
+					</div>
+				{% endif %}
+				{{ form_label(form.message)}}
+				{{ form_widget(form.message)}}
+				{% if form.message.vars.errors|length > 0 %}
+					<div class="errorMessage">
+						{{ form_errors(form.message) }}
+					</div>
+				{% endif %}
+
+				{{ form_widget(form.submit)}}
+				{{ form_end(form) }}
+			</div>
+		</section>
+		{% for flashMessage in app.flashes('success') %}
+			{% set parts = flashMessage|split('|') %}
+			<div data-controller="message" data-message-type-value="{{ parts[2] }}" data-message-title-value="{{ parts[0] }}" data-message-message-value="{{ parts[1] }}"></div>
+		{% endfor %}
+		{% for flashMessage in app.flashes('danger') %}
+			{% set parts = flashMessage|split('|') %}
+			<div data-controller="message" data-message-type-value="{{ parts[2] }}" data-message-title-value="{{ parts[0] }}" data-message-message-value="{{ parts[1] }}"></div>
+		{% endfor %}
+	</main>
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}

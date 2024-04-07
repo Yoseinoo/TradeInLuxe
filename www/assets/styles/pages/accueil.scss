@@ -1,0 +1,214 @@
+.accueil{
+    position: relative;
+    width: 100%;
+    height: 85vh; 
+    overflow: hidden;
+    video{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%; 
+        object-fit: cover;
+        opacity: 0.8;
+    }
+    &Content{
+        position: relative;
+        font-family: $font-family-primary;
+        color: $white;
+        max-width: 1200px;
+        margin: 64px auto 0 auto;
+        padding: 20px;
+        &Title{
+            font-size: 2em;
+            text-align: center;
+            margin: 64px 0;
+            z-index: 1;
+        }
+        &Search{
+            display: flex;
+            justify-content: center;
+            &Form{
+                width: 50%;
+                padding-right: 15px;
+                padding-left: 15px;
+                &Content{
+                    display: flex;
+                    flex-direction: column;
+                    position: relative;
+                    &Input{
+                        @extend .formulaireCardFormInput;
+                        margin: 0 !important;
+                        font-size: 1em;
+                    }
+                    &Icon{
+                            color: #a4a4a4;
+                            position: absolute;
+                            right: 16px;
+                            top: 10px;
+                        }
+                    .fa-xmark:hover{
+                        color: #7e7e7e !important;
+                        cursor: pointer;
+                    }
+                    &Preview {
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        width: 100%;
+                        // border-radius: 5px;
+                        border-top: none;
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                        .resultat{
+                            display: flex;
+                            flex-direction: column;
+                            padding-left: 0;
+                            margin-bottom: 0;
+                            // border-radius: 0.25rem;
+                            &Lien{
+                                position: relative;
+                                display: block;
+                                padding: 0.75rem 1.25rem;
+                                background-color: $white;
+                                border: 1px solid rgba(0, 0, 0, .125);
+                                color: $secondary;
+                                text-decoration: none;
+                                &:first-child{
+                                    border-top-left-radius: inherit;
+                                    border-top-right-radius: inherit;
+                                }
+                                &:last-child{
+                                    border-bottom-right-radius: inherit;
+                                    border-bottom-left-radius: inherit;
+                                }
+                                &:hover{
+                                    background-color: whitesmoke;
+                                }
+                                &Content{
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    &List{
+                                        display: flex;
+                                        align-items: center;
+                                        &Image{
+                                            width: 8%;
+                                        }
+                                        &Name{
+                                        padding: 0 0.25rem;
+                                    }
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &Texte{
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+    }
+}
+
+.produits{
+    &Content{
+        @extend .accueilContent;
+        margin: 0 auto;
+        &Title{
+            color: $secondary;
+            font-size: 1.8em;
+            text-align: center;
+        }
+        &Grid{
+            display: grid;
+            grid-template-columns: 40% 20%;
+            justify-content: center;
+            .imageBox{
+                position: relative;
+                border: 4px solid #ffffff;
+                padding: 4px;
+                background-color: whitesmoke;
+              
+                img{
+                    max-width: 100%;
+                    height: auto;
+                    transition: opacity 0.3s ease;
+                }
+                .overlay{
+                    color: white;
+                    text-decoration: none;
+                    position: absolute;
+                    top: 50%; 
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    opacity: 0; 
+                    transition: opacity 0.3s ease;
+                    background-color: $bg-color-secondary;
+                    padding: 12px 24px; 
+                    width: max-content;
+                }
+                &:hover{
+                    img{
+                        opacity: 0.5;
+                    }
+                    .overlay{
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+  
+@media (max-width: 430px) {
+    .accueil{
+        &Content{
+            &Title{
+                font-size: 1.9em;
+            }
+            &Search{
+                &Form{
+                    width: 100%;
+                    &Content{
+                        display: flex;
+                        flex-direction: column;
+                        position: relative;
+                        &Input{
+                            width: inherit;
+                        }
+                        .resultatLienContentListImage{
+                            width: 10%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .produits{
+        &Content{
+            &Grid{
+                grid-template-columns: 1fr;
+                .imageBox{
+                    .overlay{
+                        opacity: 1; 
+                    }
+                    &:hover{
+                        img{
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+
+

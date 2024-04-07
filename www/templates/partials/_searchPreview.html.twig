@@ -1,0 +1,15 @@
+<div class="resultat">
+	{% for produit in produits %}
+		<a class="resultatLien" href="#{{produit.id}}">
+			<div class="resultatLienContent">
+				<div class="resultatLienContentList">
+					<img alt="{{ produit.name }}" src="{{ asset(produit.pathImage) }}" class="resultatLienContentListImage">
+					<span class="resultatLienContentListName">
+						{{ produit.name }}</span>
+				</div>
+			</div>
+		</a>
+	{% else %}
+		<div class="resultatLien">Aucun résultat trouvé !</div>
+	{% endfor %}
+</div>

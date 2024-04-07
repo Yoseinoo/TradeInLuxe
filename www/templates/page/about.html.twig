@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe - A propos
+{% endblock %}
+
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+	{{ include('partials/_categories.html.twig') }}
+	<main>
+		<section class="engagements">
+			<div class="engagementsContent">
+				<h1 class="engagementsContentTitle">À Propos de TradeInLuxe</h1>
+
+				<p class="engagementsContentTexte">
+					<strong>Durabilité et Responsabilité Sociale :</strong>
+					Chez nous, la mode rencontre l'éco-responsabilité. Nous sommes fiers de promouvoir la réutilisation et le recyclage des vêtements pour réduire l'empreinte environnementale de cette industrie que nous aimons tant.</p>
+
+				<p class="engagementsContentTexte">
+					<strong>Authenticité des Produits :</strong>
+					Lorsque vous magasinez chez nous, vous pouvez avoir une totale confiance en la qualité et l'authenticité de chaque article. Nous nous engageons à vérifier méticuleusement chaque produit pour garantir votre satisfaction.</p>
+
+				<p class="engagementsContentTexte">
+					<strong>Sécurité des Transactions :</strong>
+					Votre tranquillité d'esprit est notre priorité absolue. Nos systèmes de paiement sécurisés et nos protocoles de protection des données personnelles assurent que chaque transaction se déroule en toute sécurité, pour vous protéger contre les fraudes et les escroqueries.</p>
+
+				<p class="engagementsContentTexte">
+					<strong>Expérience Utilisateur Conviviale :</strong>
+					Découvrez une expérience de shopping en ligne aussi agréable que simple. Avec des fonctionnalités de recherche avancées, un site au design élégant et un service client réactif, nous sommes là pour rendre votre expérience aussi fluide que possible.</p>
+
+				<p class="engagementsContentTexte">
+					<strong>Communauté Engagée :</strong>
+					Rejoignez une communauté passionnée de fashionistas et d'amateurs de belles pièces. Nos fonctionnalités sociales telles que les commentaires et les évaluations vous permettent de partager vos expériences et d'influencer d'autres acheteurs.</p>
+
+				<p class="engagementsContentTexte">
+					<strong>Innovation et Évolution :</strong>
+					Chez nous, l'innovation est dans notre ADN. Nous sommes constamment à la pointe du secteur de la mode en ligne, développant de nouvelles fonctionnalités, intégrant les dernières technologies et explorant de nouveaux marchés pour vous offrir le meilleur.</p>
+
+				<p class="engagementsContentTexte">
+					<strong>Confiance et Sécurité :</strong>
+					Vos biens précieux sont entre de bonnes mains. Avec notre système de caution simple à mettre en place en un seul clic, vous pouvez échanger en toute confiance, sachant que nous veillons sur vous à chaque étape du processus.</p>
+
+
+			</div>
+		</section>
+		<section class="valeurs">
+			<div class="valeursContent">
+				<h2 class="valeursContentTitle">Objectifs de notre marque :</h2>
+				<ul class="valeursContentListe">
+					<li>Réduire la surconsommation de vêtements et continuer à donner de la vie à un article de luxe via des échanges certifiés.</li>
+					<li>Rassurer la clientèle dans les échanges d’articles de luxe faite en toute sécurité via une certification adaptée - optimisation du service d’échange et service client.</li>
+					<li>Apporter de l’innovation dans le secteur du luxe en proposant un système d’échange efficace et sûr.</li>
+				</ul>
+			</div>
+		</section>
+	</main>
+
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}

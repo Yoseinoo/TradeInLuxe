@@ -1,0 +1,105 @@
+// Font Fahkwang
+@font-face {
+    font-family: 'Fahkwang';
+    src: url('/assets/fonts/Fahkwang-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fahkwang';
+    src: url('/assets/fonts/Fahkwang-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Fahkwang';
+    src: url('/assets/fonts/Fahkwang-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fahkwang';
+    src: url('/assets/fonts/Fahkwang-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Fahkwang';
+    src: url('/assets/fonts/Fahkwang-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fahkwang';
+    src: url('/assets/fonts/Fahkwang-ExtraLightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Fahkwang';
+    src: url('/assets/fonts/Fahkwang-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fahkwang';
+    src: url('/assets/fonts/Fahkwang-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Fahkwang';
+    src: url('/assets/fonts/Fahkwang-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fahkwang';
+    src: url('/assets/fonts/Fahkwang-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Fahkwang';
+    src: url('/assets/fonts/Fahkwang-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fahkwang';
+    src: url('/assets/fonts/Fahkwang-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+// Font Garet 
+@font-face {
+    font-family: 'Garet';
+    src: url('/assets/fonts/Garet-Book.woff2') format('woff2'),
+         url('/assets/fonts/Garet-Book.woff') format('woff'),
+         url('/assets/fonts/Garet-Book.otf') format('opentype'),
+         url('/assets/fonts/Garet-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Garet';
+    src: url('/assets/fonts/Garet-Heavy.woff2') format('woff2'),
+         url('/assets/fonts/Garet-Heavy.woff') format('woff'),
+         url('/assets/fonts/Garet-Heavy.otf') format('opentype'),
+         url('/assets/fonts/Garet-Heavy.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}

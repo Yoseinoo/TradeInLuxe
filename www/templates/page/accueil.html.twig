@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe - Accueil
+{% endblock %}
+
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+	{{ include('partials/_categories.html.twig') }}
+	<main {{stimulus_controller('accueil')}}>
+		<section class="accueil">
+			<video autoplay loop muted playsinline>
+				<source src="{{ asset('build/images/accueil/bgAccueilVideo.mp4') }}" type="video/mp4">
+				Votre navigateur ne prend pas en charge la balise vidéo.
+			</video>
+			<div class="accueilContent">
+				<h1 class="accueilContentTitle">Découvrez une nouvelle dimension de l'élégance
+					<br>
+					en échangeant des articles de luxe</h1>
+				<div class="accueilContentSearch">
+					<div class="accueilContentSearchForm">
+						<div class="accueilContentSearchFormContent" {{ stimulus_controller('search-preview', { url: path('app_search') } ) }}>
+							<input class="accueilContentSearchFormContentInput" autocomplete="off" type="text" name="q" data-action="search-preview#onSearchInput" data-search-preview-target="input" placeholder="Recherchez des articles..."><i class="fa-solid fa-magnifying-glass accueilContentSearchFormContentIcon" style="color: #a4a4a4;" data-search-preview-target="iconSearch"></i>
+							<i class="fa-solid fa-xmark accueilContentSearchFormContentIcon" style="color: #a4a4a4; display: none;" data-search-preview-target="iconDelete" data-action="click->search-preview#deleteResearch"></i>
+							<div class="accueilContentSearchFormContentPreview" data-search-preview-target="result"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="produits">
+			<div class="produitsContent">
+				<h2 class="produitsContentTitle">Nos produits phares</h2>
+				<div class="produitsContentGrid">
+					<div class="produitsContentGridLeft imageBox" data-accueil-target="chaussure" data-accueil-chemin="{{ asset('build/images/accueil/chaussuresHover.jpg') }}">
+						<img src="{{ asset('build/images/accueil/chaussures.jpg') }}" alt="image"/>
+						<a href="#" class="overlay">Voir plus</a>
+					</div>
+					<div class="produitsContentGridRight">
+						<div class="imageBox" data-accueil-target="sac" data-accueil-chemin="{{ asset('build/images/accueil/sacCategorieHover.png') }}">
+							<img src="{{ asset('build/images/accueil/sacCategorie.png') }}" alt="image"/>
+							<a href="#" class="overlay">Voir plus</a>
+						</div>
+						<div class="imageBox" data-accueil-target="vetement" data-accueil-chemin="{{ asset('build/images/accueil/vetementHover.png') }}">
+							<img src="{{ asset('build/images/accueil/vetement.png') }}" alt="image"/>
+							<a href="#" class="overlay">Voir plus</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	{% for flashMessage in app.flashes('success') %}
+		{% set parts = flashMessage|split('|') %}
+		<div data-controller="message" data-message-type-value="{{ parts[2] }}" data-message-title-value="{{ parts[0] }}" data-message-message-value="{{ parts[1] }}"></div>
+	{% endfor %}
+
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}

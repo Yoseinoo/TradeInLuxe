@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1 class="mb-4">Bonjour !</h1>
+
+		<p class="mt-3">
+			Pour réinitialiser votre mot de passe, veuillez visiter le lien suivant :</p>
+		<a class="btn btn-primary" href="{{ url('app_reset_password', {token: resetToken.token}) }}">Réinitialiser mon mot de passe</a>
+		<p>Ce lien expirera dans
+			{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+
+		<p>A bientot !</p>
+	</div>
+{% endblock %}
