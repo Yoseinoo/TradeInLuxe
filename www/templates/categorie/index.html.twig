@@ -18,31 +18,8 @@
 		</section>
 		<section class="produit">
 			<div class="produitFiltre">
-				<div class="produitFiltreMarque">
-					<h2>Marques</h2>
-					<ul>
-						<li>AAA</li>
-						<li>bbb</li>
-						<li>ccc</li>
-						<li>ddd</li>
-						<li>eee</li>
-					</ul>
-				</div>
-				<div class="produitFiltreSexe">
-					<h2>Genres</h2>
-					<ul>
-						<li>Hommes</li>
-						<li>Femmes</li>
-						<li>Autres</li>
-					</ul>
-				</div>
-				<div class="produitFiltreTaille">
-					<h2>Tailles</h2>
-					<ul>
-						<li>42</li>
-						<li>23</li>
-						<li>22</li>
-					</ul>
+				<div class="produitFiltre">
+					{{ include('categorie/_filtres.html.twig') }}
 				</div>
 			</div>
 			<div class="produitContent">
@@ -51,7 +28,13 @@
 						{% for produit in pager %}
 							<a class="produitContentGridCard">
 								<img src="{{ asset(produit.pathImage) }}" class="produitContentGridCardImage" alt="Image 1">
-								<hp class="produitContentGridCardName">{{ produit.name }}</hp>
+								<p class="produitContentGridCardName">
+									{{ produit.name | slice(0, 40) }}
+									{% if produit.name | length > 40 %}...
+									{% endif %}
+								</p>
+
+
 							</a>
 						{% endfor %}
 
@@ -59,7 +42,8 @@
 
 					{% if pager.haveToPaginate %}
 						<div class="containerPagination">
-							{{ pagerfanta(pager) }}
+							{% set pager_with_translated_labels = pagerfanta(pager)|replace({'Previous': 'Précédent', 'Next': 'Suivant'}) %}
+							{{ pager_with_translated_labels|raw }}
 						</div>
 					{% endif %}
 				{% else %}
@@ -73,4 +57,4 @@
 	</main>
 	{{ include('partials/_footer.html.twig') }}
 {% endblock %}
-{# Faire les filtres (voir comment les gérés + faire fonctionner) + voir si on sépare dans différents templates le cards des filtres (comme ça en fonction de la catégorie on include les bons filtres) et on assemble tout dans le index.html.twig de catégorie + Responsive de la partie catégorie #}
+{# Faire les filtres (voir comment les gérés + faire fonctionner) + Responsive de la partie catégorie #}

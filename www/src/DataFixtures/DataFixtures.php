@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Taille;
 use App\Entity\Produit;
 use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
@@ -9,7 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
-class CategorieAndProduitsFixtures extends Fixture implements FixtureGroupInterface
+class DataFixtures extends Fixture implements FixtureGroupInterface
 {
 
     public function __construct(
@@ -19,7 +20,7 @@ class CategorieAndProduitsFixtures extends Fixture implements FixtureGroupInterf
 
     public static function getGroups(): array
     {
-        return ['CategorieAndProduitsFixtures'];
+        return ['DataFixtures'];
     }
     
     public function load(ObjectManager $manager): void
@@ -73,6 +74,56 @@ class CategorieAndProduitsFixtures extends Fixture implements FixtureGroupInterf
 
                 $manager->persist($entity);
             }
+        }
+
+        $manager->flush();
+
+         // Récupérer les catégories
+         $sacsCategorie = $this->categorieRepository->findOneBy(['name' => 'Sacs']);
+         $vetementsCategorie = $this->categorieRepository->findOneBy(['name' => 'Vêtements']);
+         $chaussuresCategorie = $this->categorieRepository->findOneBy(['name' => 'Chaussures']);
+
+        // Ajouter des filtres pour les sacs
+        $this->addTailles($manager, $sacsCategorie, [
+            ['name' => 'S', 'rank' => 1],
+            ['name' => 'M', 'rank' => 2],
+            ['name' => 'L', 'rank' => 3],
+            
+        ]);
+
+        // Ajouter des filtres pour les vêtements
+        $this->addTailles($manager, $vetementsCategorie, [
+            ['name' => 'XXS', 'rank' => 1],
+            ['name' => 'XS', 'rank' => 2],
+            ['name' => 'S', 'rank' => 3],
+            ['name' => 'M', 'rank' => 4],
+            ['name' => 'L', 'rank' => 5],
+            ['name' => 'XL', 'rank' => 6],
+            ['name' => 'XXL', 'rank' => 7],
+        ]);
+
+        // Ajouter des filtres pour les chaussures
+        $this->addTailles($manager, $chaussuresCategorie, [
+            ['name' => '36', 'rank' => 1],
+            ['name' => '37', 'rank' => 2],
+            ['name' => '38', 'rank' => 3],
+            ['name' => '39', 'rank' => 4],
+            ['name' => '40', 'rank' => 5],
+            ['name' => '41', 'rank' => 6],
+            ['name' => '42', 'rank' => 7],
+            ['name' => '43', 'rank' => 8],
+        ]);
+    }
+
+    private function addTailles(ObjectManager $manager, $categorie, $filtres)
+    {
+        foreach ($filtres as $filtreData) {
+            $filtre = new Taille();
+            $filtre->setCategorie($categorie);
+            $filtre->setName($filtreData['name']);
+            $filtre->setRank($filtreData['rank']);
+
+            $manager->persist($filtre);
         }
 
         $manager->flush();

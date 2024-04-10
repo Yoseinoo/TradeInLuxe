@@ -1,0 +1,10 @@
+{% for type, filtres in filtresParType %}
+	<div class="produitFiltre{{ type }}">
+		<h2>{{ type }}</h2>
+		<ul>
+			{% for filtre in filtres %}
+				<li>{{ filtre.name }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endfor %}
