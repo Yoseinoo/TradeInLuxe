@@ -32,16 +32,47 @@
     display: flex;
     justify-content: center;
     font-family: "Fahkwang", sans-serif;
-    gap: 18px;
-    &Filtre{
-        &Marque{
-
-        }
-        &Sexe{
-
-        }
-        &Taille{
-
+    gap: 32px;
+    &Filtre {
+            &Type {
+                ul {
+                    display: flex;
+                    flex-direction: column;
+                    list-style-type: none;
+                    padding: inherit;
+                    gap: 12px;
+                }
+            }
+    
+            &Tailles {
+                ul {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    list-style-type: none;
+                    padding: inherit;
+                    gap: 10px;
+                }
+    
+                input[type="checkbox"] {
+                    display: none;
+                }
+    
+                label {
+                    display: inline-block;
+                    text-align: center;
+                    padding: 5px 10px;
+                    background-color: $white;
+                    border: 1px solid #ccc;
+                    cursor: pointer;
+                }
+    
+                input[type="checkbox"]:checked+label {
+                    background-color: $primary;
+                    color: $secondary;
+                }
+            }
+        &Show{
+            @extend .containerDescriptionContentBouton;
         }
     }
     &Content{
@@ -65,9 +96,13 @@
                     border-radius: 6px; 
                 }
                 &Name{
-                    margin-top: 10px; 
+                    margin: 10px 0; 
                     font-weight: 500; 
                     text-align: center;
+                }
+                span{
+                    font-style: italic;
+                    color: $muted;
                 }
             }
         }

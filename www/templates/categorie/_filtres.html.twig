@@ -1,10 +1,32 @@
-{% for type, filtres in filtresParType %}
-	<div class="produitFiltre{{ type }}">
-		<h2>{{ type }}</h2>
-		<ul>
-			{% for filtre in filtres %}
-				<li>{{ filtre.name }}</li>
-			{% endfor %}
+<form method="post" {{stimulus_controller('form-filtre')}}>
+	{% for type, filtres in filtresParType %}
+		<div class="produitFiltre{{ type == 'Tailles' ? type : 'Type' }}" {{stimulus_controller('categorie')}}>
+			<h2>{{ type }}</h2>
+			<ul data-categorie-target="filtres">
+				{% for filtre in filtres %}
+					<li>
+						<input type="checkbox" id="{{ type }}_{{ filtre.id }}" name="{{ type }}[]" value="{{ filtre.name }}">
+						<label for="{{ type }}_{{ filtre.id }}">{{ filtre.name }}</label>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endfor %}
+	<div class="produitFiltreType" {{stimulus_controller('categorie')}}>
+		<h2>Genres</h2>
+		<ul data-categorie-target="filtres">
+			<li>
+				<input type="checkbox" id="Genres_homme" name="Genres[]" value="Homme">
+				<label for="Genres_homme">Homme</label>
+			</li>
+			<li>
+				<input type="checkbox" id="Genres_femme" name="Genres[]" value="Femme">
+				<label for="Genres_femme">Femme</label>
+			</li>
+			<li>
+				<input type="checkbox" id="Genres_autre" name="Genres[]" value="Autres">
+				<label for="Genres_autre">Autres</label>
+			</li>
 		</ul>
 	</div>
-{% endfor %}
+</form>

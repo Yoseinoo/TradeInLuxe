@@ -1,0 +1,28 @@
+{% if pager|length %}
+	<div class="produitContentGrid">
+		{% for produit in pager %}
+			<a class="produitContentGridCard">
+				<img src="{{ asset(produit.pathImage) }}" class="produitContentGridCardImage" alt="Image 1">
+				<p class="produitContentGridCardName">
+					{{ produit.name | slice(0, 40) }}
+					{% if produit.name | length > 40 %}...
+					{% endif %}
+				</p>
+				<span>{{produit.caracteristiques.Marque}}</span>
+			</a>
+		{% endfor %}
+
+	</div>
+
+	{% if pager.haveToPaginate %}
+		<div class="containerPagination">
+			{% set pager_with_translated_labels = pagerfanta(pager)|replace({'Previous': 'Précédent', 'Next': 'Suivant'}) %}
+			{{ pager_with_translated_labels|raw }}
+		</div>
+	{% endif %}
+{% else %}
+	<div class="noresult">
+		<h3 class="noresultTitle">Désolé, aucun résultat n’a été trouvé</h3>
+		<p class="noresultTexte">Veuillez modifier vos critères de recherche.</p>
+	</div>
+{% endif %}

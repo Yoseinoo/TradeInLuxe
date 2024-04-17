@@ -18,43 +18,11 @@
 		</section>
 		<section class="produit">
 			<div class="produitFiltre">
-				<div class="produitFiltre">
-					{{ include('categorie/_filtres.html.twig') }}
-				</div>
+				{{ include('categorie/_filtres.html.twig') }}
 			</div>
-			<div class="produitContent">
-				{% if pager|length %}
-					<div class="produitContentGrid">
-						{% for produit in pager %}
-							<a class="produitContentGridCard">
-								<img src="{{ asset(produit.pathImage) }}" class="produitContentGridCardImage" alt="Image 1">
-								<p class="produitContentGridCardName">
-									{{ produit.name | slice(0, 40) }}
-									{% if produit.name | length > 40 %}...
-									{% endif %}
-								</p>
-
-
-							</a>
-						{% endfor %}
-
-					</div>
-
-					{% if pager.haveToPaginate %}
-						<div class="containerPagination">
-							{% set pager_with_translated_labels = pagerfanta(pager)|replace({'Previous': 'Précédent', 'Next': 'Suivant'}) %}
-							{{ pager_with_translated_labels|raw }}
-						</div>
-					{% endif %}
-				{% else %}
-					<div class="noresult">
-						<h3 class="noresultTitle">Désolé, aucun résultat n’a été trouvé</h3>
-						<p class="noresultTexte">Veuillez modifier vos critères de recherche.</p>
-					</div>
-				{% endif %}
-			</div>
+			<div class="produitContent" id="targetProduit">{{ include('categorie/_list.html.twig') }}</div>
 		</section>
 	</main>
 	{{ include('partials/_footer.html.twig') }}
 {% endblock %}
-{# Faire les filtres (voir comment les gérés + faire fonctionner) + Responsive de la partie catégorie #}
+{# Voir pour rajouter ce qu'il faut pour supprimer tous les filtres facilement au lieu de tout décocher + voir pour ajouter un trier par + revoir les cards + mettre la description des catégories en bdd + voir style des checkbox des tailles pour les vêtements #}
