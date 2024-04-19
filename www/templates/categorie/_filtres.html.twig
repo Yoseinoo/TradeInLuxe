@@ -1,6 +1,6 @@
 <form method="post" {{stimulus_controller('form-filtre')}}>
 	{% for type, filtres in filtresParType %}
-		<div class="produitFiltre{{ type == 'Tailles' ? type : 'Type' }}" {{stimulus_controller('categorie')}}>
+		<div class="produitFiltre{{ type == 'Tailles' ? type : 'Type'}}{{title == 'Vêtements' and type == 'Tailles' ? 'Vetements' : '' }}" {{stimulus_controller('categorie')}}>
 			<h2>{{ type }}</h2>
 			<ul data-categorie-target="filtres">
 				{% for filtre in filtres %}

@@ -71,6 +71,12 @@
                     color: $secondary;
                 }
             }
+            &TaillesVetements{
+                @extend .produitFiltreTailles;
+                label{
+                    width: 50%;
+                }
+            }
         &Show{
             @extend .containerDescriptionContentBouton;
         }
@@ -80,19 +86,21 @@
         padding: 0 12px;
         &Grid{
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            // grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px; 
             &Card{
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 background-color: $white; 
-                border: 1px solid #dddddd; 
-                border-radius: 8px; 
+                // border: 1px solid #dddddd; 
+                // border-radius: 8px; 
                 padding: 20px; 
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+                // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
                 &Image{
-                    width: 60%; 
+                    // width: 60%; 
+                    width: 75%; 
                     border-radius: 6px; 
                 }
                 &Name{
@@ -131,7 +139,7 @@
         .pagination__item{
             background-color: #FFFFFF;
             border: 1px solid #dddddd;
-            border-radius: 8px;
+            // border-radius: 8px;
             padding: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             cursor: default;
