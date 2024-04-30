@@ -14,8 +14,10 @@
 				{{ form_label(form.plainPassword.first)}}
 				<div class="formulaireCardContainerShowPassword">
 					{{ form_widget(form.plainPassword.first)}}
-					<span data-action="click->authentification-form#showPassword">
-						<i class="fa-regular fa-eye"></i>
+					<span data-action="click->authentification-form#showPassword" class="s" id="spanIcon">
+						<svg width="20" height="20" fill="#2e2e2e" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" d="M3.347 11.094a12.702 12.702 0 0 1 4.196-3.11A5.978 5.978 0 0 0 6 12a5.98 5.98 0 0 0 1.543 4.017 12.703 12.703 0 0 1-4.196-3.111 1.355 1.355 0 0 1 0-1.812Zm-.749-.662c1.704-1.929 4.943-4.386 9.313-4.431L12 6h.035c4.433 0 7.717 2.485 9.437 4.432a2.354 2.354 0 0 1 0 3.136C19.752 15.515 16.468 18 12.035 18h-.125c-4.37-.046-7.608-2.503-9.312-4.432a2.354 2.354 0 0 1 0-3.136ZM12.014 7h-.09a5 5 0 1 0 .09 0ZM18 12c0 1.57-.603 3-1.59 4.07 1.886-.83 3.353-2.078 4.312-3.164a1.355 1.355 0 0 0 0-1.812c-.96-1.086-2.426-2.334-4.313-3.163A5.979 5.979 0 0 1 18 12Zm-5.965 3a3 3 0 0 0 2.707-4.293 1 1 0 1 1-1.414-1.414A3 3 0 1 0 12.035 15Z" clip-rule="evenodd"></path>
+						</svg>
 					</span>
 				</div>
 				{% if form.plainPassword.first.vars.errors|length > 0 %}

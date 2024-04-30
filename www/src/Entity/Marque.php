@@ -2,35 +2,21 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
+use App\Repository\MarqueRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ProduitRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: ProduitRepository::class)]
-#[ORM\Table(name: '`app_produit`')]
-class Produit
+#[ORM\Entity(repositoryClass: MarqueRepository::class)]
+#[ORM\Table(name: '`app_filtre_marque`')]
+class Marque
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Categorie $categorie = null;
-
-    #[ORM\Column(length: 180)]
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: false)]
-    private ?string $description = null;
-
-    #[ORM\Column(type: Types::ARRAY, nullable: false)]
-    private array $caracteristiques = [];
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $pathImage = null;
 
     #[ORM\Column]
     private ?bool $isEnabled = true;
@@ -56,22 +42,11 @@ class Produit
     public function preUpdate(){
         $this->updatedAt = new \DateTimeImmutable(); 
     }
-    
+
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCategorie(): ?Categorie
-    {
-        return $this->categorie;
-    }
-
-    public function setCategorie(?Categorie $categorie): self
-    {
-        $this->categorie = $categorie;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -82,42 +57,6 @@ class Produit
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    public function getCaracteristiques(): ?array
-    {
-        return $this->caracteristiques;
-    }
-
-    public function setCaracteristiques(array $caracteristiques): self
-    {
-        $this->caracteristiques = $caracteristiques;
-
-        return $this;
-    }
-
-    public function getPathImage(): ?string
-    {
-        return $this->pathImage;
-    }
-
-    public function setPathImage(string $pathImage): self
-    {
-        $this->pathImage = $pathImage;
 
         return $this;
     }

@@ -7,8 +7,16 @@
 		<div class="accueilContentSearch" id="navSearchBar">
 			<div class="accueilContentSearchForm">
 				<div class="accueilContentSearchFormContent" {{ stimulus_controller('search-preview', { url: path('app_search') } ) }}>
-					<input class="accueilContentSearchFormContentInput" type="text" autocomplete="off" name="q" data-action="search-preview#onSearchInput" data-search-preview-target="input" placeholder="Recherchez des articles..."><i class="fa-solid fa-magnifying-glass accueilContentSearchFormContentIcon" style="color: #a4a4a4;" data-search-preview-target="iconSearch"></i>
-					<i class="fa-solid fa-xmark accueilContentSearchFormContentIcon" style="color: #a4a4a4; display: none;" data-search-preview-target="iconDelete" data-action="click->search-preview#deleteResearch"></i>
+					<input class="accueilContentSearchFormContentInput" type="text" autocomplete="off" name="q" data-action="search-preview#onSearchInput" data-search-preview-target="input" placeholder="Recherchez des articles...">
+					<svg class="accueilContentSearchFormContentIcon" width="20" height="20" fill="none" stroke="#a4a4a4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-search-preview-target="iconSearch">
+						<path d="M10.5 19a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Z"></path>
+						<path d="M13.328 7.172A3.988 3.988 0 0 0 10.5 6a3.988 3.988 0 0 0-2.828 1.172"></path>
+						<path d="m16.61 16.611 4.244 4.243"></path>
+					</svg>
+					<svg width="20" height="20" class="accueilContentSearchFormContentIcon" style="display: none;" data-search-preview-target="iconDelete" data-action="click->search-preview#deleteResearch" fill="none" stroke="#a4a4a4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+						<path d="m4 4 16 16"></path>
+						<path d="M4 20 20 4"></path>
+					</svg>
 					<div class="accueilContentSearchFormContentPreview" data-search-preview-target="result"></div>
 				</div>
 			</div>
@@ -30,6 +38,13 @@
 			{% endif %}
 		</ul>
 	</div>
-	<i class="fa-solid fa-bars burger" data-navigation-target="burger" data-action="click->navigation#showMenu"></i>
-	<i class="fa-solid fa-xmark closeBurger" data-navigation-target="closeBurger" data-action="click->navigation#closeMenu"></i>
+	<svg class="burger" data-navigation-target="burger" data-action="click->navigation#showMenu" width="32" height="32" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+		<path d="M3.975 5.975h16"></path>
+		<path d="M3.975 11.975h16"></path>
+		<path d="M3.975 17.975h16"></path>
+	</svg>
+	<svg class="closeBurger" data-navigation-target="closeBurger" data-action="click->navigation#closeMenu" width="32" height="32" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+		<path d="m4 4 16 16"></path>
+		<path d="M4 20 20 4"></path>
+	</svg>
 </nav>

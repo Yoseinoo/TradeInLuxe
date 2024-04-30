@@ -1,0 +1,43 @@
+{% if pager|length %}
+	<div class="produitContentGrid">
+		{% for produit in pager %}
+			<div>
+				{% if app.user %}
+					<div class="produitContentGridLike">
+						<input type="checkbox" id="likeCheckbox_{{produit.id}}" name="favorite[]" class="produitContentGridLikeInput" value="{{ produit.id}}">
+						<label for="likeCheckbox_{{produit.id}}">
+							<svg width="22" height="22" fill="none" stroke="#2e2e2e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+								<path d="M7.5 4A5.5 5.5 0 0 0 2 9.5C2 15 8.5 20 12 21.163 15.5 20 22 15 22 9.5a5.5 5.5 0 0 0-10-3.163A5.494 5.494 0 0 0 7.5 4Z"></path>
+							</svg>
+						</label>
+					</div>
+				{% endif %}
+				<a class="produitContentGridCard">
+
+
+					<img src="{{ asset(produit.pathImage) }}" class="produitContentGridCardImage" alt="Image 1">
+					<p class="produitContentGridCardName">
+						{{ produit.name | slice(0, 40) }}
+						{% if produit.name | length > 40 %}...
+						{% endif %}
+					</p>
+					<span>{{produit.caracteristiques.Marque}}</span>
+				</a>
+			</div>
+
+		{% endfor %}
+
+	</div>
+
+	{% if pager.haveToPaginate %}
+		<div class="containerPagination">
+			{% set pager_with_translated_labels = pagerfanta(pager)|replace({'Previous': 'Précédent', 'Next': 'Suivant'}) %}
+			{{ pager_with_translated_labels|raw }}
+		</div>
+	{% endif %}
+{% else %}
+	<div class="noresult">
+		<h3 class="noresultTitle">Désolé, aucun résultat n’a été trouvé</h3>
+		<p class="noresultTexte">Veuillez modifier vos critères de recherche.</p>
+	</div>
+{% endif %}

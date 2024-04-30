@@ -34,6 +34,9 @@ class Article
     #[ORM\Column(type: Types::TEXT, nullable: false)]
     private ?string $description = null;
 
+    #[ORM\Column(type: Types::ARRAY, nullable: false)]
+    private array $caracteristiques = [];
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pathImage = null;
 
@@ -132,6 +135,18 @@ class Article
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCaracteristiques(): ?array
+    {
+        return $this->caracteristiques;
+    }
+
+    public function setCaracteristiques(array $caracteristiques): self
+    {
+        $this->caracteristiques = $caracteristiques;
 
         return $this;
     }

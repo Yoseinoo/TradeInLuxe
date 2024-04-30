@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Produit;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Produit>
@@ -61,7 +62,18 @@ class ProduitRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    private function getParams($queryBuilder, $params = '')
+    public function getAllQueryBuilder($params = '', $filtres = null): QueryBuilder
+    {
+        $queryBuilder = $this->createQueryBuilder('produit')
+            ->select('produit')
+        ;
+
+        $this->getParams($queryBuilder, $params, $filtres);
+
+        return $queryBuilder;
+    }
+
+    private function getParams($queryBuilder, $params = '', $filtres = null)
     {
         parse_str($params, $args);
 
@@ -70,6 +82,50 @@ class ProduitRepository extends ServiceEntityRepository
                 $queryBuilder->expr()->eq('produit.name', ':name')
             )
             ->setParameter('name', $args['name']);
+        }
+
+        if (!empty($filtres)) {
+
+            $andConditions = [];
+
+            foreach ($filtres as $type => $valeurs) {
+                if ($type !== 'triProduits'){
+                // Initialiser une liste de conditions pour les valeurs du filtre "OR" pour ce type
+                $orConditions = [];
+
+                foreach ($valeurs as $key => $valeur) {
+                    // Construire la condition "OR" pour chaque valeur de filtre
+                    $orConditions[] = "produit.caracteristiques LIKE :filtre_$type$key";
+                    $queryBuilder->setParameter(":filtre_$type$key", '%"' . $valeur . '"%');
+                }
+
+                // Combiner les conditions "OR" avec un "OR"
+                $orCondition = implode(' OR ', $orConditions);
+
+                // Ajouter la condition "OR" à la liste des conditions "AND"
+                $andConditions[] = "($orCondition)";
+            }
+            }
+            if (!empty($andConditions)){
+                // Combiner toutes les conditions "AND" avec un "AND"
+            $andCondition = implode(' AND ', $andConditions);
+
+            // Ajouter la condition "AND" à la requête principale
+            $queryBuilder->andWhere($andCondition);
+            }
+            
+        }
+
+        if(!empty($filtres['triProduits'])){
+            $direction = $filtres['triProduits'] == null || $filtres['triProduits'] == 'asc' ? 'asc' : 'desc'; 
+            $queryBuilder->orderBy('produit.name', $direction);
+        }
+
+        if (!empty($args['categorie'])) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('produit.categorie', ':categorie')
+            )
+            ->setParameter('categorie', $args['categorie']);
         }
 
         if (isset($args['isEnabled'])) {
