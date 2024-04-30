@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\CategorieRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CategorieRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
@@ -17,6 +18,9 @@ class Categorie
 
     #[ORM\Column(length: 180)]
     private ?string $name = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: false)]
+    private ?string $description = null;
 
     #[ORM\Column]
     private ?bool $isEnabled = true;
@@ -56,6 +60,18 @@ class Categorie
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

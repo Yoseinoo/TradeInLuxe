@@ -31,6 +31,8 @@ class CategorieController extends AbstractController
         $formData = [];
         if ($request->isMethod('POST')) {
             $formData = $request->request->all();
+        }else{
+            $formData = $request->query->all() != null ? $request->query->all() : [];
         }
 
         $template = $request->isXmlHttpRequest() ? '_list.html.twig' : 'index.html.twig';
@@ -40,9 +42,10 @@ class CategorieController extends AbstractController
 
         return $this->render('categorie/'.$template, [
             'title' => 'Chaussures',
-            'description' => 'La collection de chaussures propose des bottes, ballerines, chaussures à talon, mocassins, chaussures oxford, sandales et claquettes. Les chaussures sont proposées par des marques de créateurs telles que Balenciaga, Prada, Hermès, Louis Vuitton, Timberland, Versace, Crocs, Birkenstock, Chanel, Dior, Gucci et Dr. Martens. La collection de chaussures comprend des chaussures de course, des chaussures de golf, des bottes de randonnée, des chaussures de football et des chaussures de basketball. Les chaussures sont fabriquées à partir de matériaux tels que le cuir, le caoutchouc, les textiles, les matériaux synthétiques et la mousse. Les chaussures sont disponibles dans divers coloris et designs.',
+            'description' => $data['description'],
             'pager' => $pagerfanta,
             'filtresParType' => $data['filtresParType'],
+            'selected' => $formData
         ]);
     }
 
@@ -52,6 +55,8 @@ class CategorieController extends AbstractController
         $formData = [];
         if ($request->isMethod('POST')) {
             $formData = $request->request->all();
+        }else{
+            $formData = $request->query->all() != null ? $request->query->all() : [];
         }
 
         $template = $request->isXmlHttpRequest() ? '_list.html.twig' : 'index.html.twig';
@@ -61,9 +66,10 @@ class CategorieController extends AbstractController
 
         return $this->render('categorie/'.$template, [
             'title' => 'Sacs',
-            'description' => 'La collection de chaussures propose des bottes, ballerines, chaussures à talon, mocassins, chaussures oxford, sandales et claquettes. Les chaussures sont proposées par des marques de créateurs telles que Balenciaga, Prada, Hermès, Louis Vuitton, Timberland, Versace, Crocs, Birkenstock, Chanel, Dior, Gucci et Dr. Martens. La collection de chaussures comprend des chaussures de course, des chaussures de golf, des bottes de randonnée, des chaussures de football et des chaussures de basketball. Les chaussures sont fabriquées à partir de matériaux tels que le cuir, le caoutchouc, les textiles, les matériaux synthétiques et la mousse. Les chaussures sont disponibles dans divers coloris et designs.',
+            'description' => $data['description'],
             'pager' => $pagerfanta,
             'filtresParType' => $data['filtresParType'],
+            'selected' => $formData
         ]);
     }
 
@@ -73,6 +79,8 @@ class CategorieController extends AbstractController
         $formData = [];
         if ($request->isMethod('POST')) {
             $formData = $request->request->all();
+        }else{
+            $formData = $request->query->all() != null ? $request->query->all() : [];
         }
 
         $template = $request->isXmlHttpRequest() ? '_list.html.twig' : 'index.html.twig';
@@ -82,15 +90,17 @@ class CategorieController extends AbstractController
 
         return $this->render('categorie/'.$template, [
             'title' => 'Vêtements',
-            'description' => 'La collection de chaussures propose des bottes, ballerines, chaussures à talon, mocassins, chaussures oxford, sandales et claquettes. Les chaussures sont proposées par des marques de créateurs telles que Balenciaga, Prada, Hermès, Louis Vuitton, Timberland, Versace, Crocs, Birkenstock, Chanel, Dior, Gucci et Dr. Martens. La collection de chaussures comprend des chaussures de course, des chaussures de golf, des bottes de randonnée, des chaussures de football et des chaussures de basketball. Les chaussures sont fabriquées à partir de matériaux tels que le cuir, le caoutchouc, les textiles, les matériaux synthétiques et la mousse. Les chaussures sont disponibles dans divers coloris et designs.',
+            'description' => $data['description'],
             'pager' => $pagerfanta,
             'filtresParType' => $data['filtresParType'],
+            'selected' => $formData
         ]);
     }
 
     private function getFiltres(string $categorieName): array
     {
         $categorie = $this->categorieRepository->getOne("name=$categorieName")->getId();
+        $description = $this->categorieRepository->getOne("name=$categorieName")->getDescription();
         $marques = $this->marqueRepository->findBy(['deletedAt' => null, 'isEnabled' => true]);
         $tailles = $this->tailleRepository->findBy(['categorie' => $categorie,'deletedAt' => null, 'isEnabled' => true]);
         $couleurs = $this->couleurRepository->findBy(['deletedAt' => null, 'isEnabled' => true],['name' => 'ASC']);
@@ -109,7 +119,8 @@ class CategorieController extends AbstractController
        
         return [
             'filtresParType' => $filtresParType,
-            'categorie' => $categorie
+            'categorie' => $categorie,
+            'description' => $description
         ];
     }
 
@@ -120,7 +131,7 @@ class CategorieController extends AbstractController
         $queryBuilder = $this->produitRepository->getAllQueryBuilder($params, $filtres);
         $pagerfanta = new Pagerfanta(new QueryAdapter($queryBuilder));
         $pagerfanta->setMaxPerPage(12);
-        $pagerfanta->setCurrentPage($page);
+        $pagerfanta->getNbPages() > 1 ? $pagerfanta->setCurrentPage($page) : '';
 
         return $pagerfanta;
     }

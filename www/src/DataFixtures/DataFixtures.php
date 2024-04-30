@@ -27,11 +27,14 @@ class DataFixtures extends Fixture implements FixtureGroupInterface
     {
         
         // Définir les catégories
-        $categories = ['Chaussures', 'Sacs', 'Vêtements'];
+        $categories = ['Chaussures' => 'La collection de chaussures propose des bottes, ballerines, chaussures à talon, mocassins, chaussures oxford, sandales et claquettes. Les chaussures sont proposées par des marques de créateurs telles que Balenciaga, Prada, Hermès, Louis Vuitton, Timberland, Versace, Crocs, Birkenstock, Chanel, Dior, Gucci et Dr. Martens. La collection de chaussures comprend des chaussures de course, des chaussures de golf, des bottes de randonnée, des chaussures de football et des chaussures de basketball. Les chaussures sont fabriquées à partir de matériaux tels que le cuir, le caoutchouc, les textiles, les matériaux synthétiques et la mousse. Les chaussures sont disponibles dans divers coloris et designs.',
+         'Sacs' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+         'Vêtements' => 'De Supreme, Nike, adidas, et Travis Scott à Bape et Fear of God, il existe divers vêtements disponibles pour tous. Il y a des tenues de créateurs et des looks streetwear disponibles pour tous les âges et tous les genres. Nous offrons un peu de tout, des pulls en cachemire neufs ou d’occasion aux pantalons de créateurs, robes, costumes, sweat-shirts et bien plus encore. Des options de vêtements intemporels et tendance sont également disponibles auprès d’autres marques, telles que Supreme, North Face, Nike et adidas.'];
 
-        foreach ($categories as $categorie) {
+        foreach ($categories as $categorie => $description) {
             $entity = new Categorie();
             $entity->setName($categorie);
+            $entity->setDescription($description);
 
             $manager->persist($entity);
         }
@@ -40,7 +43,13 @@ class DataFixtures extends Fixture implements FixtureGroupInterface
 
         $produits = [
             'Chaussures' => [
-                ['name' => 'Chaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
+                ['name' => 'Ahaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
+                'Marque' => 'Gucci',
+                'Taille' => '36',
+                'Couleur' => 'Noir',
+                'Genre' => 'Homme'
+            ]],
+                ['name' => 'Bhaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
                 'Marque' => 'Gucci',
                 'Taille' => '36',
                 'Couleur' => 'Noir',
@@ -52,43 +61,37 @@ class DataFixtures extends Fixture implements FixtureGroupInterface
                 'Couleur' => 'Noir',
                 'Genre' => 'Homme'
             ]],
-                ['name' => 'Chaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
+                ['name' => 'Dhaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
                 'Marque' => 'Gucci',
                 'Taille' => '36',
                 'Couleur' => 'Noir',
                 'Genre' => 'Homme'
             ]],
-                ['name' => 'Chaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
+                ['name' => 'Ehaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
                 'Marque' => 'Gucci',
                 'Taille' => '36',
                 'Couleur' => 'Noir',
                 'Genre' => 'Homme'
             ]],
-                ['name' => 'Chaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
+                ['name' => 'Fhaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
                 'Marque' => 'Gucci',
                 'Taille' => '36',
                 'Couleur' => 'Noir',
                 'Genre' => 'Homme'
             ]],
-                ['name' => 'Chaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
-                'Marque' => 'Gucci',
-                'Taille' => '36',
-                'Couleur' => 'Noir',
-                'Genre' => 'Homme'
-            ]],
-                ['name' => 'Chaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
+                ['name' => 'Fhaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
                 'Marque' => 'Louis Vuitton',
                 'Taille' => '36',
                 'Couleur' => 'Noir',
                 'Genre' => 'Homme'
             ]],
-                ['name' => 'Chaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
+                ['name' => 'Ghaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
                 'Marque' => 'Louis Vuitton',
                 'Taille' => '36',
                 'Couleur' => 'Beige',
                 'Genre' => 'Femme'
             ]],
-                ['name' => 'Chaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
+                ['name' => 'Hhaussures Opyum Sandales en cuir verni', 'description' => "SANDALES À TALON CASSANDRE, MUNIES D'UNE BRIDE AJUSTABLE À LA CHEVILLE.", "image" => "build/images/accueil/chaussures.jpg",'caracteristiques' => [
                 'Marque' => 'Louis Vuitton',
                 'Taille' => '36',
                 'Couleur' => 'Beige',

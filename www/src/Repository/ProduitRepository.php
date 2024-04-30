@@ -89,6 +89,7 @@ class ProduitRepository extends ServiceEntityRepository
             $andConditions = [];
 
             foreach ($filtres as $type => $valeurs) {
+                if ($type !== 'triProduits'){
                 // Initialiser une liste de conditions pour les valeurs du filtre "OR" pour ce type
                 $orConditions = [];
 
@@ -104,12 +105,20 @@ class ProduitRepository extends ServiceEntityRepository
                 // Ajouter la condition "OR" à la liste des conditions "AND"
                 $andConditions[] = "($orCondition)";
             }
-
-            // Combiner toutes les conditions "AND" avec un "AND"
+            }
+            if (!empty($andConditions)){
+                // Combiner toutes les conditions "AND" avec un "AND"
             $andCondition = implode(' AND ', $andConditions);
 
             // Ajouter la condition "AND" à la requête principale
             $queryBuilder->andWhere($andCondition);
+            }
+            
+        }
+
+        if(!empty($filtres['triProduits'])){
+            $direction = $filtres['triProduits'] == null || $filtres['triProduits'] == 'asc' ? 'asc' : 'desc'; 
+            $queryBuilder->orderBy('produit.name', $direction);
         }
 
         if (!empty($args['categorie'])) {

@@ -14,6 +14,7 @@ export default class extends Controller {
          this.hideExtraFilters();
         }
 
+        this.containerFiltres = document.getElementById('containerFiltres');
     }
 
     showMore() {
@@ -71,5 +72,9 @@ export default class extends Controller {
         this.filters.forEach(filter => {
             filter.style.display = "";
         });
+    }
+
+    toggleFiltres(){
+        this.containerFiltres.classList.toggle("actif");
     }
 }

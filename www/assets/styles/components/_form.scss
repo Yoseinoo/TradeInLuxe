@@ -6,7 +6,6 @@
         width: 500px;
         padding: 20px;
         border: 1px solid #ddd;
-        // border-radius: 5px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
         font-family: $font-family-primary;
 
@@ -43,7 +42,6 @@
                 padding: 10px;
                 margin: 10px 0;
                 border: 1px solid #ddd;
-                // border-radius: 5px;
             }
 
             &Requirement{
@@ -53,7 +51,7 @@
                 gap: 8px;
                 margin-bottom: 4px;
                 span {
-                    color: $error;
+                    color: $red;
                     transition: color 0.3s ease;
                   }
         
@@ -62,7 +60,7 @@
                   }
         
                   span.invalid {
-                    color: $error;
+                    color: $red;
                   }
             }
 
@@ -77,7 +75,6 @@
                 color: $secondary;
                 background-color: $primary;
                 border: none;
-                // border-radius: 5px;
                 cursor: pointer;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
@@ -114,7 +111,7 @@
 
 .errorMessage {
     text-align: center;
-    color: $error;
+    color: $red;
 
     li {
         list-style: none;
