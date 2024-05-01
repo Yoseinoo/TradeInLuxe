@@ -1,0 +1,123 @@
+.details{
+    @extend .containerDescription;
+    &Container{
+        &Content{
+            &Subtitle{
+                font-size: 22px;
+                color: $muted;
+                font-style: italic;
+            }
+        }
+        &Produit{
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            &Image{
+                width: 400px;
+                height: 400px;
+                img{
+                    max-width: 100%;
+                    height: auto;
+                }
+            }
+            &Card{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-family: $font-family-primary;
+                width: 500px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                &Action{
+                    display: flex;
+                    flex-direction: column;
+                    &Select{
+                        font-family: $font-family-primary;
+                        background-color: $white;
+                        font-size: 16px;
+                        border: 1px solid #dddddd;
+                        padding: 8px 16px;
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                        margin-bottom: 32px;
+                    }
+                    &Certif{
+                        &Visible{
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            &Text{
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                                font-weight: 500;
+                            }
+                            &Button{
+                                display: flex;
+                                border: none;
+                                background-color: inherit;
+                                &:hover{
+                                    cursor: pointer;
+                                }
+                            }
+                        } 
+                        &Hidden{
+                            display: none;
+                            font-size: 14px;
+                            color: $muted;
+                            font-weight: 400;
+                            a{
+                                color: $secondary;
+                                font-weight: 500;
+                            }
+                        }                      
+                    }
+                    &Engagement{
+                        @extend .detailsContainerProduitCardActionCertif;
+                        &Visible{
+                            @extend .detailsContainerProduitCardActionCertifVisible;
+                            &Text{
+                                @extend .detailsContainerProduitCardActionCertifVisibleText;
+                            }
+                            &Button{
+                                @extend .detailsContainerProduitCardActionCertifVisibleButton;
+                            }
+                        } 
+                        &Hidden{
+                            @extend .detailsContainerProduitCardActionCertifHidden;
+                        }            
+                    }
+                    hr{
+                        width: 100%;
+                    }
+                    &Button{
+                        font-family: $font-family-primary;
+                        color: $secondary;
+                        background-color: $primary;
+                        padding: 0.5rem 1rem;
+                        transition: background-color 0.3s;
+                        border: none;
+                        margin-top: 32px;
+                        &:hover{
+                            background-color: $bg-color-secondary;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width: 430px) {
+    .detailsContainerProduit{
+        flex-wrap: wrap;
+        &Image{
+            width: 300px;
+            height: 300px;
+        }
+        &Card{
+            width: 90%;
+        }
+    }
+}

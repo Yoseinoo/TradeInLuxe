@@ -12,7 +12,7 @@
 						</label>
 					</div>
 				{% endif %}
-				<a class="produitContentGridCard">
+				<a class="produitContentGridCard" href="{{path('app_article', {'id':produit.id } )}}">
 
 
 					<img src="{{ asset(produit.pathImage) }}" class="produitContentGridCardImage" alt="Image 1">
