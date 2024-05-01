@@ -40,7 +40,12 @@ export default class extends Controller {
   }
 
   clickOutside(event) {
-    this.resultTarget.innerHTML = "";
+    const result = document.querySelectorAll(".accueilContentSearchFormContentPreview")
+
+    result.forEach(element => {
+      element.innerHTML="";
+    });
+    // this.resultTarget.innerHTML = "";
   }
 
   deleteResearch(event) {
