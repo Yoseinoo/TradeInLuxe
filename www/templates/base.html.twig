@@ -8,6 +8,9 @@
 			{% endblock %}
 		</title>
 		<link rel="icon" href="{{ asset('build/images/logo/tradeInLuxeLogo.svg') }}">
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
@@ -17,5 +20,8 @@
 		{% endblock %}
 	</head>
 	<body data-turbo="false"> {% block body %}{% endblock %}
-		</body>
-	</html>
+		<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	</body>
+</html>
