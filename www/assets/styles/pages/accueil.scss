@@ -116,14 +116,69 @@
     }
 }
 
-.produits{
-    &Content{
+.fonctionnement {
+    &Content {
         @extend .accueilContent;
         margin: 0 auto;
-        &Title{
+        max-width: inherit;
+        &Title {
             color: $secondary;
             font-size: 1.8em;
             text-align: center;
+            margin: 44px 0 64px 0;
+        }
+        &Cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 40px;
+            margin-top: 20px;
+            padding: 0 20px;
+            &Item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+                border: 1px solid #ccc;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                color: $secondary;
+                &Step {
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background-color: $primary;
+                    line-height: 20px;
+                    text-align: center;
+                    margin: 0 0 24px;
+                }
+                img {
+                    max-width: 100%;
+                    height: auto;
+                    margin-bottom: 10px;
+                }
+                &Description {
+                    margin-top: 0;
+                    a {
+                        color: $secondary;
+                        font-weight: 600;
+                        &:hover {
+                            color: $primary;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.produits{
+    &Content{
+        @extend .accueilContent;
+        margin: 0 auto 44px auto;
+        &Title{
+            @extend .fonctionnementContentTitle;
+            margin: 24px auto 64px auto;
         }
         &Grid{
             display: grid;
@@ -208,6 +263,12 @@
                 }
             }
         }
+    }
+
+    .slick-initialized .slick-slide {
+        display: flex;
+        margin: 0 8px;
+        height: 350px;
     }
     
 }

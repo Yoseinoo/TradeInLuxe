@@ -41,8 +41,10 @@ export default class extends Controller {
     });
     window.addEventListener("resize", () => {
       this.handleResize();
+      this.handleScreenSizeChange();
     });
     this.syncSearch();
+    this.initSlickSlider();
   }
 
   handleResize() {
@@ -71,7 +73,6 @@ export default class extends Controller {
 
     // Hauteur de défilement à partir du haut de la fenêtre
     var scrollHeight = window.scrollY;
-
     // Si l'écran est plus petit que 430px, affiche la barre de recherche
     if (window.innerWidth <= 430) {
       if (produitsSectionPosition <= scrollHeight) {
@@ -114,6 +115,38 @@ export default class extends Controller {
         isSyncing = false;
       }
     });
+  }
+
+  initSlickSlider() {
+    const isMobile = window.matchMedia("(max-width: 430px)").matches;
+
+    if (isMobile) {
+      $(".fonctionnementContentCards").slick({
+        infinite: false,
+        arrows: false,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            },
+          },
+        ],
+      });
+    }
+  }
+
+  handleScreenSizeChange() {
+    const isMobile = window.matchMedia("(max-width: 430px)").matches;
+    const slickInitialized = $(".fonctionnementContentCards").hasClass("slick-initialized");
+    if (isMobile && !slickInitialized) {
+      this.initSlickSlider();
+    } else if (!isMobile && slickInitialized) {
+      $(".fonctionnementContentCards").slick("unslick");
+    }
   }
   
 }
