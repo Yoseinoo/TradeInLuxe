@@ -3,7 +3,7 @@
 {% block title %}TradeInLuxe -
 	{{title}}
 {% endblock %}
-
+{# faire les cards et mettre le filtre de taille a gauche comme dans categorie + au clqiue sur une card on refresh juste le haut pour mettre le produit d'un user #}
 {% block body %}
 	{{ include('partials/_navbar.html.twig') }}
 	{{ include('partials/_categories.html.twig') }}
@@ -16,18 +16,25 @@
 				</div>
 				<div class="detailsContainerProduit">
 					<div class="detailsContainerProduitImage">
-						<img src="{{ asset(produit.pathImage) }}" alt="">
+						{% if produit.photos is not empty%}
+							<div class="slider-for">
+								{% for image in produit.photos %}
+									<img src="{{ asset('build/images/produits/' ~ image) }}" alt="">
+								{% endfor %}
+							</div>
+							<div class="slider-nav">
+								{% for image in produit.photos %}
+									<img src="{{ asset('build/images/produits/' ~ image) }}" alt="">
+								{% endfor %}
+							</div>
+						{% else %}
+							<img src="{{ asset(produit.pathImage) }}" alt="">
+						{% endif %}
 					</div>
+
 					<div class="detailsContainerProduitCard">
 						<div class="detailsContainerProduitCardAction">
-							<select name="tailles" class="detailsContainerProduitCardActionSelect">
-								<option value="">-- Choisir une taille --
-								</option>
-								<option value="35">35
-								</option>
-								<option value="36">36
-								</option>
-							</select>
+							<p>{{produit.description}}</p>
 							<hr>
 							<div class="detailsContainerProduitCardActionCertif">
 								<div class="detailsContainerProduitCardActionCertifVisible">
@@ -85,6 +92,155 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</section>
+		<section>
+			<div class="produitContentGrid">
+				<div>
+					<a class="produitContentGridCard" href="/article/221">
+
+
+						<img src="/build/images/accueil/chaussures.jpg" class="produitContentGridCardImage" alt="Image 1">
+						<p class="produitContentGridCardName">
+							Ahaussures Opyum Sandales en cuir verni
+						</p>
+						<span>Gucci</span>
+					</a>
+				</div>
+
+				<div>
+					<a class="produitContentGridCard" href="/article/222">
+
+
+						<img src="/build/images/accueil/chaussures.jpg" class="produitContentGridCardImage" alt="Image 1">
+						<p class="produitContentGridCardName">
+							Bhaussures Opyum Sandales en cuir verni
+						</p>
+						<span>Gucci</span>
+					</a>
+				</div>
+
+				<div>
+					<a class="produitContentGridCard" href="/article/223">
+
+
+						<img src="/build/images/accueil/chaussures.jpg" class="produitContentGridCardImage" alt="Image 1">
+						<p class="produitContentGridCardName">
+							Chaussures Opyum Sandales en cuir verni
+						</p>
+						<span>Gucci</span>
+					</a>
+				</div>
+
+				<div>
+					<a class="produitContentGridCard" href="/article/224">
+
+
+						<img src="/build/images/accueil/chaussures.jpg" class="produitContentGridCardImage" alt="Image 1">
+						<p class="produitContentGridCardName">
+							Dhaussures Opyum Sandales en cuir verni
+						</p>
+						<span>Gucci</span>
+					</a>
+				</div>
+
+				<div>
+					<a class="produitContentGridCard" href="/article/225">
+
+
+						<img src="/build/images/accueil/chaussures.jpg" class="produitContentGridCardImage" alt="Image 1">
+						<p class="produitContentGridCardName">
+							Ehaussures Opyum Sandales en cuir verni
+						</p>
+						<span>Gucci</span>
+					</a>
+				</div>
+
+				<div>
+					<a class="produitContentGridCard" href="/article/226">
+
+
+						<img src="/build/images/accueil/chaussures.jpg" class="produitContentGridCardImage" alt="Image 1">
+						<p class="produitContentGridCardName">
+							Fhaussures Opyum Sandales en cuir verni
+						</p>
+						<span>Gucci</span>
+					</a>
+				</div>
+
+				<div>
+					<a class="produitContentGridCard" href="/article/227">
+
+
+						<img src="/build/images/accueil/chaussures.jpg" class="produitContentGridCardImage" alt="Image 1">
+						<p class="produitContentGridCardName">
+							Fhaussures Opyum Sandales en cuir verni
+						</p>
+						<span>Louis Vuitton</span>
+					</a>
+				</div>
+
+				<div>
+					<a class="produitContentGridCard" href="/article/228">
+
+
+						<img src="/build/images/accueil/chaussures.jpg" class="produitContentGridCardImage" alt="Image 1">
+						<p class="produitContentGridCardName">
+							Ghaussures Opyum Sandales en cuir verni
+						</p>
+						<span>Louis Vuitton</span>
+					</a>
+				</div>
+
+				<div>
+					<a class="produitContentGridCard" href="/article/229">
+
+
+						<img src="/build/images/accueil/chaussures.jpg" class="produitContentGridCardImage" alt="Image 1">
+						<p class="produitContentGridCardName">
+							Hhaussures Opyum Sandales en cuir verni
+						</p>
+						<span>Louis Vuitton</span>
+					</a>
+				</div>
+
+				<div>
+					<a class="produitContentGridCard" href="/article/230">
+
+
+						<img src="/build/images/accueil/chaussures.jpg" class="produitContentGridCardImage" alt="Image 1">
+						<p class="produitContentGridCardName">
+							Chaussures Opyum Sandales en cuir verni
+						</p>
+						<span>Louis Vuitton</span>
+					</a>
+				</div>
+
+				<div>
+					<a class="produitContentGridCard" href="/article/231">
+
+
+						<img src="/build/images/accueil/chaussures.jpg" class="produitContentGridCardImage" alt="Image 1">
+						<p class="produitContentGridCardName">
+							Chaussures Opyum Sandales en cuir verni
+						</p>
+						<span>Hermès</span>
+					</a>
+				</div>
+
+				<div>
+					<a class="produitContentGridCard" href="/article/232">
+
+
+						<img src="/build/images/accueil/chaussures.jpg" class="produitContentGridCardImage" alt="Image 1">
+						<p class="produitContentGridCardName">
+							Chaussures Opyum Sandales en cuir verni
+						</p>
+						<span>Louis Vuitton</span>
+					</a>
+				</div>
+
+
 			</div>
 		</section>
 	</main>

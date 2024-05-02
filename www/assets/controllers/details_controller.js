@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
     connect() {
-
+        this.carousel();
     }
 
     showCertif(){
@@ -37,5 +37,23 @@ export default class extends Controller {
             chevronDown.style.display = 'none';
             chevronUp.style.display = 'block';
         }
+    }
+
+    carousel(){
+        $(".slider-for").slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            fade: true,
+            // asNavFor: ".slider-nav"
+            });
+            $(".slider-nav").slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            asNavFor: ".slider-for",
+            dots: false,
+            centerMode: true,
+            focusOnSelect: true
+            });
     }
 }

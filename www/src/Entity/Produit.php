@@ -35,6 +35,9 @@ class Produit
     #[ORM\Column]
     private ?bool $isEnabled = true;
 
+    #[ORM\Column(type: Types::ARRAY, nullable: false)]
+    private array $photos = [];
+
     #[ORM\Column]
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $createdAt = null;
@@ -130,6 +133,18 @@ class Produit
     public function setIsEnabled(bool $isEnabled): static
     {
         $this->isEnabled = $isEnabled;
+
+        return $this;
+    }
+
+    public function getPhotos(): ?array
+    {
+        return $this->photos;
+    }
+
+    public function setPhotos(array $photos): self
+    {
+        $this->photos = $photos;
 
         return $this;
     }

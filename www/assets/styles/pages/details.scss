@@ -31,15 +31,15 @@
                 &Action{
                     display: flex;
                     flex-direction: column;
-                    &Select{
-                        font-family: $font-family-primary;
-                        background-color: $white;
-                        font-size: 16px;
-                        border: 1px solid #dddddd;
-                        padding: 8px 16px;
-                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                        margin-bottom: 32px;
-                    }
+                    // &Select{
+                    //     font-family: $font-family-primary;
+                    //     background-color: $white;
+                    //     font-size: 16px;
+                    //     border: 1px solid #dddddd;
+                    //     padding: 8px 16px;
+                    //     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    //     margin-bottom: 32px;
+                    // }
                     &Certif{
                         &Visible{
                             display: flex;
@@ -106,18 +106,51 @@
             }
         }
     }
+    .slider-nav{
+        .slick-list{
+            display: flex;
+            justify-content: center;
+            padding: 0 !important;
+        }
+        .slick-track{
+            width: inherit !important;
+            margin: 16px 0 0 0;
+            display: flex;
+            gap: 16px;
+            img{
+                width: 75px !important;
+            }
+        }
+    }
 }
 
 
 @media (max-width: 430px) {
-    .detailsContainerProduit{
-        flex-wrap: wrap;
-        &Image{
-            width: 300px;
-            height: 300px;
+    .details {
+        &Container{
+            &Produit {
+                flex-wrap: wrap;  
+                gap: 64px;  
+                &Card {
+                    width: 90%;
+                }
+            }
         }
-        &Card{
-            width: 90%;
+            
+    
+            .slider-nav {
+                .slick-list {
+                    display: flex;
+                    justify-content: center;
+                    padding: 0 !important;
+                }
+    
+                .slick-track {    
+                    gap: 6px;
+                    img {
+                        height: 100%;
+                    }
+                }
+            }
         }
-    }
 }
