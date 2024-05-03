@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe - FAQ
+{% endblock %}
+
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+	{{ include('partials/_categories.html.twig') }}
+	<main>
+		{% if question == 'fonctionnement' %}
+			{{ include('page/FAQ/_fonctionnement.html.twig') }}
+		{% elseif question == 'points'%}
+			{{ include('page/FAQ/_points.html.twig') }}
+		{% elseif question == 'echanges'%}
+			{{ include('page/FAQ/_echanges.html.twig') }}
+			{% else %}
+		{% endif %}
+	</main>
+
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}

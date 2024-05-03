@@ -44,7 +44,7 @@
 						<img src="{{ asset('build/images/logo/settings.svg') }}" alt="Image 1">
 						<h3>Inscrivez-vous</h3>
 						<p class="fonctionnementContentCardsItemDescription">Complétez votre profil et accumulez des
-							<a href="#" title="En savoir plus sur le fonctionnement des points.">points</a>
+							<a href="{{path('app_faq', {'faq': 'points'})}}" title="En savoir plus sur le fonctionnement des points.">points</a>
 							!</p>
 					</div>
 					<div class="fonctionnementContentCardsItem">
@@ -58,7 +58,7 @@
 						<img src="{{ asset('build/images/logo/searchProduct.svg') }}" alt="Image 3">
 						<h3>Recherche et sélection</h3>
 						<p class="fonctionnementContentCardsItemDescription">Recherchez l'article de vos rêves et proposez un
-							<a href="#" title="En savoir plus sur le fonctionnement des échanges.">échange</a>.</p>
+							<a href="{{path('app_faq', {'faq': 'echanges'})}}" title="En savoir plus sur le fonctionnement des échanges.">échange</a>.</p>
 					</div>
 					<div class="fonctionnementContentCardsItem">
 						<p class="fonctionnementContentCardsItemStep">4</p>

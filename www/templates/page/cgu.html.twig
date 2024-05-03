@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe - Termes et Conditions
+{% endblock %}
+
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+	{{ include('partials/_categories.html.twig') }}
+	<main>
+		<section class="engagements">
+			<div class="engagementsContent">
+				<h1 class="engagementsContentTitle">Charte de conformité</h1>
+				<h2>Autorisations d'échange :
+				</h2>
+
+				<ul class="valeursContentListe">
+					<li>
+						<strong>Articles en bon état :</strong>
+						Seuls les articles vestimentaires, chaussures et sacs en bon état sont autorisés à être échangés. Cela inclut les articles propres, sans déchirures, sans taches majeures et avec toutes les parties fonctionnelles en bon état.
+					</li>
+					<li>
+						<strong>Articles de marque authentique :</strong>
+						Seuls les articles de marque authentique sont autorisés à être échangés. Les contrefaçons ou les articles de contrefaçon ne seront pas tolérés.
+					</li>
+					<li>
+						<strong>Articles conformes aux réglementations :</strong>
+						Les articles proposés à l'échange doivent être conformes à toutes les réglementations locales et internationales en matière de commerce et de vente d'articles vestimentaires, chaussures et sacs.
+					</li>
+					<li>
+						<strong>Respect de la propriété intellectuelle :</strong>
+						Les utilisateurs doivent respecter les droits de propriété intellectuelle des marques déposées. Les articles contrefaits ou piratés ne seront pas autorisés à être échangés sur la plateforme.
+					</li>
+				</ul>
+
+
+			</div>
+			<div class="engagementsContent">
+				<h1 class="engagementsContentTitle">Charte de conformité</h1>
+				<h2>Restrictions d'échange :
+				</h2>
+				<ul class="valeursContentListe">
+					<li>
+						<strong>Articles endommagés :</strong>
+						Les articles présentant des dommages importants, des déchirures, des taches permanentes ou des défauts majeurs ne seront pas autorisés à être échangés.
+					</li>
+					<li>
+						<strong>Articles non conformes :</strong>
+						Les articles ne respectant pas les réglementations en matière de sécurité ou de santé publique ne seront pas autorisés à être échangés.
+					</li>
+					<li>
+						<strong>Contrefaçons :</strong>
+						Les articles contrefaits, faux ou piratés ne seront pas autorisés à être échangés sur la plateforme. Nous encourageons la promotion de produits authentiques et légitimes.
+					</li>
+					<li>
+						<strong>Articles inappropriés :</strong>
+						Les articles offensants, discriminatoires, illégaux ou inappropriés ne seront pas autorisés à être échangés sur la plateforme.
+					</li>
+					<li>
+						<strong>Articles non sécurisés :</strong>
+						Les articles présentant des risques pour la sécurité des utilisateurs, tels que les produits contenant des matériaux dangereux ou les articles défectueux, ne seront pas autorisés à être échangés.
+					</li>
+				</ul>
+				<p class="engagementsContentTexte">En acceptant cette charte, les utilisateurs s'engagent à respecter ces règles et à contribuer à maintenir un environnement sûr, légal et respectueux pour tous les échanges d'articles vestimentaires, chaussures et sacs sur notre plateforme d'échange.</p>
+			</div>
+
+		</section>
+
+	</main>
+
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}

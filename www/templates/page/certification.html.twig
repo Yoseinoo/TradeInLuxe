@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe - Certification Luxe
+{% endblock %}
+
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+	{{ include('partials/_categories.html.twig') }}
+	<main>
+		<section class="engagements">
+			<div class="engagementsContent">
+				<h1 class="engagementsContentTitle">Qu’est-ce que le service de Vérification de l’article ?</h1>
+				<h2>Certification Luxe</h2>
+
+				<p class="engagementsContentTexte">Ce service offre la possibilité de certifier l'authenticité des articles proposés. Il est accessible gratuitement aussi bien pour les acheteurs que pour les vendeurs. Une équipe d'experts basée en France est dédiée à la vérification de chaque article lors des transactions, garantissant ainsi leur légitimité.
+				</p>
+
+				<p class="engagementsContentTexte">La vérification de l'authenticité des produits de luxe peut varier en fonction de la complexité et du type de produit. En général, ce processus peut prendre entre 24 à 48 heures. Cependant, dans certains cas, cela peut prendre plus de temps, notamment si une expertise approfondie est nécessaire.
+				</p>
+
+				<p class="engagementsContentTexte">Il est essentiel de consacrer le temps nécessaire pour garantir l'authenticité des produits, surtout dans le secteur du luxe où la contrefaçon est courante. Une vérification minutieuse est donc cruciale pour maintenir la confiance des clients et assurer la qualité des échanges sur la plateforme Tradeinluxe.
+				</p>
+
+			</div>
+
+		</section>
+
+	</main>
+
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}

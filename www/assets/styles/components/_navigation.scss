@@ -61,7 +61,7 @@
             padding: 0;
         }
 
-        a {
+        &Inscription, &Connexion{
             text-decoration: none;
             color: $secondary;
             background-color: $primary;
@@ -72,6 +72,17 @@
 
             &:hover {
                 background-color: $white;
+            }
+        }
+        &Question{
+            text-decoration: underline;
+            color: $white;
+            font-size: 14px;
+            padding: 0.5rem 1rem;
+            margin-left: 0.5rem;
+
+            &:hover {
+                color: $primary;
             }
         }
     }
@@ -125,9 +136,15 @@
                     border-bottom: 1px solid #e3e3e3;
                     a{
                         display: inline-block;
-                        width: 100px;
+                        width: 160px;
                         margin: 0;
                     }
+                }
+            }
+            &Question{
+                color: $secondary;
+                &:hover {
+                    color: inherit;
                 }
             }
         }
