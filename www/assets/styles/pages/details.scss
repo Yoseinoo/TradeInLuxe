@@ -53,10 +53,16 @@
                         color: $valid;
                     }
                     .B {
-                        color: $valid;
+                        color: $B;
                     }
                     .C {
-                        color: $valid;
+                        color: $C;
+                    }
+                    &Points{
+                        color: $points;
+                        font-weight: 500;
+                        font-size: 20px;
+                        margin: 0;
                     }
                     &Certif{
                         &Visible{
@@ -208,10 +214,10 @@
                     color: $valid;
                 }
                 .B {
-                    color: $valid;
+                    color: $B;
                 }
                 .C {
-                    color: $valid;
+                    color: $C;
                 }
                 
             }

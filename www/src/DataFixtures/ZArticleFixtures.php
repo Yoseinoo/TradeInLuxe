@@ -42,6 +42,7 @@ class ZArticleFixtures extends Fixture implements FixtureGroupInterface
                     'rush1.avif', 'rush2.avif', 'rush3.avif', 'rush4.avif'
                 ],
                 'etat' => 'Neuf',
+                'points' => 560
             ],
             [
                 'name' => 'Sneaker LV Rush', 'description' => "Dévoilée lors du défilé Croisière 2024, cette sneaker LV Rush présente un mélange de matières dont du cuir de veau lisse et velours. Le directeur artistique, Nicolas Ghesquière, s'est inspiré des chaussures de trail pour la concevoir. Elle intègre parmi d'autres détails phares un accessoire LV Circle métallique et une semelle extérieure en forme de vague.", "image" => "rush1.avif", 'caracteristiques' => [
@@ -52,7 +53,8 @@ class ZArticleFixtures extends Fixture implements FixtureGroupInterface
                 'photos' => [
                     'rush1.avif', 'rush2.avif', 'rush3.avif', 'rush4.avif'
                 ],
-                'etat' => 'Neuf',
+                'etat' => 'Très bon état',
+                'points' => 360
             ]
         ];
 
@@ -68,6 +70,7 @@ class ZArticleFixtures extends Fixture implements FixtureGroupInterface
             $entity->setPathImage($article['image']);
             $entity->setPhotos($article['photos']);
             $entity->setEtat($article['etat']);
+            $entity->setPoints($article['points']);
             $entity->setIsValidated(true);
 
 

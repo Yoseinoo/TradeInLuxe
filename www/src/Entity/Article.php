@@ -46,6 +46,9 @@ class Article
     #[ORM\Column(length: 180)]
     private ?string $etat = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $points = null;
+
     // #[ORM\Column(type: Types::TEXT, nullable: false)]
     // private ?string $composition = null;
 
@@ -186,6 +189,18 @@ class Article
     public function setEtat(string $etat): static
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getPoints(): ?int
+    {
+        return $this->points;
+    }
+
+    public function setPoints(int $points): static
+    {
+        $this->points = $points;
 
         return $this;
     }
