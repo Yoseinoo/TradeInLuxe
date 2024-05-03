@@ -26,6 +26,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             ->setFirstname('Martin')
             ->setLastname('Simon')
             ->setIsVerified(true)
+            ->setPathImage('1704282889870.jpg')
             ->setPlainPassword('password');
 
             $manager->persist($user);

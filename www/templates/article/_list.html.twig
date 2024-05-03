@@ -1,0 +1,53 @@
+{% if pager|length %}
+	<div class="articleContentGrid">
+		{% for article in pager %}
+			<div>
+				<a class="articleContentGridCard" href="{{path('app_article_detail', {'id':produit.id, 'idArticle' : article.id } )}}">
+
+
+					<img src="{{ asset('build/images/produits/' ~ article.pathImage) }}" class="articleContentGridCardImage" alt="Image 1">
+					<p class="articleContentGridCardName">
+						{{ article.name | slice(0, 40) }}
+						{% if article.name | length > 40 %}...
+						{% endif %}
+					</p>
+					<span>{{article.caracteristiques.Marque}}</span>
+					<div class="articleContentGridCardUser">
+						{% if article.user.pathImage is not null %}
+							<img src="{{ asset('build/images/uploads/user/' ~ article.user.pathImage) }}" alt="" class="articleContentGridCardUserImage">
+						{% else %}
+							<svg width="22" height="22" fill="none" stroke="#2e2e2e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+								<path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+								<path d="M21 22a9 9 0 1 0-18 0"></path>
+							</svg>
+						{% endif %}
+						<p class="articleContentGridCardUserName">{{article.user.firstname ~ ' ' ~ article.user.lastname}}</p>
+					</div>
+					<p class="articleContentGridCardEtat {% if article.etat == 'Neuf' %}A{% elseif article.etat == 'Très bon état' %}B{% else %}C{% endif %}">{{article.etat}}</p>
+				</a>
+			</div>
+
+		{% endfor %}
+
+
+	</div>
+
+	{% if pager.haveToPaginate %}
+		<div class="containerPagination">
+			{% set pager_with_translated_labels = pagerfanta(pager)|replace({'Previous': 'Précédent', 'Next': 'Suivant'}) %}
+			{{ pager_with_translated_labels|raw }}
+		</div>
+	{% endif %}
+{% else %}
+	{% if selected is not empty %}
+		<div class="noresult">
+			<h3 class="noresultTitle">Désolé, aucun résultat n’a été trouvé</h3>
+			<p class="noresultTexte">Veuillez modifier vos critères de recherche.</p>
+		</div>
+	{% else %}
+		<div class="noresult">
+			<h3 class="noresultTitle">Désolé, aucun résultat n’a été trouvé</h3>
+			<p class="noresultTexte">Aucun article n'est proposé à l'échange.</p>
+		</div>
+	{% endif %}
+{% endif %}

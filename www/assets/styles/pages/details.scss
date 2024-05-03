@@ -1,0 +1,286 @@
+.details{
+    @extend .containerDescription;
+    &Container{
+        &Content{
+            &Subtitle{
+                font-size: 22px;
+                color: $muted;
+                font-style: italic;
+            }
+        }
+        &Produit{
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            &Image{
+                width: 400px;
+                height: 480px;
+                img{
+                    max-width: 100%;
+                    height: auto;
+                }
+            }
+            &Card{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-family: $font-family-primary;
+                width: 500px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                &Action{
+                    display: flex;
+                    flex-direction: column;
+                    &User{
+                        @extend .articleContentGridCardUser;
+                        flex-direction: column;
+                        &Image{
+                            border-radius: 50%;
+                            width: 200px;
+                            height: 200px;
+                        }
+                        &Name{
+                            margin-top: 16px;
+                            font-size: 20px;
+                            font-weight: 500;
+                        }
+                    }
+                    &Etat {
+                        font-weight: 500;
+                        font-size: 20px;
+                    } 
+                    .A {
+                        color: $valid;
+                    }
+                    .B {
+                        color: $B;
+                    }
+                    .C {
+                        color: $C;
+                    }
+                    &Points{
+                        color: $points;
+                        font-weight: 500;
+                        font-size: 20px;
+                        margin: 0;
+                    }
+                    &Certif{
+                        &Visible{
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            &Text{
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                                font-weight: 500;
+                            }
+                            &Button{
+                                display: flex;
+                                border: none;
+                                background-color: inherit;
+                                &:hover{
+                                    cursor: pointer;
+                                }
+                            }
+                        } 
+                        &Hidden{
+                            display: none;
+                            font-size: 14px;
+                            color: $muted;
+                            font-weight: 400;
+                            a{
+                                color: $secondary;
+                                font-weight: 500;
+                            }
+                        }                      
+                    }
+                    &Engagement{
+                        @extend .detailsContainerProduitCardActionCertif;
+                        &Visible{
+                            @extend .detailsContainerProduitCardActionCertifVisible;
+                            &Text{
+                                @extend .detailsContainerProduitCardActionCertifVisibleText;
+                            }
+                            &Button{
+                                @extend .detailsContainerProduitCardActionCertifVisibleButton;
+                            }
+                        } 
+                        &Hidden{
+                            @extend .detailsContainerProduitCardActionCertifHidden;
+                        }            
+                    }
+                    hr{
+                        width: 100%;
+                    }
+                    &Button{
+                        font-family: $font-family-primary;
+                        color: $secondary;
+                        background-color: $primary;
+                        padding: 0.5rem 1rem;
+                        transition: background-color 0.3s;
+                        border: none;
+                        margin-top: 32px;
+                        font-size: 16px;
+                        &:hover{
+                            background-color: $bg-color-secondary;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .slider-nav{
+        .slick-list{
+            display: flex;
+            justify-content: center;
+            padding: 0 !important;
+        }
+        .slick-track{
+            width: inherit !important;
+            margin: 16px 0 0 0;
+            display: flex;
+            gap: 16px;
+            img{
+                width: 75px !important;
+            }
+        }
+    }
+}
+
+.article {
+   @extend .produit;
+    &Filtre {
+        &Form{
+             @extend .produitFiltreForm;
+        }
+       
+        &Type {
+            @extend .produitFiltreType;
+        }
+
+        &Tailles {
+            @extend .produitFiltreTailles;
+        }
+
+        &TaillesVetements {
+            @extend .produitFiltreTaillesVetements;
+
+            label {
+                width: 50%;
+            }
+        }
+
+        &Show {
+            @extend .containerDescriptionContentBouton;
+        }
+    }
+
+    &Content {
+        @extend .produitContent;
+        &Grid {
+            @extend .produitContentGrid;
+            &Card {
+                @extend .produitContentGridCard;
+                &Image {
+                    @extend .produitContentGridCardImage;
+                }
+
+                &Name {
+                    @extend .produitContentGridCardName;
+                }
+
+                &User{
+                    display: flex; 
+                    align-items: center; 
+                    width: 100%; 
+                    justify-content: space-evenly;
+                    margin-top: 8px;
+                    &Image{
+                        width: 30px; 
+                        height: 30px; 
+                        border-radius: 50%;
+                    }
+                    &Name{
+                        margin: 0;
+                    }
+                }
+                &Etat {
+                    margin-top: 0;
+                   
+                } 
+                .A {
+                    color: $valid;
+                }
+                .B {
+                    color: $B;
+                }
+                .C {
+                    color: $C;
+                }
+                
+            }
+        }
+
+        .noresult {
+            @extend .noresult;
+
+            &Title {
+                @extend .noresultTitle;
+            }
+
+            &Texte {
+                @extend .noresultTexte;
+            }
+        }
+    }
+
+    .containerPagination {
+        @extend .containerPagination;
+
+        .pagination {
+            @extend .pagination;
+        }
+
+        .pagination__item {
+            @extend .pagination__item;
+        }
+
+        .pagination__item--current-page {
+            @extend .pagination__item--current-page ;
+        }
+
+    }
+}
+
+
+@media (max-width: 430px) {
+    .details {
+        &Container{
+            &Produit {
+                flex-wrap: wrap;  
+                gap: 64px;  
+                &Card {
+                    width: 90%;
+                }
+            }
+        }
+            
+    
+            .slider-nav {
+                .slick-list {
+                    display: flex;
+                    justify-content: center;
+                    padding: 0 !important;
+                }
+    
+                .slick-track {    
+                    gap: 6px;
+                    img {
+                        height: 100%;
+                    }
+                }
+            }
+        }
+}

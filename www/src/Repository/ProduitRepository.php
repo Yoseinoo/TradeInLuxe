@@ -84,6 +84,13 @@ class ProduitRepository extends ServiceEntityRepository
             ->setParameter('name', $args['name']);
         }
 
+        if (!empty($args['id'])) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('produit.id', ':id')
+            )
+            ->setParameter('id', $args['id']);
+        }
+
         if (!empty($filtres)) {
 
             $andConditions = [];

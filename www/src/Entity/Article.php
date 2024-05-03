@@ -40,11 +40,17 @@ class Article
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pathImage = null;
 
+    #[ORM\Column(type: Types::ARRAY, nullable: false)]
+    private array $photos = [];
+
     #[ORM\Column(length: 180)]
     private ?string $etat = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: false)]
-    private ?string $composition = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $points = null;
+
+    // #[ORM\Column(type: Types::TEXT, nullable: false)]
+    // private ?string $composition = null;
 
     #[ORM\Column]
     private ?bool $isEnabled = true;
@@ -163,6 +169,18 @@ class Article
         return $this;
     }
 
+    public function getPhotos(): ?array
+    {
+        return $this->photos;
+    }
+
+    public function setPhotos(array $photos): self
+    {
+        $this->photos = $photos;
+
+        return $this;
+    }
+
     public function getEtat(): ?string
     {
         return $this->etat;
@@ -175,17 +193,29 @@ class Article
         return $this;
     }
 
-    public function getComposition(): ?string
+    public function getPoints(): ?int
     {
-        return $this->composition;
+        return $this->points;
     }
 
-    public function setComposition(string $composition): static
+    public function setPoints(int $points): static
     {
-        $this->composition = $composition;
+        $this->points = $points;
 
         return $this;
     }
+
+    // public function getComposition(): ?string
+    // {
+    //     return $this->composition;
+    // }
+
+    // public function setComposition(string $composition): static
+    // {
+    //     $this->composition = $composition;
+
+    //     return $this;
+    // }
 
     public function isEnabled(): ?bool
     {

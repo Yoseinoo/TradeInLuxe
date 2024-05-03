@@ -23,6 +23,7 @@ class MarqueFixtures extends Fixture implements FixtureGroupInterface
             ['name' => 'Louis Vuitton'],
             ['name' => 'Chanel'],
             ['name' => 'Hermès'],
+            ['name' => 'Yves Saint Laurent'],
         ]);
     }
     

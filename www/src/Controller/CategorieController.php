@@ -107,7 +107,7 @@ class CategorieController extends AbstractController
         
         $filtres = [
             'Marques' => $marques,
-            'Tailles' => $tailles,
+            // 'Tailles' => $tailles,
             'Couleurs'=> $couleurs
         ];
 
