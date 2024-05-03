@@ -15,21 +15,22 @@
 			<p class="footerContentSectionTitle">FAQ</p>
 			<ul class="footerContentSectionLinks">
 				<li>
-					<a href="#">Comment ça marche ?</a>
+					<a href="{{path('app_faq', {'faq': 'fonctionnement'})}}">Comment ça marche ?</a>
 				</li>
 				<li>
-					<a href="#">Vendre</a>
+					<a href="{{path('app_faq', {'faq': 'points'})}}">Points</a>
 				</li>
 				<li>
-					<a href="#">Acheter</a>
+					<a href="{{path('app_faq', {'faq': 'echanges'})}}">Transport et échanges</a>
 				</li>
 			</ul>
 		</div>
 	</div>
 	<div class="footerBottom">
 		<div class="footerBottomLinks">
-			<a href="#privacy">Politique de Confidentialité</a>
-			<a href="#terms">Termes et Conditions</a>
+			<a href="{{path('app_politique')}}">Politique de Confidentialité</a>
+			<a href="{{path('app_cgu')}}">Termes et Conditions</a>
+			<a href="{{path('app_certification')}}">Certification luxe</a>
 		</div>
 	</div>
 </footer>

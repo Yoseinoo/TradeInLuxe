@@ -60,7 +60,9 @@
 				{{ form_widget(form.plainPassword.second)}}
 				<div class="formulaireCardFormTermes">
 					{{ form_widget(form.acceptTerms)}}
-					{{ form_label(form.acceptTerms)}}
+					<label for="registration_form_acceptTerms" class="required">J'accepte les
+						<a href="{{path('app_cgu')}}" target="_blank">conditions générales d'utilisation</a>
+					</label>
 				</div>
 
 				{% if form.acceptTerms.vars.errors|length > 0 %}

@@ -1,0 +1,43 @@
+.faq{
+    @extend .engagements;
+    &Content{
+        @extend .engagementsContent;
+        &Title{
+            @extend .engagementsContentTitle;
+        }&Texte{
+            @extend .engagementsContentTexte;
+            
+            }
+            &Task{
+                width: 600px;
+                margin: 64px auto 20px;
+                background-color: $bg-color-secondary;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                &Title{
+                    text-align: center;
+                    font-size: 1.5rem;
+                    margin-bottom: 10px;
+                }
+                &List{
+                    list-style-type: none;
+		            padding: 0;
+                    &Item{
+                        display: flex;
+                        justify-content: space-between;
+                        margin: 24px 0;
+                        &Points{
+                            font-weight: bold;
+                            color: $valid;
+                        }
+                    }
+                }
+            }
+    }
+}
+
+@media(max-width: 430px) {
+    .faqContentTask{
+        width: inherit;
+    }
+}

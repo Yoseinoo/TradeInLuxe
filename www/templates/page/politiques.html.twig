@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe - Politique de Confidentialité
+{% endblock %}
+
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+	{{ include('partials/_categories.html.twig') }}
+	<main>
+		<section class="engagements">
+			<div class="engagementsContent">
+				<h1 class="engagementsContentTitle">Politique de confidentialité</h1>
+
+				<p class="engagementsContentTexte">Nous accordons une grande importance à la confidentialité de vos données personnelles. Cette politique de confidentialité décrit les informations que nous collectons, comment nous les utilisons et les partageons, et les choix que vous avez concernant ces informations.</p>
+
+				<h2 class="engagementsContentTitle">Collecte et utilisation des informations</h2>
+				<p class="engagementsContentTexte">Nous collectons divers types d'informations à différentes fins pour fournir et améliorer nos services.</p>
+
+				<h2 class="engagementsContentTitle">Types de données collectées</h2>
+				<ul class="engagementsContentListe">
+					<li>Données personnelles : Nom, adresse e-mail, numéro de téléphone, etc.</li>
+					<li>Données d'utilisation : Informations sur la manière dont vous utilisez notre site web ou notre application.</li>
+					<li>Données de suivi et de cookies : Nous utilisons des cookies et des technologies de suivi similaires pour suivre l'activité sur notre service.</li>
+				</ul>
+
+				<h2 class="engagementsContentTitle">Utilisation des données</h2>
+				<p class="engagementsContentTexte">Nous utilisons les données collectées à diverses fins, notamment pour :</p>
+				<ul class="engagementsContentListe">
+					<li>Fournir et maintenir notre service.</li>
+					<li>Vous informer des changements apportés à notre service.</li>
+					<li>Vous permettre de participer aux fonctionnalités interactives de notre service lorsque vous le souhaitez.</li>
+					<li>Fournir un service client et un support.</li>
+					<li>Fournir des analyses ou des informations précieuses afin que nous puissions améliorer notre service.</li>
+					<li>Surveiller l'utilisation de notre service.</li>
+				</ul>
+
+				<h2 class="engagementsContentTitle">Partage des données</h2>
+				<p class="engagementsContentTexte">Nous pouvons partager vos données personnelles dans les situations suivantes :</p>
+				<ul class="engagementsContentListe">
+					<li>Avec des prestataires de services tiers pour faciliter notre service.</li>
+					<li>Pour se conformer à une obligation légale.</li>
+					<li>Pour protéger et défendre les droits ou la propriété de notre entreprise.</li>
+					<li>Pour prévenir ou enquêter sur d'éventuelles violations de notre politique.</li>
+				</ul>
+
+				<h2 class="engagementsContentTitle">Conservation des données</h2>
+				<p class="engagementsContentTexte">Nous ne conservons vos données personnelles que le temps nécessaire aux fins énoncées dans cette politique de confidentialité.</p>
+
+				<h2 class="engagementsContentTitle">Sécurité des données</h2>
+				<p class="engagementsContentTexte">La sécurité de vos données est importante pour nous, mais n'oubliez pas qu'aucune méthode de transmission sur Internet ou méthode de stockage électronique n'est sûre à 100%.</p>
+
+				<h2 class="engagementsContentTitle">Droits des utilisateurs</h2>
+				<p class="engagementsContentTexte">Vous avez le droit de demander l'accès, la rectification, la suppression ou la limitation du traitement de vos données personnelles.</p>
+
+				<h2 class="engagementsContentTitle">Modifications de cette politique de confidentialité</h2>
+				<p class="engagementsContentTexte">Nous nous réservons le droit de mettre à jour notre politique de confidentialité à tout moment. Nous vous informerons de toute modification en publiant la nouvelle politique de confidentialité sur cette page.</p>
+
+				<h2 class="engagementsContentTitle">Contactez-nous</h2>
+				<p class="engagementsContentTexte">Si vous avez des questions sur cette politique de confidentialité, veuillez nous
+					<a href="{{path('app_contact')}}">contacter</a>.
+				</p>
+			</div>
+
+		</section>
+
+	</main>
+
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}
