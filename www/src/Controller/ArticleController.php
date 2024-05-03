@@ -55,6 +55,39 @@ class ArticleController extends AbstractController
         ]);
     }
 
+    #[Route('/details/{id}/{idArticle}/{page<\d+>}', name: 'app_article_detail')]
+    public function article(Request $request, int $page = 1): Response
+    {
+
+        $id = $request->attributes->get('id');
+        $idArticle = $request->attributes->get('idArticle');
+
+        $produit = $this->produitRepository->findOneBy(['id' => $id, 'isEnabled' => true, 'deletedAt' => null]);
+        $idCategorie = $produit->getCategorie()->getId();
+        $article = $this->articleRepository->findOneBy(['id' => $idArticle, 'isEnabled' => true, 'deletedAt' => null, 'isValidated'=> true]);
+
+        $formData = [];
+        if ($request->isMethod('POST')) {
+            $formData = $request->request->all();
+        }else{
+            $formData = $request->query->all() != null ? $request->query->all() : [];
+        }
+
+        $template = $request->isXmlHttpRequest() ? '_list.html.twig' : 'index.html.twig';
+
+        $data = $this->getFiltres($idCategorie);
+        $pagerfanta = $this->getProduitsPager($id, $page, $formData);
+
+        return $this->render('article/'.$template, [
+            'article' => $article,
+            'title' => 'Détails',
+            'produit' => $produit,
+            'pager' => $pagerfanta,
+            'filtresParType' => $data['filtresParType'],
+            'selected' => $formData
+        ]);
+    }
+
     private function getFiltres(int $categorieId): array
     {
         $tailles = $this->tailleRepository->findBy(['categorie' => $categorieId,'deletedAt' => null, 'isEnabled' => true]);
@@ -81,7 +114,7 @@ class ArticleController extends AbstractController
 
         $queryBuilder = $this->articleRepository->getAllQueryBuilder($params, $filtres);
         $pagerfanta = new Pagerfanta(new QueryAdapter($queryBuilder));
-        $pagerfanta->setMaxPerPage(1);
+        $pagerfanta->setMaxPerPage(12);
         $pagerfanta->getNbPages() > 1 ? $pagerfanta->setCurrentPage($page) : '';
 
         return $pagerfanta;

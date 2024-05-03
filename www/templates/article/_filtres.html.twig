@@ -1,7 +1,7 @@
 <form method="post" class="articleFiltreForm" {{stimulus_controller('form-filtre')}}>
 
 	{% for type, filtres in filtresParType %}
-		<div class="articleFiltre{{ type == 'Tailles' ? type : 'Type'}}{{title == 'Vêtements' and type == 'Tailles' ? 'Vetements' : '' }}" {{stimulus_controller('categorie')}}>
+		<div class="articleFiltre{{ type == 'Tailles' ? type : 'Type'}}{{produit.categorie.name == 'Vêtements' and type == 'Tailles' ? 'Vetements' : '' }}" {{stimulus_controller('categorie')}}>
 			<h2>{{ type }}</h2>
 			<ul data-categorie-target="filtres">
 				{% for filtre in filtres %}
