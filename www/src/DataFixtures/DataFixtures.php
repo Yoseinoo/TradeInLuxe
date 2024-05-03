@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Taille;
 use App\Entity\Produit;
 use App\Entity\Categorie;
+use App\Entity\Etat;
 use App\Repository\CategorieRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -304,6 +305,13 @@ class DataFixtures extends Fixture implements FixtureGroupInterface
             ['name' => '42', 'rank' => 7],
             ['name' => '43', 'rank' => 8],
         ]);
+
+        $this->addEtat($manager, [
+            ['name' => 'Neuf', 'rank' => 1],
+            ['name' => 'Très bon état', 'rank' => 2],
+            ['name' => 'Bon état', 'rank' => 3],
+
+        ]);
     }
 
     private function addTailles(ObjectManager $manager, $categorie, $filtres)
@@ -311,6 +319,19 @@ class DataFixtures extends Fixture implements FixtureGroupInterface
         foreach ($filtres as $filtreData) {
             $filtre = new Taille();
             $filtre->setCategorie($categorie);
+            $filtre->setName($filtreData['name']);
+            $filtre->setRank($filtreData['rank']);
+
+            $manager->persist($filtre);
+        }
+
+        $manager->flush();
+    }
+
+    private function addEtat(ObjectManager $manager, $filtres)
+    {
+        foreach ($filtres as $filtreData) {
+            $filtre = new Etat();
             $filtre->setName($filtreData['name']);
             $filtre->setRank($filtreData['rank']);
 

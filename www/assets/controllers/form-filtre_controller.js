@@ -73,7 +73,10 @@ export default class extends Controller {
           // Supprimer les paramètres de l'URL qui ne sont pas dans les cases cochées
           const paramsToRemove = Array.from(url.searchParams.keys()).filter((key) => !checkedFilters.includes(key) && key !== 'triProduits');
           paramsToRemove.forEach((param) => url.searchParams.delete(param));
-  
+          const newUrl = url.search;
+
+          window.history.pushState({}, '', newUrl);
+
           link.href = url.href;
       });
   },
@@ -105,6 +108,16 @@ export default class extends Controller {
 
     const select = document.getElementById('triProduits');
     select.selectedIndex = 0; // Sélectionnez la première option du select.
+
+    // Supprimer tous les paramètres de l'URL
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    urlSearchParams.forEach((value, key) => {
+        urlSearchParams.delete(key);
+    });
+
+    // Mettre à jour l'URL sans paramètres
+    const newUrl = window.location.origin + window.location.pathname;
+    window.history.pushState({}, '', newUrl);
 
     // Appelez la méthode d'envoi de formulaire pour mettre à jour les résultats.
     this.sendFormData();

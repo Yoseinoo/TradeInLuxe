@@ -1,9 +1,9 @@
 <div class="resultat">
 	{% for produit in produits %}
-		<a class="resultatLien" href="#{{produit.id}}">
+		<a class="resultatLien" href="{{path('app_article', {'id':produit.id } )}}">
 			<div class="resultatLienContent">
 				<div class="resultatLienContentList">
-					<img alt="{{ produit.name }}" src="{{ asset(produit.pathImage) }}" class="resultatLienContentListImage">
+					<img alt="{{ produit.name }}" src="{{ asset('build/images/produits/' ~ produit.pathImage) }}" class="resultatLienContentListImage">
 					<span class="resultatLienContentListName">
 						{{ produit.name }}</span>
 				</div>

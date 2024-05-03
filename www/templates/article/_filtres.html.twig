@@ -1,0 +1,16 @@
+<form method="post" class="articleFiltreForm" {{stimulus_controller('form-filtre')}}>
+
+	{% for type, filtres in filtresParType %}
+		<div class="articleFiltre{{ type == 'Tailles' ? type : 'Type'}}{{title == 'Vêtements' and type == 'Tailles' ? 'Vetements' : '' }}" {{stimulus_controller('categorie')}}>
+			<h2>{{ type }}</h2>
+			<ul data-categorie-target="filtres">
+				{% for filtre in filtres %}
+					<li>
+						<input type="checkbox" id="{{ type }}_{{ filtre.id }}" name="{{ type }}[]" value="{{ filtre.name }}" {% if selected[type] is defined %} {% if filtre.name in selected[type] %} checked {% endif %} {% endif %}>
+						<label for="{{ type }}_{{ filtre.id }}">{{ filtre.name }}</label>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endfor %}
+</form>
