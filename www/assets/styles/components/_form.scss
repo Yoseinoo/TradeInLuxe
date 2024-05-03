@@ -43,6 +43,10 @@
                 margin: 10px 0;
                 border: 1px solid #ddd;
             }
+            textarea{
+                max-width: 478px;
+                min-width: 478px;
+            }
 
             &Requirement{
                 display: none;
@@ -122,6 +126,10 @@
     .formulaire {
         &Card {
             width: 350px;
+            textarea{
+                max-width: 328px;
+                min-width: 328px;
+            }
         }
     }
 }
