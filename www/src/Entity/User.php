@@ -55,6 +55,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(min:2, max:180)]
     private ?string $city = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $points = null;
+
     #[ORM\Column]
     private ?bool $isEnabled = true;
 
@@ -195,6 +198,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getAddress(): ?string
     {
         return $this->postcode . ' ' . $this->city;
+    }
+
+    public function getPoints(): ?int
+    {
+        return $this->points;
+    }
+
+    public function setPoints(int $points): static
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    public function addPoints(int $pointsToAdd): static
+    {
+        $currentPoints = $this->getPoints();
+
+        if ($currentPoints !== null) {
+            $this->setPoints($currentPoints + $pointsToAdd);
+        } else {
+            $this->setPoints($pointsToAdd);
+        }
+
+        return $this;
     }
 
     public function isEnabled(): ?bool

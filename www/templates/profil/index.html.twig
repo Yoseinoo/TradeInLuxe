@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe - Profil
+{% endblock %}
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+
+	<main>
+
+		{{ include('partials/_sidebar.html.twig') }}
+		<section class="profil">
+			<div class="profilContainer">
+				<div class="profilContainerContent">
+					{% if user.pathImage is not null %}
+						<img src="{{ asset('build/images/uploads/user/' ~ user.pathImage) }}" alt="" class="profilContainerContentImage">
+					{% else %}
+						<svg width="22" height="22" fill="none" stroke="#2e2e2e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+							<path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+							<path d="M21 22a9 9 0 1 0-18 0"></path>
+						</svg>
+					{% endif %}
+					<p class="profilContainerContentName">{{user.firstname ~ ' ' ~ user.lastname}}</p>
+					<p class="profilContainerContentPoints">Points :
+						{% if user.points is not null %}
+							{{user.points }}
+						{% else %}
+							0
+						{% endif %}
+					</p>
+				</div>
+				<p class="profilContainerTexte">
+					<strong>Email :</strong>
+					{{user.email}}</p>
+				<p class="profilContainerTexte">
+					<strong>Adresse :</strong>
+					{% if user.street is not null %}
+						{{user.street }}
+					{% else %}
+						N/A
+					{% endif %}
+				</p>
+				<p class="profilContainerTexte">
+					<strong>Ville :</strong>
+					{% if user.city is not null %}
+						{{user.city }}
+					{% else %}
+						N/A
+					{% endif %}
+				</p>
+				<p class="profilContainerTexte">
+					<strong>Code Postal :</strong>
+					{% if user.postcode is not null %}
+						{{user.postcode }}
+					{% else %}
+						N/A
+					{% endif %}
+				</p>
+				<div class="profilContainerAction">
+					<a href="{{path('app_update_profil')}}" class="profilContainerActionButton">Modifier mon profil</a>
+				</div>
+				<div class="profilContainerAction">
+					<a href="{{path('app_forgot_password_request')}}" class="profilContainerActionButtonReset">Modifier mon mot de passe</a>
+				</div>
+
+			</div>
+		</section>
+
+		<section class="profil">
+			<div class="profilContainer">
+				<h3 class="faqContentTaskTitle">Comment gagner des points ?</h3>
+				<ul class="faqContentTaskList">
+					<li class="faqContentTaskListItem">Inscription
+						<span class="faqContentTaskListItemPoints">+50 points</span>
+					</li>
+					<hr>
+					<li class="faqContentTaskListItem">Complétez votre profil
+						<span class="faqContentTaskListItemPoints">+200 points</span>
+					</li>
+					<hr>
+					<li class="faqContentTaskListItem">Faire des échanges
+						<span class="faqContentTaskListItemPoints">+25 points</span>
+					</li>
+				</ul>
+
+			</div>
+		</section>
+
+
+	</main>
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}

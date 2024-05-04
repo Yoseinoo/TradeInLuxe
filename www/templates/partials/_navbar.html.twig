@@ -24,7 +24,13 @@
 	</div>
 	<div class="navigationBoutons" data-navigation-target="menu">
 		<ul>
+			<li>
+				<a class="navigationBoutonsConnexion" href="{{path('app_accueil')}}">Accueil</a>
+			</li>
 			{% if app.user %}
+				<li>
+					<a class="navigationBoutonsConnexion" href="{{path('app_profil')}}">Mon profil</a>
+				</li>
 				<li>
 					<a class="navigationBoutonsConnexion" href="{{path('app_logout')}}">Déconnexion</a>
 				</li>

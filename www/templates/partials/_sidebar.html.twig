@@ -1,0 +1,32 @@
+<div class="sidebar" {{stimulus_controller("sidebar")}}>
+	<div class="logo-details">
+		<div class="logo_name">Menu</div>
+		<svg width="35" height="35" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="btn">
+			<path d="M3.975 5.975h16"></path>
+			<path d="M3.975 11.975h16"></path>
+			<path d="M3.975 17.975h16"></path>
+		</svg>
+	</div>
+	<ul class="nav-list">
+		<li>
+			<a href="{{path('app_profil')}}" {% if current is defined and current == 'profil' %} class="current" {% endif %}>
+				<svg {% if current is defined and current == 'profil' %} class="current" {% endif %} width="35" height="35" fill="none" stroke="#DFCBA9" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+					<path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+					<path d="M21 22a9 9 0 1 0-18 0"></path>
+				</svg>
+				<span class="links_name">Profil</span>
+			</a>
+			<span class="tooltip">Profil</span>
+		</li>
+		<li>
+			<a href="{{path('app_favoris_profil')}}" {% if current is defined and current == 'favoris' %} class="current" {% endif %}>
+				<svg {% if current is defined and current == 'favoris' %} class="current" {% endif %} width="35" height="35" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+					<path d="M7.5 4A5.5 5.5 0 0 0 2 9.5C2 15 8.5 20 12 21.163 15.5 20 22 15 22 9.5a5.5 5.5 0 0 0-10-3.163A5.494 5.494 0 0 0 7.5 4Z"></path>
+				</svg>
+				<span class="links_name">Favoris</span>
+			</a>
+			<span class="tooltip">Favoris</span>
+		</li>
+
+	</ul>
+</div>

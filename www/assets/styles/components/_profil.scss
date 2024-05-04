@@ -1,0 +1,89 @@
+.profil {
+    padding: 64px 12px;
+    display: flex;
+    justify-content: center;
+    font-family: $font-family-primary;
+
+    &Container {
+        width: 60%;
+        background-color: #f5f5f5;
+        padding: 32px;
+        &Title{
+            font-size: 2em;
+        }
+        &Subtitle{
+            color: $muted;
+            font-style: italic;
+        }
+
+        &Content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            &Image {
+                width: 20%;
+                border-radius: 50%;
+            }
+
+            &Name {
+                font-size: 1.5em;
+            }
+            &Points{
+                color:$points;
+                margin: 0;
+                font-size: 1.8em;
+            }
+        }
+
+        &Texte {
+            padding-left: 64px;
+        }
+        &Action{
+           display: flex;
+           justify-content: center;
+           margin-top: 32px;
+            &Button{
+                width: 50%;
+                text-align: center;
+                text-decoration: none;
+                color: $secondary;
+                background-color: $primary;
+                padding: 0.5rem 1rem;
+                transition: background-color 0.2s;
+                &:hover{
+                    background-color: $bg-color-primary;
+                    color: $white;
+                }
+            }
+            &ButtonReset{
+                @extend .profilContainerActionButton;
+                color: $secondary;
+                background-color: inherit;
+                text-decoration: underline;
+            }
+        }
+        .noresult{
+            margin-bottom: 128px;
+        }
+        
+    }
+}
+
+@media (max-width: 430px) {
+    .profil {
+        justify-content: flex-end;
+
+        &Container {
+            width: 75%;
+            padding: 12px;
+            &Content{
+                &Image{
+                width: 50%;
+            }
+        }
+        &Texte {
+            padding-left: 0;
+        }
+        }
+    }
+}
