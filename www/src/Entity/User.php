@@ -37,6 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    #[ORM\Column(type: 'boolean')]
+    private $isCompleted = false;
+
     #[ORM\Column(type: Types::ARRAY, nullable: true)]
     private array $roles = [];
 
@@ -141,6 +144,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getIsCompleted(): bool
+    {
+        return $this->isCompleted;
+    }
+
+    public function setIsCompleted(bool $isCompleted): static
+    {
+        $this->isCompleted = $isCompleted;
 
         return $this;
     }

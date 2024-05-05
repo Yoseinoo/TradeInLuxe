@@ -24,6 +24,14 @@
 	</div>
 	<div class="navigationBoutons" data-navigation-target="menu">
 		<ul>
+			{% if not app.user %}
+				<li>
+					<a class="navigationBoutonsQuestion" href="{{path('app_faq', {'faq': 'fonctionnement'})}}">Comment ça marche ?</a>
+				</li>
+				<li>
+					<a class="navigationBoutonsQuestion" href="{{path('app_about')}}">Qui sommes-nous ?</a>
+				</li>
+			{% endif %}
 			<li>
 				<a class="navigationBoutonsConnexion" href="{{path('app_accueil')}}">Accueil</a>
 			</li>
@@ -35,14 +43,6 @@
 					<a class="navigationBoutonsConnexion" href="{{path('app_logout')}}">Déconnexion</a>
 				</li>
 			{% else %}
-				{% if not app.user %}
-					<li>
-						<a class="navigationBoutonsQuestion" href="{{path('app_faq', {'faq': 'fonctionnement'})}}">Comment ça marche ?</a>
-					</li>
-					<li>
-						<a class="navigationBoutonsQuestion" href="{{path('app_about')}}">Qui sommes-nous ?</a>
-					</li>
-				{% endif %}
 				<li>
 					<a class="navigationBoutonsInscription" href="{{path('app_register')}}">S'inscrire</a>
 				</li>

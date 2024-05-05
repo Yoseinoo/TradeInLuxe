@@ -53,6 +53,7 @@
                 &:hover{
                     background-color: $bg-color-primary;
                     color: $white;
+                    cursor: pointer;
                 }
             }
             &ButtonReset{
