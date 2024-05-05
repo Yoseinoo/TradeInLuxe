@@ -96,6 +96,10 @@
                 }
 
             }
+            .fields{
+                display: flex;
+                flex-direction: column;
+            }
         }
 
         &ContainerShowPassword {
