@@ -30,6 +30,15 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
+    public function remove(Article $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     public function getOne($params = ''): ?Article
     {
         $queryBuilder = $this->createQueryBuilder('article');
@@ -81,6 +90,13 @@ class ArticleRepository extends ServiceEntityRepository
                 $queryBuilder->expr()->eq('article.name', ':name')
             )
             ->setParameter('name', $args['name']);
+        }
+
+        if (!empty($args['user'])) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('article.user', ':user')
+            )
+            ->setParameter('user', $args['user']);
         }
 
         if (!empty($args['id'])) {

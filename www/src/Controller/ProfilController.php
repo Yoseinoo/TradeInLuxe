@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\Favoris;
 use App\Entity\User;
 use App\Form\UserFormType;
 use App\Form\Model\UserFormModel;
+use App\Repository\ArticleRepository;
 use App\Repository\FavorisRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\UserRepository;
@@ -22,7 +24,8 @@ class ProfilController extends AbstractController
     public function __construct(
         private FavorisRepository $favorisRepository,
         private ProduitRepository $produitRepository,
-        private UserRepository $userRepository
+        private UserRepository $userRepository,
+        private ArticleRepository $articleRepository
     ) {
     }
 
@@ -54,6 +57,40 @@ class ProfilController extends AbstractController
         return $this->render('profil/'.$template, [
             'current' => 'favoris',
             'favoris' =>  $favoris
+        ]);
+    }
+
+    #[Route('/mes-articles', name: 'app_articles_profil')]
+    public function myArticles(Request $request): Response
+    {
+        $user = $this->getUser();
+        
+        if ($request->isMethod('POST')) {
+            $params = $request->request->all();
+            if ($params['action'] == 'delete') {
+                $article = $this->articleRepository->findOneBy(['id' => $params['article'], 'user' => $user]);
+
+                $photos = $article->getPhotos();
+                foreach ($photos as $photo) {
+                    $oldFilePath = $this->getParameter('uploaded_file_directory') . '/articles/' . $photo;
+                    if (file_exists($oldFilePath)) {
+                        unlink($oldFilePath);
+                    }
+                }
+                $this->articleRepository->remove($article, true);
+            }else{
+                
+            }
+            
+        }
+
+        $template = $request->isXmlHttpRequest() ? '_listArticles.html.twig' : 'articles.html.twig';
+
+        $articles = $this->articleRepository->findBy(['user' => $user,'deletedAt' => null]);
+
+        return $this->render('profil/'.$template, [
+            'current' => 'articles',
+            'articles' => $articles
         ]);
     }
 
