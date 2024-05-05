@@ -81,10 +81,22 @@
                 &Image{
                 width: 50%;
             }
+            
         }
         &Texte {
             padding-left: 0;
         }
+        }
+        .formulaireCard{
+            width: 90%;
+            border: none;
+            box-shadow: none;
+            padding: inherit;
+            margin: 0;
+            textarea{
+                max-width: 252px;
+                min-width: 252px;
+            }
         }
     }
 }

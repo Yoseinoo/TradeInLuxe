@@ -2,15 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Favoris;
-use App\Entity\User;
 use App\Form\UserFormType;
+use App\Form\ArticleFormType;
 use App\Form\Model\UserFormModel;
+use App\Repository\UserRepository;
+use App\Form\Model\ArticleFormModel;
 use App\Repository\ArticleRepository;
+use App\Repository\EtatRepository;
 use App\Repository\FavorisRepository;
 use App\Repository\ProduitRepository;
-use App\Repository\UserRepository;
+use App\Repository\TailleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -25,7 +29,9 @@ class ProfilController extends AbstractController
         private FavorisRepository $favorisRepository,
         private ProduitRepository $produitRepository,
         private UserRepository $userRepository,
-        private ArticleRepository $articleRepository
+        private ArticleRepository $articleRepository,
+        private EtatRepository $etatRepository,
+        private TailleRepository $tailleRepository
     ) {
     }
 
@@ -79,7 +85,7 @@ class ProfilController extends AbstractController
                 }
                 $this->articleRepository->remove($article, true);
             }else{
-                
+                return $this->redirectToRoute('app_update_article_profil', ['idArticle' => $params['article']]);
             }
             
         }
@@ -91,6 +97,88 @@ class ProfilController extends AbstractController
         return $this->render('profil/'.$template, [
             'current' => 'articles',
             'articles' => $articles
+        ]);
+    }
+
+    #[Route('/update-article/{idArticle}', name: 'app_update_article_profil')]
+    public function updateArticle(Request $request): Response
+    {
+
+        $id = $request->attributes->get('idArticle');
+        $oldArticle = $this->articleRepository->findOneBy(['id' => $id]);
+        $formModel = new ArticleFormModel();
+        $formModel->setDescription($oldArticle->getDescription());
+        $etat = $this->etatRepository->findOneBy(['name' =>$oldArticle->getEtat()]);
+        $formModel->setEtat($etat);
+        $taille = $this->tailleRepository->findOneBy(['name' =>$oldArticle->getCaracteristiques()['Taille'], 'categorie' => $oldArticle->getCategorie()]);
+        $formModel->setTaille($taille);
+        $form = $this->createForm(ArticleFormType::class, $formModel,['action' => $this->generateUrl('app_update_article_profil',[
+            'idArticle' => $id,
+        ]),'categorie' => $oldArticle->getCategorie()->getId()]);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+      
+            $formData = $form->getData();
+      
+            $oldArticle->setDescription($formData->description);
+            $oldArticle->setEtat($formData->etat->getName());
+            $caracterisqtiques = [
+                'Marque' => $oldArticle->getCaracteristiques()['Marque'],
+                'Taille' =>$formData->taille,
+                'Etat' => $formData->etat->getName()
+            ];
+            $oldArticle->setCaracteristiques($caracterisqtiques);
+
+            $oldPhotos = $oldArticle->getPhotos();
+            foreach ($oldPhotos as $photo) {
+                $oldFilePath = $this->getParameter('uploaded_file_directory') . '/articles/' . $photo;
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+             foreach($formData->photos as $photo){
+                 /** @var UploadedFile $file */
+             $file = $photo->photo;
+            
+             $randomString = uniqid();
+             $fileName =  $randomString.'_'.$file->getClientOriginalName();
+             $file->move($this->getParameter('uploaded_file_directory').'/articles/',$fileName);
+             $photos[] =  $fileName ;
+             }
+
+             $oldArticle->setPhotos($photos);
+
+            
+             try {
+                $this->articleRepository->save($oldArticle,true);
+
+                $this->addFlash(
+                    'success',
+                    'Succès !|Votre demande a bien été envoyé.|success'
+                );
+               
+                return $this->redirectToRoute('app_articles_profil');
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'danger',
+                    'Oops...|Une erreur s\'est produite.|error'
+                );
+                return $this->redirectToRoute('app_articles_profil');
+            }
+        }
+        if ($form->isSubmitted() && !$form->isValid()) {
+           
+            return $this->render('profil/articles.html.twig', [
+                'error' => true,
+                'form' => $form,
+            ]);
+        }
+
+        $template = $request->isXmlHttpRequest() ? 'formUpdateArticle.html.twig' : 'articles.html.twig';
+        return $this->render('profil/'.$template, [
+           'form' => $form,
+           'oldArticle' => $oldArticle
         ]);
     }
 

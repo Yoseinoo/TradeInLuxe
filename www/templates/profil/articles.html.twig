@@ -9,11 +9,24 @@
 		{{ include('partials/_sidebar.html.twig') }}
 
 		<section class="profil">
-			<div class="profilContainer">
+			{% for flashMessage in app.flashes('success') %}
+				{% set parts = flashMessage|split('|') %}
+				<div data-controller="message" data-message-type-value="{{ parts[2] }}" data-message-title-value="{{ parts[0] }}" data-message-message-value="{{ parts[1] }}"></div>
+			{% endfor %}
+			{% for flashMessage in app.flashes('danger') %}
+				{% set parts = flashMessage|split('|') %}
+				<div data-controller="message" data-message-type-value="{{ parts[2] }}" data-message-title-value="{{ parts[0] }}" data-message-message-value="{{ parts[1] }}"></div>
+			{% endfor %}
+			<div class="profilContainer" id="targetArticleUpdate">
 				<h1 class="profilContainerTitle">Mes articles</h1>
 				<p class="profilContainerSubtitle">Retrouvez tous les articles que vous avez proposés à l'échange.</p>
 				<div id="targetArticle">
-					{{ include('profil/_listArticles.html.twig') }}
+					{% if error is defined and error == true %}
+						{{ include('profil/formUpdateArticle.html.twig') }}
+					{% else %}
+						{{ include('profil/_listArticles.html.twig') }}
+					{% endif %}
+
 				</div>
 			</div>
 		</section>

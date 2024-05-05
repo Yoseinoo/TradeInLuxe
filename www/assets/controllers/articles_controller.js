@@ -24,7 +24,7 @@ export default class extends Controller {
   sendFormDataUpdate(buttonId) {
     const form = this.element.querySelector("form.produitContentGridAction");
     const url = form.getAttribute("action");
-    const target = document.getElementById("targetArticle");
+    const target = document.getElementById("targetArticleUpdate");
     const inputId = "inputHidden_" + buttonId.split("_")[1];
     const inputHidden = document.getElementById(inputId);
     const articleId = inputHidden.value;
