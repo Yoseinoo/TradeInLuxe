@@ -110,7 +110,7 @@ class ArticleController extends AbstractController
 
     private function getProduitsPager(int $idProduit, int $page, array $filtres = null): Pagerfanta
     {
-        $params = "produit=$idProduit&deleted=false&enabled=true&isValidated=true";
+        $params = "produit=$idProduit&deleted=false&isEnabled=true&isValidated=true";
 
         $queryBuilder = $this->articleRepository->getAllQueryBuilder($params, $filtres);
         $pagerfanta = new Pagerfanta(new QueryAdapter($queryBuilder));

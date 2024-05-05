@@ -42,15 +42,13 @@ class CategorieController extends AbstractController
 
         $data = $this->getFiltres('Chaussures');
         $pagerfanta = $this->getProduitsPager($data['categorie'], $page, $formData);
-
+        $favoris = null;
         if($user){
             $resultats = $this->favorisRepository->findBy(['user' => $user]);
 
             foreach($resultats as $favori){
                 $favoris [] = $favori->getProduit()->getId();
             }
-        }else{
-            $favoris = null;
         }
 
         return $this->render('categorie/'.$template, [
@@ -78,14 +76,13 @@ class CategorieController extends AbstractController
 
         $data = $this->getFiltres('Sacs');
         $pagerfanta = $this->getProduitsPager($data['categorie'], $page, $formData);
+        $favoris = null;
         if($user){
             $resultats = $this->favorisRepository->findBy(['user' => $user]);
 
             foreach($resultats as $favori){
                 $favoris [] = $favori->getProduit()->getId();
             }
-        }else{
-            $favoris = null;
         }
         return $this->render('categorie/'.$template, [
             'title' => 'Sacs',
@@ -112,14 +109,13 @@ class CategorieController extends AbstractController
 
         $data = $this->getFiltres('Vêtements');
         $pagerfanta = $this->getProduitsPager($data['categorie'], $page, $formData);
+        $favoris = null;
         if($user){
             $resultats = $this->favorisRepository->findBy(['user' => $user]);
 
             foreach($resultats as $favori){
                 $favoris [] = $favori->getProduit()->getId();
             }
-        }else{
-            $favoris = null;
         }
         return $this->render('categorie/'.$template, [
             'title' => 'Vêtements',
@@ -160,7 +156,7 @@ class CategorieController extends AbstractController
 
     private function getProduitsPager(int $idCategorie, int $page, array $filtres = null): Pagerfanta
     {
-        $params = "categorie=$idCategorie&deleted=false&enabled=true";
+        $params = "categorie=$idCategorie&deleted=false&isEnabled=true";
 
         $queryBuilder = $this->produitRepository->getAllQueryBuilder($params, $filtres);
         $pagerfanta = new Pagerfanta(new QueryAdapter($queryBuilder));
