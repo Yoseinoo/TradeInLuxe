@@ -66,7 +66,14 @@
         .noresult{
             margin-bottom: 128px;
         }
-        
+        .formulaireCard{
+            border: none;
+            box-shadow: none;
+            padding: 0;
+        }
+        textarea{
+            min-height: 160px;
+        }
     }
 }
 
@@ -96,6 +103,30 @@
             textarea{
                 max-width: 252px;
                 min-width: 252px;
+            }
+        }
+        .detailsContainer{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .detailsContainerContent{
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            width: 82%;
+        }
+        .detailsContainerProduit{
+            justify-content: flex-end;
+            gap: 16px;
+            .slick-initialized .slick-slide {
+                height: inherit;
+            }
+            &Image{
+                    width: 360px;
+            }
+            &Card{
+                width: 70%;
             }
         }
     }

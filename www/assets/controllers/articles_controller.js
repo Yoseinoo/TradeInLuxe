@@ -20,10 +20,33 @@ export default class extends Controller {
     });
 
   }
+  setPreview(articleId, url){
+    const targetPreview = document.getElementById("targetPreview");
+    const formData = new FormData();
+    formData.append("article", articleId);
+    $.ajax({
+        url: url,
+        method: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: (response) => {
+            if (targetPreview) {
+                targetPreview.style.display = "";
+                $(targetPreview).html(response);
+              }
+            console.log("Succès de la requête AJAX de suppression");
+        },
+        error: function (error) {
+            console.error("Erreur lors de la requête AJAX de suppression :", error);
+        },
+    });
+  }
 
   sendFormDataUpdate(buttonId) {
     const form = this.element.querySelector("form.produitContentGridAction");
     const url = form.getAttribute("action");
+    const urlPreview = form.getAttribute("url-preview");
     const target = document.getElementById("targetArticleUpdate");
     const inputId = "inputHidden_" + buttonId.split("_")[1];
     const inputHidden = document.getElementById(inputId);
@@ -52,6 +75,7 @@ export default class extends Controller {
                 success: (response) => {
                     if (target) {
                         $(target).html(response);
+                        this.setPreview(articleId, urlPreview);
                       }
                     console.log("Succès de la requête AJAX de suppression");
                 },
@@ -62,6 +86,8 @@ export default class extends Controller {
         }
     });
   }
+
+  
 
   sendFormDataDelete(buttonId) {
     const form = this.element.querySelector("form.produitContentGridAction");

@@ -178,16 +178,38 @@
                     cursor: pointer;
                 }
             }
-            &EtatWait{
+            &Etat{
+                margin-bottom: 12px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                &Wait{
                 color: $C;
                 font-weight: 600;
                 text-align: center;
+                margin: 0;
             }
-            &EtatValidate{
+            &Validate{
                 color: $valid;
                 font-weight: 600;
                 text-align: center;
+                margin: 0;
             }
+            &Button{
+                    color: $secondary;
+                    border: 1px solid $secondary;
+                    text-decoration: none;
+                    font-size: 14px;
+                    padding: 8px;
+                    transition: background-color 0.2s;
+                    &:hover{
+                        background-color: $bg-color-primary;
+                        color: $white;
+                        cursor: pointer;
+                    }
+            }
+            }
+            
             &Card {
                 display: flex;
                 flex-direction: column;

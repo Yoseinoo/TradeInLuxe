@@ -1,8 +1,7 @@
-<h1>Voici une preview
-</h1>
-<div class="detailsContainer">
+<div class="detailsContainer"{{stimulus_controller('details')}}>
 	<div class="detailsContainerContent">
-		<h1 class="detailsContainerContentTitle">{{oldArticle.name}}</h1>
+		<h1>Voici une preview de votre article</h1>
+		<h2 class="detailsContainerContentTitle">{{oldArticle.name}}</h2>
 		<p class="detailsContainerContentSubtitle">{{oldArticle.caracteristiques.Marque}}</p>
 	</div>
 	<div class="detailsContainerProduit">
@@ -38,8 +37,6 @@
 				</div>
 				<p class="detailsContainerProduitCardActionEtat {% if oldArticle.etat == 'Neuf' %}A{% elseif oldArticle.etat == 'Très bon état' %}B{% else %}C{% endif %}">État :
 					{{oldArticle.etat}}</p>
-				<p class="detailsContainerProduitCardActionPoints">Points :
-					{{oldArticle.points}}</p>
 				<p>{{oldArticle.description}}</p>
 				<hr>
 				<div class="detailsContainerProduitCardActionCertif">

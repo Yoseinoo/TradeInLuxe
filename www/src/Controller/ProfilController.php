@@ -182,6 +182,17 @@ class ProfilController extends AbstractController
         ]);
     }
 
+    #[Route('/preview-article', name: 'app_preview_article_profil',  methods: ['POST'])]
+    public function preview(Request $request)
+    {
+            $params = $request->request->all();
+            $oldArticle = $this->articleRepository->findOneBy(['id' => $params['article']]);
+        
+        return $this->render('profil/_targetPreview.html.twig', [
+            'oldArticle' => $oldArticle
+         ]);
+    }
+
     #[Route('/update-favoris', name: 'app_favoris', methods: ['POST'])]
     public function setFavoris(Request $request): JsonResponse
     {
