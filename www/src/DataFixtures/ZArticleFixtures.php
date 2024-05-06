@@ -27,7 +27,7 @@ class ZArticleFixtures extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager): void
     {
-        $user = $this->userRepository->findOneBy(['email' => 'martinsimongo@gmail.com']);
+        $user = [$this->userRepository->findOneBy(['email' => 'martinsimongo@gmail.com']),$this->userRepository->findOneBy(['email' => 'colette@gmail.com'])];
         $categorie = $this->categorieRepository->findOneBy(['name' => 'Chaussures']);
         $produit = $this->produitRepository->findOneBy(['name' => 'Sneaker LV Rush']);
 
@@ -58,10 +58,10 @@ class ZArticleFixtures extends Fixture implements FixtureGroupInterface
             ]
         ];
 
-        foreach ($articles as $article) {
+        foreach ($articles as $key => $article) {
 
             $entity = new Article();
-            $entity->setUser($user);
+            $entity->setUser($user[$key]);
             $entity->setCategorie($categorie);
             $entity->setProduit($produit);
             $entity->setName($article['name']);

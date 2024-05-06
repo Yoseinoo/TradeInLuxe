@@ -26,11 +26,22 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             ->setFirstname('Martin')
             ->setLastname('Simon')
             ->setIsVerified(true)
+            ->setPoints(560)
             ->setPathImage('1704282889870.jpg')
             ->addRole('ROLE_ADMIN')
             ->setPlainPassword('password');
 
             $manager->persist($user);
+
+            $user = new User;
+                $user->setEmail('colette@gmail.com')
+                ->setFirstname('Colette')
+                ->setLastname('Dos santos')
+                ->setIsVerified(true)
+                ->setPoints(50)
+                ->setPlainPassword('password');
+
+                $manager->persist($user);
 
         // Fake user
         for ($i=0; $i<=5; $i++){

@@ -2,12 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Proposition;
+use App\Entity\User;
 use Pagerfanta\Pagerfanta;
 use App\Repository\EtatRepository;
 use App\Repository\TailleRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\CategorieRepository;
+use App\Repository\PropositionRepository;
+use App\Repository\UserRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +27,8 @@ class ArticleController extends AbstractController
         private CategorieRepository $categorieRepository,
         private TailleRepository $tailleRepository,
         private EtatRepository $etatRepository,
+        private UserRepository $userRepository,
+        private PropositionRepository $propositionRepository
     ) {
     }
 
@@ -118,5 +124,56 @@ class ArticleController extends AbstractController
         $pagerfanta->getNbPages() > 1 ? $pagerfanta->setCurrentPage($page) : '';
 
         return $pagerfanta;
+    }
+
+    #[Route('/article-echange-points/{id}/{idArticle}', name: 'app_article_echange_points', methods:['POST'])]
+    public function propositionPoints(Request $request): Response
+    {
+        if ($request->isMethod('POST')) {
+            $idParams = $request->attributes->get('id');
+            $idArticleParams = $request->attributes->get('idArticle');
+
+            $articleId = $request->request->get('article');
+            $userId = $request->request->get('user');
+            /** @var User $currentUser */
+            $currentUser = $this->getUser();
+
+            $article = $this->articleRepository->findOneBy(['id'=>$articleId, 'isEnabled' =>true]);
+            $proprietaire = $this->userRepository->findOneBy(['id'=>$userId, 'isEnabled'=>true]);
+            $points = $article->getPoints();
+            $currentUser->removePoints($points);
+            $this->userRepository->save($currentUser, true);
+
+            $proposition = new Proposition();
+            $proposition->setProprietaire( $proprietaire );
+            $proposition->setArticle($article);
+            $proposition->setDemandeur($currentUser);
+            $proposition->setPoints($points);
+
+           
+
+            try {
+                $this->propositionRepository->save($proposition,true);
+
+                $this->addFlash(
+                    'success',
+                    'Succès !|Votre proposition a bien été envoyé.|success'
+                );
+                return $this->redirectToRoute('app_article_detail', [
+                    'id' => $idParams,
+                    'idArticle' => $idArticleParams
+                ]);
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'danger',
+                    'Oops...|Une erreur s\'est produite.|error'
+                );
+            }
+        }
+
+        
+        return $this->render('article/', [
+            'title' => 'Détails',
+        ]);
     }
 }

@@ -240,6 +240,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function removePoints(int $pointsToRemove): static
+    {
+        $currentPoints = $this->getPoints();
+
+        if ($currentPoints !== null && $currentPoints >= $pointsToRemove) {
+            $this->setPoints($currentPoints - $pointsToRemove);
+        } else {
+            // Vous pouvez choisir de lever une exception ou de simplement ignorer l'opération
+            // Ici, je lève une exception si les points à retirer sont supérieurs aux points actuels
+            throw new \InvalidArgumentException('Cannot remove more points than available.');
+        }
+
+        return $this;
+    }
+
     public function isEnabled(): ?bool
     {
         return $this->isEnabled;

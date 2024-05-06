@@ -178,7 +178,18 @@
 					</div>
 
 					<hr>
-					<button class="detailsContainerProduitCardActionButton">Faire une offre</button>
+					{% if  app.user.id != article.user.id %}
+						<button class="detailsContainerProduitCardActionButton">Proposer un article</button>
+						
+						{% if app.user.points >= article.points  %}
+							<form action="{{path('app_article_echange_points',{'id': article.produit.id,'idArticle': article.id})}}" method="post" {{stimulus_controller('proposition')}}>
+								<input type="hidden" name="article" value="{{article.id}}">
+								<input type="hidden" name="user" value="{{article.user.id}}">
+								<button class="detailsContainerProduitCardActionButton" data-action="click->proposition#submit">Utiliser mes points</button>
+							</form>
+					
+						{% endif %}
+					{% endif %}
 				</div>
 			</div>
 		</div>
