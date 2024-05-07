@@ -14,6 +14,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\EtatRepository;
 use App\Repository\FavorisRepository;
 use App\Repository\ProduitRepository;
+use App\Repository\PropositionRepository;
 use App\Repository\TailleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +32,8 @@ class ProfilController extends AbstractController
         private UserRepository $userRepository,
         private ArticleRepository $articleRepository,
         private EtatRepository $etatRepository,
-        private TailleRepository $tailleRepository
+        private TailleRepository $tailleRepository,
+        private PropositionRepository $propositionRepository
     ) {
     }
 
@@ -302,5 +304,58 @@ class ProfilController extends AbstractController
         return $this->render('profil/_formUser.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    #[Route('/mes-echanges', name: 'app_echanges_profil')]
+    public function echanges(Request $request): Response
+    {
+        $user = $this->getUser();
+        $demandes = $this->propositionRepository->findBy(['proprietaire' => $user, 'deletedAt' => null]);
+        $mesPropositions = $this->propositionRepository->findBy(['demandeur' => $user, 'deletedAt' => null]);
+       
+
+        return $this->render('profil/echanges.html.twig', [
+            'current' => 'echanges',
+            'demandes' => $demandes,
+            'mesPropositions' => $mesPropositions
+        ]);
+    }
+
+    #[Route('/mes-echanges/update', name: 'app_echanges_update_profil', methods:['POST'])]
+    public function updateEchanges(Request $request): Response
+    {
+         /** @var User $user */
+        $user = $this->getUser();
+
+        $params = $request->request->all();
+                $maProposition = $this->propositionRepository->findOneBy(['id'=> $params['propositionId'], 'demandeur' => $user,'deletedAt' => null]);
+                $points = $maProposition->getPoints();
+                if($points !== null){
+                    $user->addPoints($points);
+                    $this->userRepository->save($user,true);
+
+                    $maProposition->setDeletedAt(new \DateTimeImmutable());
+                    
+
+                    try {
+                        $this->propositionRepository->save($maProposition,true);
+        
+                        $this->addFlash(
+                            'success',
+                            'Succès !|Votre demande a bien été modifié.|success'
+                        );
+                         $this->redirectToRoute('app_echanges_profil');
+                    } catch (\Exception $e) {
+                        $this->addFlash(
+                            'danger',
+                            'Oops...|Une erreur s\'est produite.|error'
+                        );
+                    }
+
+                    
+                }
+       
+
+        return $this->redirectToRoute('app_echanges_profil');
     }
 }

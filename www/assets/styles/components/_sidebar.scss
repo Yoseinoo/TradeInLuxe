@@ -109,6 +109,19 @@
     opacity: 1;
     pointer-events: auto;
 }
+.sidebarNotification{
+    right: 0;
+    top: 0;
+    color: $white;
+    background-color: $valid;
+    width: 15px;
+    text-align: center;
+    font-size: 14px;
+    align-content: center;
+    height: 15px;
+    position: absolute;
+    border-radius: 50%;
+}
 .sidebar li a:hover .links_name,
 .sidebar li a:hover svg {
     transition: all 0.5s ease;
