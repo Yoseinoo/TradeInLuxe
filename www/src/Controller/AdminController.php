@@ -2,8 +2,18 @@
 
 namespace App\Controller;
 
-use App\Repository\ArticleRepository;
+use App\Entity\Marque;
+use App\Entity\Taille;
+use App\Entity\Couleur;
+use App\Entity\Produit;
+use App\Form\ProduitFormType;
 use App\Repository\UserRepository;
+use App\Form\Model\ProduitFormModel;
+use App\Repository\MarqueRepository;
+use App\Repository\TailleRepository;
+use App\Repository\ArticleRepository;
+use App\Repository\CouleurRepository;
+use App\Repository\ProduitRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -14,7 +24,11 @@ class AdminController extends AbstractController
 {
     public function __construct(
         private ArticleRepository $articleRepository,
-        private UserRepository $userRepository
+        private ProduitRepository $produitRepository,
+        private UserRepository $userRepository,
+        private MarqueRepository $marqueRepository,
+        private TailleRepository $tailleRepository,
+        private CouleurRepository $couleurRepository,
     ) {
     }
     
@@ -110,5 +124,111 @@ class AdminController extends AbstractController
                 'Oops...|Une erreur s\'est produite.|error'
             );
         }        
+    }
+
+    #[Route('/ajout', name: 'app_admin_ajout')]
+    public function ajout(Request $request): Response
+    {
+        $formModel = new ProduitFormModel();
+        $form = $this->createForm(ProduitFormType::class, $formModel,);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+    
+            $produit = new Produit();
+            $produit->setName($formData->name);
+            $produit->setCategorie($formData->categorie);
+            $produit->setDescription($formData->description);
+            $caracterisqtiques = [
+                'Marque' => $formData->marque,
+                'Taille' => $formData->taille,
+                'Couleur' => $formData->couleur,
+                'Genre' => $formData->genre
+            ];
+            $produit->setCaracteristiques($caracterisqtiques);
+
+            $marques = $this->marqueRepository->findBy(['isEnabled'=>true,'deletedAt'=>null]);
+            $tailles= $this->tailleRepository->findBy(['categorie'=>$formData->categorie,'isEnabled'=>true,'deletedAt'=>null]);
+            $couleurs= $this->couleurRepository->findBy(['isEnabled'=>true,'deletedAt'=>null]);
+
+            // Création des tableaux pour stocker les noms des marques, tailles et couleurs
+            $marquesExistantes = [];
+            $taillesExistantes = [];
+            $couleursExistantes = [];
+
+            // Remplissage des tableaux avec les noms des marques, tailles et couleurs existantes en base de données
+            foreach ($marques as $marque) {
+                $marquesExistantes[] = $marque->getName();
+            }
+
+            foreach ($tailles as $taille) {
+                $taillesExistantes[] = $taille->getName();
+            }
+
+            foreach ($couleurs as $couleur) {
+                $couleursExistantes[] = $couleur->getName();
+            }
+
+            if (!in_array($formData->marque, $marquesExistantes)) {
+               $marque = new Marque();
+               $marque->setName($formData->marque);
+               $marque->setIsEnabled(true);
+               $this->marqueRepository->save($marque,true);
+
+            } 
+            if (!in_array($formData->taille, $taillesExistantes)) {
+                $taille = new Taille();
+                $taille->setName($formData->taille);
+                $taille->setCategorie($formData->categorie);
+                $taille->setIsEnabled(true);
+                $this->tailleRepository->save($taille,true);
+             } 
+             if (!in_array($formData->couleur, $couleursExistantes)) {
+                $couleur = new Couleur();
+                $couleur->setName($formData->couleur);
+                $couleur->setIsEnabled(true);
+                $this->couleurRepository->save($couleur,true);
+ 
+             } 
+            
+             foreach($formData->photos as $key => $photo){
+                 /** @var UploadedFile $file */
+                $file = $photo->photo;
+                
+                $randomString = uniqid();
+                $fileName =  $randomString.'_'.$file->getClientOriginalName();
+                if($key == 0){
+                    $produit->setPathImage($fileName );
+                    }
+                $file->move($this->getParameter('uploaded_file_directory').'/produits/',$fileName);
+                $photos[] =  $fileName ;
+             }
+             $produit->setPhotos($photos);
+
+            
+            
+             try {
+                $this->produitRepository->save($produit,true);
+
+                $this->addFlash(
+                    'success',
+                    'Succès !|Le produit a bien été enregistré.|success'
+                );
+              
+                return $this->redirectToRoute('app_admin_ajout');
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'danger',
+                    'Oops...|Une erreur s\'est produite.|error'
+                );
+            }
+        }
+        
+        return $this->render('profil/admin/ajout.html.twig', [
+            'title' => 'Ajouter un nouveau produit',
+            'current' => 'ajout',
+            'form' => $form,
+        ]);
     }
 }

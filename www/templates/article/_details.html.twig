@@ -9,12 +9,12 @@
 				{% if produit.photos is not empty %}
 					<div class="slider-for">
 						{% for image in produit.photos %}
-							<img src="{{ asset('build/images/produits/' ~ image) }}" alt="">
+							<img src="{{ asset('build/images/uploads/produits/' ~ image) }}" alt="">
 						{% endfor %}
 					</div>
 					<div class="slider-nav">
 						{% for image in produit.photos %}
-							<img src="{{ asset('build/images/produits/' ~ image) }}" alt="">
+							<img src="{{ asset('build/images/uploads/produits/' ~ image) }}" alt="">
 						{% endfor %}
 					</div>
 				{% else %}
