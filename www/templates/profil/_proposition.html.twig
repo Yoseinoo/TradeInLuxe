@@ -49,16 +49,24 @@
 
 				{% if offre.etatProposition == null %}
 					<p class="produitContentGridEtatWait">État : En attente</p>
-				{% else %}
+					<form method="post" action="{{path('app_echanges_update_profil')}}" class="produitContentGridAction">
+						<input type="hidden" value="{{offre.id}}" name="acceptOffreId" id="inputHiddenAccept_{{offre.id}}">
+						<input type="hidden" value="{{offre.id}}" name="deleteOffreId" id="inputHiddenDelete_{{offre.id}}">
+						<a class="produitContentGridActionValidate" id="buttonAccept_{{offre.id}}">Accepter</a>
+						<a class="produitContentGridActionDelete" id="buttonDelete_{{offre.id}}">Refuser</a>
+					</form>
+				{% elseif  offre.etatProposition == true and offre.isEnabled == true %}
 					<p class="produitContentGridEtatValidate">État : Validé</p>
+					<form method="post" action="{{path('app_echanges_update_profil')}}" class="produitContentGridAction">
+					<input type="text" class="produitContentGridActionTransporteur" name="numeroTransporteur" id="inputNumeroTransporteur_{{offre.id}}" placeholder="Numéro transporteur (ex: 0679ERT677)">
+					<input type="hidden" value="{{offre.id}}" name="offreIdTransporteur" id="inputHiddenTransporteur_{{offre.id}}">
+					<button type="submit" class="produitContentGridActionValidate" id="buttonAccept_{{offre.id}}" button-transporteur="transporteur">Envoyer</button>
+				</form>
+				{% else %}
+				<p class="produitContentGridEtatWait">État : En cours d'acheminement</p>
 				{% endif %}
 
-				<form method="post" action="{{path('app_echanges_update_profil')}}" class="produitContentGridAction">
-					<input type="hidden" value="{{offre.id}}" name="acceptOffreId" id="inputHiddenAccept_{{offre.id}}">
-					<input type="hidden" value="{{offre.id}}" name="deleteOffreId" id="inputHiddenDelete_{{offre.id}}">
-					<a class="produitContentGridActionValidate" id="buttonAccept_{{offre.id}}">Accepter</a>
-					<a class="produitContentGridActionDelete" id="buttonDelete_{{offre.id}}">Refuser</a>
-				</form>
+				
 			</div>
 			<div class="profilEchangeContainer">
 
@@ -161,15 +169,16 @@
 
 				{% if proposition.etatProposition == null %}
 					<p class="produitContentGridEtatWait">État : En attente</p>
-				{% else %}
-					<p class="produitContentGridEtatValidate">État : Validé</p>
-				{% endif %}
-
-				<form method="post" action="{{path('app_echanges_update_profil')}}" class="produitContentGridAction" id="formArticle">
+					<form method="post" action="{{path('app_echanges_update_profil')}}" class="produitContentGridAction" id="formArticle">
 					<input type="hidden" value="{{proposition.id}}" name="propositionId" id="inputHidden_{{proposition.id}}">
 					<a class="produitContentGridActionDelete" id="buttonDelete_{{proposition.id}}">Annuler</a>
 
 				</form>
+				{% else %}
+					<p class="produitContentGridEtatValidate">État : Validé</p>
+				{% endif %}
+
+				
 			</div>
 			<div class="profilEchangeContainer">
 

@@ -18,7 +18,11 @@ export default class extends Controller {
 
     buttonValidates.forEach((buttonValidate) => {
         buttonValidate.addEventListener("click", () => {
-            this.sendFormDataValidate();
+            const isTransporteurButton = buttonValidate.hasAttribute('button-transporteur') && buttonValidate.getAttribute('button-transporteur') === 'transporteur';
+        
+            if (!isTransporteurButton) {
+                this.sendFormDataValidate();
+            }
         });
     });
 
@@ -31,7 +35,6 @@ sendFormDataDelete(texte) {
             inputHiddenAccept.remove();
         }
     }
-    console.log(form);
     Swal.fire({
         title: 'Êtes-vous sûr de vouloir supprimer cette '+texte+ '?',
         text: "Cette action est irréversible !",
@@ -50,6 +53,11 @@ sendFormDataDelete(texte) {
 
 sendFormDataValidate() {
     const form = this.element.querySelector("form.produitContentGridAction");
+    const inputHiddenAccept = form.querySelector("[name^='deleteOffreId']");
+    if (inputHiddenAccept) {
+        inputHiddenAccept.remove();
+    }
+
 
     Swal.fire({
         title: 'Êtes-vous sûr de vouloir valider cette offre ?',

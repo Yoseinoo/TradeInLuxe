@@ -27,6 +27,9 @@
     }
     .produitContentGridAction{
         gap: 12px;
+        &Transporteur{
+            width: 300px;
+        }
     }
     .valeurPoints{
         display: flex;
@@ -64,6 +67,11 @@
         align-items: flex-end;
         .produitContentGridEtat {
             gap: 12px;
+        }
+        .produitContentGridAction{
+            &Transporteur{
+                width: 125px;
+            }
         }
     }
 }

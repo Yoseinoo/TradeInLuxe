@@ -362,7 +362,7 @@ class ProfilController extends AbstractController
 
                     
                 }
-                /**
+         /**
          * Supprimer une offre d'échange que l'utilisateur a reçu
          */
         }elseif(isset($params['deleteOffreId'])){
@@ -397,6 +397,70 @@ class ProfilController extends AbstractController
 
                 
             }
+             /**
+         * Accepter une offre d'échange que l'utilisateur a reçu
+         */
+        }elseif(isset($params['acceptOffreId'])){
+            $offre = $this->propositionRepository->findOneBy(['id'=> $params['acceptOffreId'], 'proprietaire' => $user,'deletedAt' => null]);
+            $points = $offre->getPoints();
+            $demandeur = $this->userRepository->findOneBy(['id'=>$offre->getDemandeur()]);
+            $demandeur->addPoints(25);
+            $this->userRepository->save($demandeur);
+
+            $article = $this->articleRepository->findOneBy(['id'=>$offre->getArticle(),'user'=>$user]);
+            $article->setDeletedAt(new \DateTimeImmutable());
+            $article->setIsEnabled(false);
+            $this->articleRepository->save($article,true);
+            
+            if($points !== null){
+                $offre->setEtatProposition(true);
+                try {
+                    $this->propositionRepository->save($offre,true);
+    
+                    $this->addFlash(
+                        'success',
+                        'Succès !|L\'offre a bien été acceptée. Merci de remplir le numéro du transporteur. Vous serez crédité des points une fois le produit entre nos mains.|success'
+                    );
+                     
+                } catch (\Exception $e) {
+                    $this->addFlash(
+                        'danger',
+                        'Oops...|Une erreur s\'est produite.|error'
+                    );
+                }
+                $autresOffres = $this->propositionRepository->findBy(['article'=> $offre->getArticle(), 'proprietaire' => $user,'deletedAt' => null,'etatProposition'=>null,'isEnabled'=>true]);
+
+                foreach($autresOffres as $row){
+                    $row->setEtatProposition(false);
+                    $row->setIsEnabled(false);
+                    $row->setDeletedAt(new \DateTimeImmutable());
+                    $this->propositionRepository->save($row,true);
+                }
+                
+
+                $this->redirectToRoute('app_echanges_profil');
+            }
+            /**
+         * Submit numero transporteur (FAKE)
+         */
+        }elseif(isset($params['numeroTransporteur'])){
+            $offre = $this->propositionRepository->findOneBy(['id'=> $params['offreIdTransporteur'], 'proprietaire' => $user,'deletedAt' => null]);
+            $offre->setIsEnabled(false);
+            try {
+                $this->propositionRepository->save($offre,true);
+
+                $this->addFlash(
+                    'success',
+                    'Succès !|Le transporteur a bien été enregistré.|success'
+                );
+                 
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'danger',
+                    'Oops...|Une erreur s\'est produite.|error'
+                );
+            }
+
         }
 
         return $this->redirectToRoute('app_echanges_profil');
