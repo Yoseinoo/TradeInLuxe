@@ -10,6 +10,7 @@ use App\Form\ArticleFormType;
 use App\Form\Model\UserFormModel;
 use App\Repository\UserRepository;
 use App\Form\Model\ArticleFormModel;
+use App\Repository\ArticlePropositionRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\EtatRepository;
 use App\Repository\FavorisRepository;
@@ -33,7 +34,8 @@ class ProfilController extends AbstractController
         private ArticleRepository $articleRepository,
         private EtatRepository $etatRepository,
         private TailleRepository $tailleRepository,
-        private PropositionRepository $propositionRepository
+        private PropositionRepository $propositionRepository,
+        private ArticlePropositionRepository $articlePropositionRepository
     ) {
     }
 
@@ -321,6 +323,22 @@ class ProfilController extends AbstractController
         ]);
     }
 
+    #[Route('/mes-echanges/preview/{idProposition}', name: 'app_echanges_profil_preview')]
+    public function echangesPreview(Request $request): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $idProposition = $request->attributes->get('idProposition');
+        $proposition = $this->propositionRepository->findOneBy(['id'=>$idProposition,'deletedAt'=>null]); 
+        $state = $user ==  $proposition->getProprietaire();
+        return $this->render('profil/_previewOffre.html.twig', [
+            'current' => 'echanges',
+            'articleProposition' => $proposition->getArticleProposition(),
+            'proposition' => $proposition,
+            'state' => $state
+        ]);
+    }
+
     #[Route('/mes-echanges/update', name: 'app_echanges_update_profil', methods:['POST'])]
     public function updateEchanges(Request $request): Response
     {
@@ -335,15 +353,13 @@ class ProfilController extends AbstractController
         if(isset($params['propositionId'])){
             $maProposition = $this->propositionRepository->findOneBy(['id'=> $params['propositionId'], 'demandeur' => $user,'deletedAt' => null]);
                 $points = $maProposition->getPoints();
-                /**
-                 * ⚠️Faire le else pour le cas ou c'est un autre produit en echange⚠️
-                 */
                 if($points !== null){
                     $user->addPoints($points);
                     $this->userRepository->save($user,true);
 
                     $maProposition->setDeletedAt(new \DateTimeImmutable());
-                    
+                    $maProposition->setEtatProposition(false);
+                    $maProposition->setIsEnabled(false);
 
                     try {
                         $this->propositionRepository->save($maProposition,true);
@@ -361,6 +377,30 @@ class ProfilController extends AbstractController
                     }
 
                     
+                }else{
+                    $articleProposition = $maProposition->getArticleProposition();
+                    $articleProposition->setDeletedAt(new \DateTimeImmutable());
+                    $articleProposition->setIsEnabled(false);
+
+                    $maProposition->setDeletedAt(new \DateTimeImmutable());
+                    $maProposition->setEtatProposition(false);
+                    $maProposition->setIsEnabled(false);
+
+                    try {
+                        $this->propositionRepository->save($maProposition,true);
+                        $this->articlePropositionRepository->save($articleProposition,true);
+        
+                        $this->addFlash(
+                            'success',
+                            'Succès !|Votre demande a bien été modifié.|success'
+                        );
+                         $this->redirectToRoute('app_echanges_profil');
+                    } catch (\Exception $e) {
+                        $this->addFlash(
+                            'danger',
+                            'Oops...|Une erreur s\'est produite.|error'
+                        );
+                    }
                 }
          /**
          * Supprimer une offre d'échange que l'utilisateur a reçu
@@ -368,9 +408,7 @@ class ProfilController extends AbstractController
         }elseif(isset($params['deleteOffreId'])){
             $offre = $this->propositionRepository->findOneBy(['id'=> $params['deleteOffreId'], 'proprietaire' => $user,'deletedAt' => null]);
             $points = $offre->getPoints();
-            /**
-             * ⚠️Faire le else pour le cas ou c'est un autre produit en echange⚠️
-             */
+            
             if($points !== null){
                 $demandeur = $this->userRepository->findOneBy(['id'=>$offre->getDemandeur()]);
                 $demandeur->addPoints($points);
@@ -385,7 +423,7 @@ class ProfilController extends AbstractController
     
                     $this->addFlash(
                         'success',
-                        'Succès !|Votre demande a bien été traité.|success'
+                        'Succès !|Votre demande a bien été traitée.|success'
                     );
                      $this->redirectToRoute('app_echanges_profil');
                 } catch (\Exception $e) {
@@ -396,6 +434,30 @@ class ProfilController extends AbstractController
                 }
 
                 
+            }else{
+                    $articleProposition = $offre->getArticleProposition();
+                    $articleProposition->setDeletedAt(new \DateTimeImmutable());
+                    $articleProposition->setIsEnabled(false);
+
+                    $offre->setDeletedAt(new \DateTimeImmutable());
+                    $offre->setEtatProposition(false);
+                    $offre->setIsEnabled(false);
+
+                    try {
+                        $this->propositionRepository->save($offre,true);
+                        $this->articlePropositionRepository->save($articleProposition,true);
+        
+                        $this->addFlash(
+                            'success',
+                            'Succès !|Votre demande a bien été traitée.|success'
+                        );
+                         $this->redirectToRoute('app_echanges_profil');
+                    } catch (\Exception $e) {
+                        $this->addFlash(
+                            'danger',
+                            'Oops...|Une erreur s\'est produite.|error'
+                        );
+                    }
             }
              /**
          * Accepter une offre d'échange que l'utilisateur a reçu
@@ -403,9 +465,7 @@ class ProfilController extends AbstractController
         }elseif(isset($params['acceptOffreId'])){
             $offre = $this->propositionRepository->findOneBy(['id'=> $params['acceptOffreId'], 'proprietaire' => $user,'deletedAt' => null]);
             $points = $offre->getPoints();
-            $demandeur = $this->userRepository->findOneBy(['id'=>$offre->getDemandeur()]);
-            $demandeur->addPoints(25);
-            $this->userRepository->save($demandeur);
+           
 
             $article = $this->articleRepository->findOneBy(['id'=>$offre->getArticle(),'user'=>$user]);
             $article->setDeletedAt(new \DateTimeImmutable());
@@ -414,6 +474,10 @@ class ProfilController extends AbstractController
             
             if($points !== null){
                 $offre->setEtatProposition(true);
+
+                $demandeur = $this->userRepository->findOneBy(['id'=>$offre->getDemandeur()]);
+                $demandeur->addPoints(25);
+                $this->userRepository->save($demandeur);
                 try {
                     $this->propositionRepository->save($offre,true);
     
@@ -439,6 +503,37 @@ class ProfilController extends AbstractController
                 
 
                 $this->redirectToRoute('app_echanges_profil');
+            }else{
+                $offre->setEtatProposition(true);
+                try {
+                    $this->propositionRepository->save($offre,true);
+    
+                    $this->addFlash(
+                        'success',
+                        'Succès !|L\'offre a bien été acceptée. Merci de remplir le numéro du transporteur. Vous serez crédité des points une fois le produit entre nos mains.|success'
+                    );
+                     
+                } catch (\Exception $e) {
+                    $this->addFlash(
+                        'danger',
+                        'Oops...|Une erreur s\'est produite.|error'
+                    );
+                }
+                $autresOffres = $this->propositionRepository->findBy(['article'=> $offre->getArticle(), 'proprietaire' => $user,'deletedAt' => null,'etatProposition'=>null,'isEnabled'=>true]);
+
+                foreach($autresOffres as $row){
+                    $row->setEtatProposition(false);
+                    $row->setIsEnabled(false);
+                    $row->setDeletedAt(new \DateTimeImmutable());
+                    $this->propositionRepository->save($row,true);
+                }
+
+                $articleProposition = $offre->getArticleProposition();
+                $articleProposition->setIsEnabled(false);
+                $this->articlePropositionRepository->save($articleProposition,true);
+                
+
+                $this->redirectToRoute('app_echanges_profil');
             }
             /**
          * Submit numero transporteur (FAKE)
@@ -446,6 +541,24 @@ class ProfilController extends AbstractController
         }elseif(isset($params['numeroTransporteur'])){
             $offre = $this->propositionRepository->findOneBy(['id'=> $params['offreIdTransporteur'], 'proprietaire' => $user,'deletedAt' => null]);
             $offre->setIsEnabled(false);
+            try {
+                $this->propositionRepository->save($offre,true);
+
+                $this->addFlash(
+                    'success',
+                    'Succès !|Le transporteur a bien été enregistré.|success'
+                );
+                 
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'danger',
+                    'Oops...|Une erreur s\'est produite.|error'
+                );
+            }
+
+        }elseif(isset($params['numeroTransporteurDemandeur'])){
+            $offre = $this->propositionRepository->findOneBy(['id'=> $params['offreIdTransporteur'], 'demandeur' => $user,'deletedAt' => null]);
+            $offre->setTransported(true);
             try {
                 $this->propositionRepository->save($offre,true);
 

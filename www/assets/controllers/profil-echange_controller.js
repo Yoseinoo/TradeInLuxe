@@ -28,7 +28,10 @@ export default class extends Controller {
 
   }
 sendFormDataDelete(texte) {
-    const form = this.element.querySelector("form.produitContentGridAction");
+    let form = this.element.querySelector("form.produitContentGridAction");
+    if (!form) {
+        form = this.element.querySelector("form.containerPreviewFormAction");
+    }
     if (texte === 'offre') {
         const inputHiddenAccept = form.querySelector("[name^='acceptOffreId']");
         if (inputHiddenAccept) {
@@ -52,7 +55,10 @@ sendFormDataDelete(texte) {
 }
 
 sendFormDataValidate() {
-    const form = this.element.querySelector("form.produitContentGridAction");
+    let form = this.element.querySelector("form.produitContentGridAction");
+    if (!form) {
+        form = this.element.querySelector("form.containerPreviewFormAction");
+    }
     const inputHiddenAccept = form.querySelector("[name^='deleteOffreId']");
     if (inputHiddenAccept) {
         inputHiddenAccept.remove();

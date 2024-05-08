@@ -37,6 +37,9 @@ class Proposition
     #[ORM\Column(nullable: true)]
     private ?bool $etatProposition = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $transported = null;
+
     #[ORM\Column]
     private ?bool $isEnabled = true;
 
@@ -135,6 +138,18 @@ class Proposition
     public function setEtatProposition(string $etatProposition): static
     {
         $this->etatProposition = $etatProposition;
+
+        return $this;
+    }
+
+    public function getTransported(): ?string
+    {
+        return $this->transported;
+    }
+
+    public function setTransported(string $transported): static
+    {
+        $this->transported = $transported;
 
         return $this;
     }

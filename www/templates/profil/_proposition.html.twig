@@ -6,11 +6,19 @@
 				{% if offre.etatProposition == null %}
 					<p class="produitContentGridEtatWait">État : En attente
 					</p>
-				{% else %}
+					<a class="produitContentGridEtatButton" href="{{path('app_echanges_profil_preview',{'idProposition' : offre.id})}}">Voir</a>
+				{% elseif offre.etatProposition == true and offre.isEnabled == true  %}
 					<p class="produitContentGridEtatValidate">État : Validé</p>
+					<form method="post" action="{{path('app_echanges_update_profil')}}" class="produitContentGridAction">
+					<input type="text" class="produitContentGridActionTransporteur" name="numeroTransporteur" id="inputNumeroTransporteur_{{offre.id}}" placeholder="Numéro transporteur (ex: 0679ERT677)">
+					<input type="hidden" value="{{offre.id}}" name="offreIdTransporteur" id="inputHiddenTransporteur_{{offre.id}}">
+					<button type="submit" class="produitContentGridActionValidate" id="buttonAccept_{{offre.id}}" button-transporteur="transporteur">Envoyer</button>
+				</form>
+				{% else %}
+				<p class="produitContentGridEtatWait">État : En cours d'acheminement</p>
 				{% endif %}
 
-				<a class="produitContentGridEtatButton" href="">Voir</a>
+				
 			</div>
 			<div class="profilEchangeContainer">
 
@@ -125,11 +133,17 @@
 
 				{% if proposition.etatProposition == null %}
 					<p class="produitContentGridEtatWait">État : En attente</p>
-				{% else %}
+					<a class="produitContentGridEtatButton" href="{{path('app_echanges_profil_preview',{'idProposition' : proposition.id})}}">Voir</a>
+				{% elseif proposition.etatProposition == true and proposition.transported == null  %}
 					<p class="produitContentGridEtatValidate">État : Validé</p>
+					<form method="post" action="{{path('app_echanges_update_profil')}}" class="produitContentGridAction">
+					<input type="text" class="produitContentGridActionTransporteur" name="numeroTransporteurDemandeur" id="inputNumeroTransporteur_{{proposition.id}}" placeholder="Numéro transporteur (ex: 0679ERT677)">
+					<input type="hidden" value="{{proposition.id}}" name="offreIdTransporteur" id="inputHiddenTransporteur_{{proposition.id}}">
+					<button type="submit" class="produitContentGridActionValidate" id="buttonAccept_{{proposition.id}}" button-transporteur="transporteur">Envoyer</button>
+				</form>
+				{% else %}
+					<p class="produitContentGridEtatWait">État : En cours d'acheminement</p>
 				{% endif %}
-
-				<a class="produitContentGridEtatButton" href="">Voir</a>
 			</div>
 			<div class="profilEchangeContainer">
 
