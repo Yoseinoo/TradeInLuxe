@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe - Favoris
+{% endblock %}
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+
+	<main>
+		{{ include('partials/_sidebar.html.twig') }}
+
+		<section class="profil">
+			<div class="profilContainer">
+				<h1 class="profilContainerTitle">Favoris</h1>
+				<p class="profilContainerSubtitle">Retrouvez tous vos articles favoris dans cette section.</p>
+				<div id="targetFav">
+					{{ include('profil/_listFavoris.html.twig') }}
+				</div>
+			</div>
+		</section>
+
+
+	</main>
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}

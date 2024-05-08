@@ -2,17 +2,18 @@
 
 namespace App\Controller;
 
-use App\Repository\CategorieRepository;
-use App\Repository\CouleurRepository;
-use App\Repository\MarqueRepository;
-use App\Repository\ProduitRepository;
-use App\Repository\TailleRepository;
-use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
+use App\Repository\MarqueRepository;
+use App\Repository\TailleRepository;
+use App\Repository\CouleurRepository;
+use App\Repository\FavorisRepository;
+use App\Repository\ProduitRepository;
+use App\Repository\CategorieRepository;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class CategorieController extends AbstractController
 {
@@ -21,13 +22,15 @@ class CategorieController extends AbstractController
         private CategorieRepository $categorieRepository,
         private MarqueRepository $marqueRepository,
         private TailleRepository $tailleRepository,
-        private CouleurRepository $couleurRepository
+        private CouleurRepository $couleurRepository,
+        private FavorisRepository $favorisRepository
     ) {
     }
 
     #[Route('/chaussures/{page<\d+>}', name: 'app_chaussures')]
     public function chaussures(Request $request, int $page = 1): Response
     {
+        $user = $this->getUser();
         $formData = [];
         if ($request->isMethod('POST')) {
             $formData = $request->request->all();
@@ -39,19 +42,29 @@ class CategorieController extends AbstractController
 
         $data = $this->getFiltres('Chaussures');
         $pagerfanta = $this->getProduitsPager($data['categorie'], $page, $formData);
+        $favoris = null;
+        if($user){
+            $resultats = $this->favorisRepository->findBy(['user' => $user]);
+
+            foreach($resultats as $favori){
+                $favoris [] = $favori->getProduit()->getId();
+            }
+        }
 
         return $this->render('categorie/'.$template, [
             'title' => 'Chaussures',
             'description' => $data['description'],
             'pager' => $pagerfanta,
             'filtresParType' => $data['filtresParType'],
-            'selected' => $formData
+            'selected' => $formData,
+            'favoris' => $favoris
         ]);
     }
 
     #[Route('/sacs/{page<\d+>}', name: 'app_sacs')]
     public function sacs(Request $request, int $page = 1): Response
     {
+        $user = $this->getUser();
         $formData = [];
         if ($request->isMethod('POST')) {
             $formData = $request->request->all();
@@ -63,19 +76,28 @@ class CategorieController extends AbstractController
 
         $data = $this->getFiltres('Sacs');
         $pagerfanta = $this->getProduitsPager($data['categorie'], $page, $formData);
+        $favoris = null;
+        if($user){
+            $resultats = $this->favorisRepository->findBy(['user' => $user]);
 
+            foreach($resultats as $favori){
+                $favoris [] = $favori->getProduit()->getId();
+            }
+        }
         return $this->render('categorie/'.$template, [
             'title' => 'Sacs',
             'description' => $data['description'],
             'pager' => $pagerfanta,
             'filtresParType' => $data['filtresParType'],
-            'selected' => $formData
+            'selected' => $formData,
+            'favoris' => $favoris
         ]);
     }
 
     #[Route('/vetements/{page<\d+>}', name: 'app_vetements')]
     public function vetements(Request $request, int $page = 1): Response
     {
+        $user = $this->getUser();
         $formData = [];
         if ($request->isMethod('POST')) {
             $formData = $request->request->all();
@@ -87,13 +109,21 @@ class CategorieController extends AbstractController
 
         $data = $this->getFiltres('Vêtements');
         $pagerfanta = $this->getProduitsPager($data['categorie'], $page, $formData);
+        $favoris = null;
+        if($user){
+            $resultats = $this->favorisRepository->findBy(['user' => $user]);
 
+            foreach($resultats as $favori){
+                $favoris [] = $favori->getProduit()->getId();
+            }
+        }
         return $this->render('categorie/'.$template, [
             'title' => 'Vêtements',
             'description' => $data['description'],
             'pager' => $pagerfanta,
             'filtresParType' => $data['filtresParType'],
-            'selected' => $formData
+            'selected' => $formData,
+            'favoris' => $favoris
         ]);
     }
 
@@ -126,7 +156,7 @@ class CategorieController extends AbstractController
 
     private function getProduitsPager(int $idCategorie, int $page, array $filtres = null): Pagerfanta
     {
-        $params = "categorie=$idCategorie&deleted=false&enabled=true";
+        $params = "categorie=$idCategorie&deleted=false&isEnabled=true";
 
         $queryBuilder = $this->produitRepository->getAllQueryBuilder($params, $filtres);
         $pagerfanta = new Pagerfanta(new QueryAdapter($queryBuilder));

@@ -21,28 +21,94 @@ class EtatRepository extends ServiceEntityRepository
         parent::__construct($registry, Etat::class);
     }
 
-//    /**
-//     * @return Etat[] Returns an array of Etat objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function save(Etat $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
 
-//    public function findOneBySomeField($value): ?Etat
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function getOne($params = ''): ?Etat
+    {
+        $queryBuilder = $this->createQueryBuilder('etat');
+
+        $this->getParams($queryBuilder, $params);
+
+        $query = $queryBuilder->getQuery();
+        $query->useQueryCache(true);
+        $query->enableResultCache();
+
+        try {
+            return $query->getOneOrNullResult();
+        } catch (\Doctrine\ORM\NonUniqueResultException) {
+            return null;
+        }
+    }
+
+    public function getAll($params = ''): array
+    {
+        $queryBuilder = $this->createQueryBuilder('etat');
+
+        $this->getParams($queryBuilder, $params);
+
+        $query = $queryBuilder->getQuery();
+
+        $query->useQueryCache(true);
+        $query->enableResultCache();
+
+        return $query->getResult();
+    }
+
+    private function getParams($queryBuilder, $params = '')
+    {
+        parse_str($params, $args);
+
+        if (!empty($args['name'])) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('etat.name', ':name')
+            )
+            ->setParameter('name', $args['name']);
+        }
+
+        if (isset($args['isEnabled'])) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('etat.isEnabled', ':isEnabled')
+            )
+            ->setParameter('isEnabled', $args['isEnabled'], \PDO::PARAM_BOOL);
+        }
+
+        if (isset($args['deleted'])) {
+            if ($args['deleted'] === 'true') {
+                $queryBuilder->andWhere(
+                    $queryBuilder->expr()->isNotNull('etat.deletedAt')
+                );
+            } elseif ($args['deleted'] === 'false') {
+                $queryBuilder->andWhere(
+                    $queryBuilder->expr()->isNull('etat.deletedAt')
+                );
+            }
+        }
+
+        if (!empty($args['orderby'])) {
+            if (!empty($args['order'])) {
+                $queryBuilder->orderby('etat.' . $args['orderby'], $args['order']);
+            } else {
+                $queryBuilder->orderby('etat.' . $args['orderby'], 'asc');
+            }
+        } else {
+            $queryBuilder->orderby('etat.id', 'desc');
+        }
+
+        if (!empty($args['search'])) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->orX(
+                    $queryBuilder->expr()->eq('etat.id', ':searchInt'),
+                    $queryBuilder->expr()->like('LOWER(etat.name)', ':search'),
+                )
+            );
+            $queryBuilder->setParameter('search', '%' . strtolower($args['search']) . '%');
+            $queryBuilder->setParameter('searchInt', (int) $args['search']);
+        }
+    }
 }

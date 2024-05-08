@@ -4,7 +4,7 @@ import $ from 'jquery';
 export default class extends Controller {
   connect() {
     // Trouvez tous les champs du formulaire
-    const checkboxes = this.element.querySelectorAll("input[type='checkbox']");
+    const checkboxes = this.element.querySelectorAll("input[type='checkbox']:not([name='favorite[]'])");
     const select = document.getElementById('triProduits');
     const deleteFiltersButton = document.getElementById('deleteFilters'); 
 
@@ -55,7 +55,7 @@ export default class extends Controller {
       paginationLinks.forEach((link) => {
           const url = new URL(link.href);
           
-          const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+          const checkboxes = document.querySelectorAll("input[type='checkbox']:checked:not([name='favorite[]'])");
           const checkedFilters = Array.from(checkboxes).map((checkbox) => checkbox.name);
   
           // Vérifier la valeur du select
@@ -101,7 +101,7 @@ export default class extends Controller {
 
   resetFiltres() {
     // Réinitialisez tous les filtres en décochant toutes les cases cochées et en sélectionnant la première option du select.
-    const checkboxes = this.element.querySelectorAll("input[type='checkbox']");
+    const checkboxes = this.element.querySelectorAll("input[type='checkbox']:not([name='favorite[]'])");
     checkboxes.forEach((checkbox) => {
       checkbox.checked = false;
     });
@@ -125,7 +125,7 @@ export default class extends Controller {
 
   checkFilters() {
     // Vérifiez s'il y a des filtres actifs au chargement de la page.
-    const checkboxes = this.element.querySelectorAll("input[type='checkbox']");
+    const checkboxes = this.element.querySelectorAll("input[type='checkbox']:not([name='favorite[]'])");
     const select = document.getElementById('triProduits');
 
     let filterActive = false;

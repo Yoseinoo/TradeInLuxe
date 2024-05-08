@@ -1,0 +1,39 @@
+{% if articles|length %}
+	<div class="produitContentGrid" {{stimulus_controller('articles')}}>
+		{% for article in articles %}
+			<div>
+				<div class="produitContentGridEtat">
+				{% if article.isValidated == false %}
+					<p class="produitContentGridEtatWait">État : En attente de validation</p>
+				{% else %}
+					<p class="produitContentGridEtatValidate">État : Validé</p>
+				{% endif %}
+				<a class="produitContentGridEtatButton" href="{{path('app_article_detail', {'id':article.produit.id, 'idArticle' : article.id })}}">Voir</a>
+				</div>
+				<div class="produitContentGridCard">
+
+					
+					<img src="{{ asset('build/images/produits/' ~ article.produit.pathImage) }}" class="produitContentGridCardImage" alt="Image 1">
+					<p class="produitContentGridCardName">
+						{{ article.produit.name | slice(0, 40) }}
+						{% if article.produit.name | length > 40 %}...
+						{% endif %}
+					</p>
+					<span>{{article.produit.caracteristiques.Marque}}</span>
+				</div>
+				<form method="post" action="{{path('app_articles_profil')}}" class="produitContentGridAction" id="formArticle" url-preview="{{path('app_preview_article_profil')}}">
+					<input type="hidden" value="{{article.id}}" id="inputHidden_{{article.id}}">
+					<a class="produitContentGridActionUpdate" id="buttonUpdate_{{article.id}}">Mettre à jour</a>
+					<a class="produitContentGridActionDelete" id="buttonDelete_{{article.id}}">Supprimer</a>
+
+				</form>
+			</div>
+		{% endfor %}
+
+	</div>
+{% else %}
+	<div class="noresult">
+		<h3 class="noresultTitle">Désolé, aucun résultat n’a été trouvé</h3>
+		<p class="noresultTexte">Vous n'avez pas encore proposé d'article.</p>
+	</div>
+{% endif %}

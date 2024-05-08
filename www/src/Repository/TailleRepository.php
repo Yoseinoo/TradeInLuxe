@@ -99,9 +99,9 @@ class TailleRepository extends ServiceEntityRepository
 
         if (!empty($args['orderby'])) {
             if (!empty($args['order'])) {
-                $queryBuilder->orderby('taille' . $args['orderby'], $args['order']);
+                $queryBuilder->orderby('taille.' . $args['orderby'], $args['order']);
             } else {
-                $queryBuilder->orderby('taille' . $args['orderby'], 'asc');
+                $queryBuilder->orderby('taille.' . $args['orderby'], 'asc');
             }
         } else {
             $queryBuilder->orderby('taille.id', 'desc');

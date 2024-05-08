@@ -6,6 +6,8 @@
     background-color: $bg-color-primary; 
     color: $white; 
     font-family: $font-family-primary;
+    position: relative;
+    z-index: 99;
   
     &Content {
       width: 100%;

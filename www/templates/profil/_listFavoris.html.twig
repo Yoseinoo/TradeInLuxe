@@ -1,0 +1,38 @@
+{% if favoris|length %}
+	<div class="produitContentGrid" {{stimulus_controller('favoris')}}>
+		{% for favori in favoris %}
+			{% if favori.produit.isEnabled != false %}
+
+				<div>
+
+					<form method="post" action="{{path('app_favoris_profil')}}" class="produitContentGridLike">
+						<input type="checkbox" id="likeCheckbox_{{favori.produit.id}}" name="favorite[]" class="produitContentGridLikeInput" value="{{ favori.produit.id}}" checked>
+						<label for="likeCheckbox_{{favori.produit.id}}">
+							<svg width="22" height="22" fill="none" stroke="#2e2e2e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+								<path d="M7.5 4A5.5 5.5 0 0 0 2 9.5C2 15 8.5 20 12 21.163 15.5 20 22 15 22 9.5a5.5 5.5 0 0 0-10-3.163A5.494 5.494 0 0 0 7.5 4Z"></path>
+							</svg>
+						</label>
+					</form>
+
+					<a class="produitContentGridCard" href="{{path('app_article', {'id':favori.produit.id } )}}">
+
+
+						<img src="{{ asset('build/images/produits/' ~ favori.produit.pathImage) }}" class="produitContentGridCardImage" alt="Image 1">
+						<p class="produitContentGridCardName">
+							{{ favori.produit.name | slice(0, 40) }}
+							{% if favori.produit.name | length > 40 %}...
+							{% endif %}
+						</p>
+						<span>{{favori.produit.caracteristiques.Marque}}</span>
+					</a>
+				</div>
+			{% endif %}
+		{% endfor %}
+
+	</div>
+{% else %}
+	<div class="noresult">
+		<h3 class="noresultTitle">Désolé, aucun résultat n’a été trouvé</h3>
+		<p class="noresultTexte">Vous n'avez pas encore de favoris.</p>
+	</div>
+{% endif %}

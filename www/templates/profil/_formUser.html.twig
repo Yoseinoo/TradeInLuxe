@@ -1,0 +1,53 @@
+<h1 class="formulaireCardTitle">Modifier votre Profil</h1>
+{{ form_start(form, {'attr': {'class': 'formulaireCardForm'}}) }}
+{{ form_label(form.pathImage)}}
+{{ form_widget(form.pathImage)}}
+{% if form.pathImage.vars.errors|length > 0 %}
+	<div class="errorMessage">
+		{{ form_errors(form.pathImage) }}
+	</div>
+{% endif %}
+{{ form_label(form.firstname)}}
+{{ form_widget(form.firstname)}}
+{% if form.firstname.vars.errors|length > 0 %}
+	<div class="errorMessage">
+		{{ form_errors(form.firstname) }}
+	</div>
+{% endif %}
+{{ form_label(form.lastname)}}
+{{ form_widget(form.lastname)}}
+{% if form.lastname.vars.errors|length > 0 %}
+	<div class="errorMessage">
+		{{ form_errors(form.lastname) }}
+	</div>
+{% endif %}
+{{ form_label(form.email)}}
+{{ form_widget(form.email)}}
+{% if form.email.vars.errors|length > 0 %}
+	<div class="errorMessage">
+		{{ form_errors(form.email) }}
+	</div>
+{% endif %}
+{{ form_label(form.street)}}
+{{ form_widget(form.street)}}
+{% if form.street.vars.errors|length > 0 %}
+	<div class="errorMessage">
+		{{ form_errors(form.street) }}
+	</div>
+{% endif %}
+{{ form_label(form.postcode)}}
+{{ form_widget(form.postcode)}}
+{% if form.postcode.vars.errors|length > 0 %}
+	<div class="errorMessage">
+		{{ form_errors(form.postcode) }}
+	</div>
+{% endif %}
+{{ form_label(form.city)}}
+{{ form_widget(form.city)}}
+{% if form.city.vars.errors|length > 0 %}
+	<div class="errorMessage">
+		{{ form_errors(form.city) }}
+	</div>
+{% endif %}
+{{ form_widget(form.submit)}}
+{{ form_end(form) }}

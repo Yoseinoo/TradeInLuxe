@@ -37,6 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    #[ORM\Column(type: 'boolean')]
+    private $isCompleted = false;
+
     #[ORM\Column(type: Types::ARRAY, nullable: true)]
     private array $roles = [];
 
@@ -54,6 +57,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, nullable: true)]
     #[Assert\Length(min:2, max:180)]
     private ?string $city = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $points = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $notifications = null;
 
     #[ORM\Column]
     private ?bool $isEnabled = true;
@@ -142,6 +151,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getIsCompleted(): bool
+    {
+        return $this->isCompleted;
+    }
+
+    public function setIsCompleted(bool $isCompleted): static
+    {
+        $this->isCompleted = $isCompleted;
+
+        return $this;
+    }
+
     public function getPathImage(): ?string
     {
         return $this->pathImage;
@@ -195,6 +216,71 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getAddress(): ?string
     {
         return $this->postcode . ' ' . $this->city;
+    }
+
+    public function getPoints(): ?int
+    {
+        return $this->points;
+    }
+
+    public function setPoints(int $points): static
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    public function addPoints(int $pointsToAdd): static
+    {
+        $currentPoints = $this->getPoints();
+
+        if ($currentPoints !== null) {
+            $this->setPoints($currentPoints + $pointsToAdd);
+        } else {
+            $this->setPoints($pointsToAdd);
+        }
+
+        return $this;
+    }
+
+    public function removePoints(int $pointsToRemove): static
+    {
+        $currentPoints = $this->getPoints();
+
+        if ($currentPoints !== null && $currentPoints >= $pointsToRemove) {
+            $this->setPoints($currentPoints - $pointsToRemove);
+        } else {
+            // Vous pouvez choisir de lever une exception ou de simplement ignorer l'opération
+            // Ici, je lève une exception si les points à retirer sont supérieurs aux points actuels
+            throw new \InvalidArgumentException('Cannot remove more points than available.');
+        }
+
+        return $this;
+    }
+
+    public function getNotifications(): ?int
+    {
+        return $this->notifications;
+    }
+
+    public function setNotifications(int $notifications): static
+    {
+        $this->notifications = $notifications;
+
+        return $this;
+    }
+
+    public function addNotifications(int $notification): static
+    {
+        $currentNotifications = $this->getNotifications();
+
+        if ($currentNotifications !== null) {
+            $this->setNotifications($currentNotifications + $notification);
+        } else {
+            $this->setNotifications($notification);
+        }
+
+        return $this;
     }
 
     public function isEnabled(): ?bool

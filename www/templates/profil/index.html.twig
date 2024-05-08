@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe - Profil
+{% endblock %}
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+
+	<main>
+
+		{{ include('partials/_sidebar.html.twig') }}
+		<section class="profil">
+			{% for flashMessage in app.flashes('success') %}
+				{% set parts = flashMessage|split('|') %}
+				<div data-controller="message" data-message-type-value="{{ parts[2] }}" data-message-title-value="{{ parts[0] }}" data-message-message-value="{{ parts[1] }}"></div>
+			{% endfor %}
+			{% for flashMessage in app.flashes('danger') %}
+				{% set parts = flashMessage|split('|') %}
+				<div data-controller="message" data-message-type-value="{{ parts[2] }}" data-message-title-value="{{ parts[0] }}" data-message-message-value="{{ parts[1] }}"></div>
+			{% endfor %}
+			<div class="profilContainer">
+				<div id="targetUser">
+
+					{% if error is defined and error == true %}
+						{{ include('profil/_formUser.html.twig') }}
+					{% else %}
+						{{ include('profil/_infosUser.html.twig') }}
+					{% endif %}
+				</div>
+			</div>
+		</section>
+
+		<section class="profil">
+			<div class="profilContainer">
+				<h3 class="faqContentTaskTitle">Comment gagner des points ?</h3>
+				<ul class="faqContentTaskList">
+					<li class="faqContentTaskListItem">Inscription
+						<span class="faqContentTaskListItemPoints">+50 points</span>
+					</li>
+					<hr>
+					<li class="faqContentTaskListItem">Complétez votre profil
+						<span class="faqContentTaskListItemPoints">+200 points</span>
+					</li>
+					<hr>
+					<li class="faqContentTaskListItem">Faire des échanges
+						<span class="faqContentTaskListItemPoints">+25 points</span>
+					</li>
+				</ul>
+
+			</div>
+		</section>
+
+
+	</main>
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}

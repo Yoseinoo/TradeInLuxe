@@ -21,7 +21,10 @@
 								<path d="M21 22a9 9 0 1 0-18 0"></path>
 							</svg>
 						{% endif %}
-						<p class="articleContentGridCardUserName">{{article.user.firstname ~ ' ' ~ article.user.lastname}}</p>
+						{% set fullName = article.user.firstname ~ ' ' ~ article.user.lastname %}
+						{% set shortenedName = fullName|slice(0, 12) ~ (fullName|length > 12 ? '...' : '') %}
+
+						<p class="articleContentGridCardUserName">{{shortenedName }}</p>
 					</div>
 					<p class="articleContentGridCardEtat {% if article.etat == 'Neuf' %}A{% elseif article.etat == 'Très bon état' %}B{% else %}C{% endif %}">{{article.etat}}</p>
 				</a>

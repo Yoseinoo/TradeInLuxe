@@ -21,11 +21,12 @@
 
 				{{ form_widget(form.submit)}}
 
-				<div class="formulaireCardFormLiens">
-					<span>Vous souvenez-vous de votre mot de passe ?<a href="{{path('app_login')}}">Se connecter</a>
-					</span>
-				</div>
-
+				{% if not app.user %}
+					<div class="formulaireCardFormLiens">
+						<span>Vous souvenez-vous de votre mot de passe ?<a href="{{path('app_login')}}">Se connecter</a>
+						</span>
+					</div>
+				{% endif %}
 				{{ form_end(form) }}
 			</div>
 			{% for flashMessage in app.flashes('success') %}

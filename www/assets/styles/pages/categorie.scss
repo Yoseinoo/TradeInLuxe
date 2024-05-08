@@ -178,12 +178,45 @@
                     cursor: pointer;
                 }
             }
+            &Etat{
+                margin-bottom: 12px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                &Wait{
+                color: $C;
+                font-weight: 600;
+                text-align: center;
+                margin: 0;
+            }
+            &Validate{
+                color: $valid;
+                font-weight: 600;
+                text-align: center;
+                margin: 0;
+            }
+            &Button{
+                    color: $secondary;
+                    border: 1px solid $secondary;
+                    text-decoration: none;
+                    font-size: 14px;
+                    padding: 8px;
+                    transition: background-color 0.2s;
+                    &:hover{
+                        background-color: $bg-color-primary;
+                        color: $white;
+                        cursor: pointer;
+                    }
+            }
+            }
+            
             &Card {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 background-color: $white;
                 padding: 20px;
+                height: 255px;
                 text-decoration: none;
                 color: $secondary;
                 &Image {
@@ -200,6 +233,50 @@
                 span {
                     font-style: italic;
                     color: $muted;
+                }
+            }
+            &Action{
+                display: flex;
+                justify-content: space-around;
+                margin-top: 8px;
+                &Update{
+                    color: $secondary;
+                    background-color: $primary;
+                    text-decoration: none;
+                    font-size: 14px;
+                    padding: 8px;
+                    transition: background-color 0.2s;
+                    &:hover{
+                        background-color: $bg-color-primary;
+                        color: $white;
+                        cursor: pointer;
+                    }
+                }
+                &Delete{
+                    color: $red;
+                    border: 1px solid $red;
+                    text-decoration: none;
+                    font-size: 14px;
+                    padding: 8px;
+                    transition: background-color 0.2s;
+                    &:hover{
+                        background-color: $red;
+                        color: $white;
+                        cursor: pointer;
+                    }
+                }
+                &Validate{
+                    color: $valid;
+                    border: 1px solid $valid;
+                    text-decoration: none;
+                    font-size: 14px;
+                    padding: 8px;
+                    transition: background-color 0.2s;
+                    &:hover{
+                        background-color: $valid;
+                        color: $white;
+                        cursor: pointer;
+                    }
                 }
             }
         }

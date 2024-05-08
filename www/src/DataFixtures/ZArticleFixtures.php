@@ -27,7 +27,7 @@ class ZArticleFixtures extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager): void
     {
-        $user = $this->userRepository->findOneBy(['email' => 'martinsimongo@gmail.com']);
+        $user = [$this->userRepository->findOneBy(['email' => 'martinsimongo@gmail.com']),$this->userRepository->findOneBy(['email' => 'colette@gmail.com'])];
         $categorie = $this->categorieRepository->findOneBy(['name' => 'Chaussures']);
         $produit = $this->produitRepository->findOneBy(['name' => 'Sneaker LV Rush']);
 
@@ -48,7 +48,7 @@ class ZArticleFixtures extends Fixture implements FixtureGroupInterface
                 'name' => 'Sneaker LV Rush', 'description' => "Dévoilée lors du défilé Croisière 2024, cette sneaker LV Rush présente un mélange de matières dont du cuir de veau lisse et velours. Le directeur artistique, Nicolas Ghesquière, s'est inspiré des chaussures de trail pour la concevoir. Elle intègre parmi d'autres détails phares un accessoire LV Circle métallique et une semelle extérieure en forme de vague.", "image" => "rush1.avif", 'caracteristiques' => [
                     'Marque' => 'Louis Vuitton',
                     'Taille' => '36',
-                    'Etat' => 'Neuf'
+                    'Etat' => 'Très bon état'
                 ],
                 'photos' => [
                     'rush1.avif', 'rush2.avif', 'rush3.avif', 'rush4.avif'
@@ -58,10 +58,10 @@ class ZArticleFixtures extends Fixture implements FixtureGroupInterface
             ]
         ];
 
-        foreach ($articles as $article) {
+        foreach ($articles as $key => $article) {
 
             $entity = new Article();
-            $entity->setUser($user);
+            $entity->setUser($user[$key]);
             $entity->setCategorie($categorie);
             $entity->setProduit($produit);
             $entity->setName($article['name']);

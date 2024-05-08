@@ -36,7 +36,7 @@ class ContactFormType extends AbstractType
                 'choice_label' => fn (SubjectContact $subjectContact) => $subjectContact->getSujet(),
                 'choice_value' => 'email',
                 'placeholder' => '-- Merci de sélectionner --',
-                'choices' => $this->subjectContactRepository->getAll('deleted=false&enabled=true&order=desc'),
+                'choices' => $this->subjectContactRepository->getAll('deleted=false&isEnabled=true&order=desc'),
             ])
             ->add('firstname', TextType::class, [
                 'empty_data' => '',
