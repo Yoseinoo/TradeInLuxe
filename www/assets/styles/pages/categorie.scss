@@ -260,8 +260,21 @@
                     padding: 8px;
                     transition: background-color 0.2s;
                     &:hover{
-                        background-color: $bg-color-primary;
-                        color: $red;
+                        background-color: $red;
+                        color: $white;
+                        cursor: pointer;
+                    }
+                }
+                &Validate{
+                    color: $valid;
+                    border: 1px solid $valid;
+                    text-decoration: none;
+                    font-size: 14px;
+                    padding: 8px;
+                    transition: background-color 0.2s;
+                    &:hover{
+                        background-color: $valid;
+                        color: $white;
                         cursor: pointer;
                     }
                 }

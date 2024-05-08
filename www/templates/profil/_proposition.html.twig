@@ -1,9 +1,9 @@
-{% if demandes|length %}
+{% if offres|length %}
 	<h2>Vos offres</h2>
-	{% for demande in demandes %}
-		{% if demande.points is null %}
+	{% for offre in offres %}
+		{% if offre.points is null %}
 			<div class="produitContentGridEtat">
-				{% if demande.etatProposition == null %}
+				{% if offre.etatProposition == null %}
 					<p class="produitContentGridEtatWait">État : En attente
 					</p>
 				{% else %}
@@ -20,11 +20,11 @@
 						<div class="produitContentGridCard">
 
 
-							<img src="{{asset('build/images/uploads/articles/' ~ demande.article.pathImage )}}" class="produitContentGridCardImage" alt="Image 1">
+							<img src="{{asset('build/images/uploads/articles/' ~ offre.article.pathImage )}}" class="produitContentGridCardImage" alt="Image 1">
 							<p class="produitContentGridCardName">
-								{{demande.article.name}}
+								{{offre.article.name}}
 							</p>
-							<span>{{demande.article.caracteristiques.Marque}}</span>
+							<span>{{offre.article.caracteristiques.Marque}}</span>
 						</div>
 					</div>
 					<div class="iconEchange">
@@ -34,26 +34,31 @@
 					</div>
 					<div>
 						<div class="produitContentGridCard">
-							<img src="{{asset('build/images/uploads/proposition/articles/' ~ demande.articleProposition.pathImage )}}" class="produitContentGridCardImage" alt="Image 1">
+							<img src="{{asset('build/images/uploads/proposition/articles/' ~ offre.articleProposition.pathImage )}}" class="produitContentGridCardImage" alt="Image 1">
 							<p class="produitContentGridCardName">
-								{{demande.articleProposition.name}}
+								{{offre.articleProposition.name}}
 							</p>
-							<span>{{demande.articleProposition.caracteristiques.Marque}}</span>
+							<span>{{offre.articleProposition.caracteristiques.Marque}}</span>
 						</div>
 					</div>
 
 				</div>
 			</div>
 		{% else %}
-			<div class="produitContentGridEtat">
+			<div class="produitContentGridEtat" {{stimulus_controller('profil-echange')}}>
 
-				{% if demande.etatProposition == null %}
+				{% if offre.etatProposition == null %}
 					<p class="produitContentGridEtatWait">État : En attente</p>
 				{% else %}
 					<p class="produitContentGridEtatValidate">État : Validé</p>
 				{% endif %}
 
-				<a class="produitContentGridEtatButton" href="">Voir</a>
+				<form method="post" action="{{path('app_echanges_update_profil')}}" class="produitContentGridAction">
+					<input type="hidden" value="{{offre.id}}" name="acceptOffreId" id="inputHiddenAccept_{{offre.id}}">
+					<input type="hidden" value="{{offre.id}}" name="deleteOffreId" id="inputHiddenDelete_{{offre.id}}">
+					<a class="produitContentGridActionValidate" id="buttonAccept_{{offre.id}}">Accepter</a>
+					<a class="produitContentGridActionDelete" id="buttonDelete_{{offre.id}}">Refuser</a>
+				</form>
 			</div>
 			<div class="profilEchangeContainer">
 
@@ -63,11 +68,11 @@
 						<div class="produitContentGridCard">
 
 
-							<img src="{{asset('build/images/uploads/articles/' ~ demande.article.pathImage )}}" class="produitContentGridCardImage" alt="Image 1">
+							<img src="{{asset('build/images/uploads/articles/' ~ offre.article.pathImage )}}" class="produitContentGridCardImage" alt="Image 1">
 							<p class="produitContentGridCardName">
-								{{demande.article.name}}
+								{{offre.article.name}}
 							</p>
-							<span>{{demande.article.caracteristiques.Marque}}</span>
+							<span>{{offre.article.caracteristiques.Marque}}</span>
 						</div>
 					</div>
 					<div class="iconEchange">
@@ -76,10 +81,23 @@
 						</svg>
 					</div>
 					<div>
-						<div class="produitContentGridCard">
+						<div class="valeurPoints">
+							<div class="valeurPointsUser">
+								{% if offre.demandeur.pathImage is not null %}
+									<img src="{{ asset('build/images/uploads/user/' ~ offre.demandeur.pathImage) }}" alt="" class="valeurPointsUserImage">
+								{% else %}
+									<svg width="22" height="22" fill="none" stroke="#2e2e2e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+										<path d="M21 22a9 9 0 1 0-18 0"></path>
+									</svg>
+								{% endif %}
+								<p class="valeurPointsUserName">{{offre.demandeur.firstname ~ ' ' ~ offre.demandeur.lastname}}</p>
+							</div>
 
-							<p>{{demande.points}}</p>
+							<p class="valeurPointsTexte">{{offre.points}} points</p>
+							
 						</div>
+						
 					</div>
 
 				</div>
@@ -158,10 +176,22 @@
 				<div class="produitContentGrid">
 					<div>
 						<div class="valeurPoints">
+							<div class="valeurPointsUser">
+								{% if proposition.demandeur.pathImage is not null %}
+									<img src="{{ asset('build/images/uploads/user/' ~ proposition.demandeur.pathImage) }}" alt="" class="valeurPointsUserImage">
+								{% else %}
+									<svg width="22" height="22" fill="none" stroke="#2e2e2e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+										<path d="M21 22a9 9 0 1 0-18 0"></path>
+									</svg>
+								{% endif %}
+								<p class="valeurPointsUserName">{{proposition.demandeur.firstname ~ ' ' ~ proposition.demandeur.lastname}}</p>
+							</div>
 
-							<p>{{proposition.points}}
-								points</p>
+							<p class="valeurPointsTexte">{{proposition.points}} points</p>
+							
 						</div>
+						
 					</div>
 					<div class="iconEchange">
 						<svg width="70" height="70" fill="none" stroke="#2E2E2E" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -310,13 +310,13 @@ class ProfilController extends AbstractController
     public function echanges(Request $request): Response
     {
         $user = $this->getUser();
-        $demandes = $this->propositionRepository->findBy(['proprietaire' => $user, 'deletedAt' => null]);
+        $offres = $this->propositionRepository->findBy(['proprietaire' => $user, 'deletedAt' => null]);
         $mesPropositions = $this->propositionRepository->findBy(['demandeur' => $user, 'deletedAt' => null]);
        
 
         return $this->render('profil/echanges.html.twig', [
             'current' => 'echanges',
-            'demandes' => $demandes,
+            'offres' => $offres,
             'mesPropositions' => $mesPropositions
         ]);
     }
@@ -328,8 +328,16 @@ class ProfilController extends AbstractController
         $user = $this->getUser();
 
         $params = $request->request->all();
-                $maProposition = $this->propositionRepository->findOneBy(['id'=> $params['propositionId'], 'demandeur' => $user,'deletedAt' => null]);
+
+        /**
+         * Supprimer une demande d'échange que l'utilisateur a fait
+         */
+        if(isset($params['propositionId'])){
+            $maProposition = $this->propositionRepository->findOneBy(['id'=> $params['propositionId'], 'demandeur' => $user,'deletedAt' => null]);
                 $points = $maProposition->getPoints();
+                /**
+                 * ⚠️Faire le else pour le cas ou c'est un autre produit en echange⚠️
+                 */
                 if($points !== null){
                     $user->addPoints($points);
                     $this->userRepository->save($user,true);
@@ -354,7 +362,42 @@ class ProfilController extends AbstractController
 
                     
                 }
-       
+                /**
+         * Supprimer une offre d'échange que l'utilisateur a reçu
+         */
+        }elseif(isset($params['deleteOffreId'])){
+            $offre = $this->propositionRepository->findOneBy(['id'=> $params['deleteOffreId'], 'proprietaire' => $user,'deletedAt' => null]);
+            $points = $offre->getPoints();
+            /**
+             * ⚠️Faire le else pour le cas ou c'est un autre produit en echange⚠️
+             */
+            if($points !== null){
+                $demandeur = $this->userRepository->findOneBy(['id'=>$offre->getDemandeur()]);
+                $demandeur->addPoints($points);
+                $this->userRepository->save($demandeur,true);
+
+                $offre->setDeletedAt(new \DateTimeImmutable());
+                $offre->setEtatProposition(false);
+                $offre->setIsEnabled(false);
+
+                try {
+                    $this->propositionRepository->save($offre,true);
+    
+                    $this->addFlash(
+                        'success',
+                        'Succès !|Votre demande a bien été traité.|success'
+                    );
+                     $this->redirectToRoute('app_echanges_profil');
+                } catch (\Exception $e) {
+                    $this->addFlash(
+                        'danger',
+                        'Oops...|Une erreur s\'est produite.|error'
+                    );
+                }
+
+                
+            }
+        }
 
         return $this->redirectToRoute('app_echanges_profil');
     }

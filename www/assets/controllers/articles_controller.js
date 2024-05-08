@@ -62,6 +62,7 @@ export default class extends Controller {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
+        cancelButtonText: 'Annuler',
         confirmButtonText: 'Oui, modifier !'
     }).then((result) => {
         if (result.isConfirmed) {
@@ -107,6 +108,7 @@ export default class extends Controller {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
+        cancelButtonText: 'Annuler',
         confirmButtonText: 'Oui, supprimer !'
     }).then((result) => {
         if (result.isConfirmed) {

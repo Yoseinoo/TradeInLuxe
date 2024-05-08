@@ -178,7 +178,7 @@
 					</div>
 
 					<hr>
-					{% if  app.user.id != article.user.id %}
+					{% if  app.user.id != article.user.id and proposition == null %}
 						<button class="detailsContainerProduitCardActionButton">Proposer un article</button>
 						
 						{% if app.user.points >= article.points  %}

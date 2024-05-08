@@ -64,13 +64,15 @@ class ArticleController extends AbstractController
     #[Route('/details/{id}/{idArticle}/{page<\d+>}', name: 'app_article_detail')]
     public function article(Request $request, int $page = 1): Response
     {
-
+         /** @var User $currentUser */
+        $currentUser = $this->getUser();
         $id = $request->attributes->get('id');
         $idArticle = $request->attributes->get('idArticle');
 
         $produit = $this->produitRepository->findOneBy(['id' => $id, 'isEnabled' => true, 'deletedAt' => null]);
         $idCategorie = $produit->getCategorie()->getId();
         $article = $this->articleRepository->findOneBy(['id' => $idArticle, 'isEnabled' => true, 'deletedAt' => null, 'isValidated'=> true]);
+        $proposition = $this->propositionRepository->findOneBy(['article'=> $article,'demandeur'=> $currentUser, 'deletedAt' => null]);
 
         $formData = [];
         if ($request->isMethod('POST')) {
@@ -90,7 +92,8 @@ class ArticleController extends AbstractController
             'produit' => $produit,
             'pager' => $pagerfanta,
             'filtresParType' => $data['filtresParType'],
-            'selected' => $formData
+            'selected' => $formData,
+            'proposition' => $proposition
         ]);
     }
 
