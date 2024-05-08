@@ -152,6 +152,9 @@ class ArticleController extends AbstractController
             $currentUser->removePoints($points);
             $this->userRepository->save($currentUser, true);
 
+            $proprietaire->addNotifications(1);
+            $this->userRepository->save($proprietaire, true);
+
             $proposition = new Proposition();
             $proposition->setProprietaire( $proprietaire );
             $proposition->setArticle($article);
@@ -231,6 +234,9 @@ class ArticleController extends AbstractController
              $idArticleParams = $request->attributes->get('idArticle');
              $articleVitrine = $this->articleRepository->findOneBy(['id'=> $idArticleParams,'deletedAt'=>null]);
              $proprietaire = $articleVitrine->getUser();
+
+             $proprietaire->addNotifications(1);
+             $this->userRepository->save($proprietaire, true);
 
              
             $proposition = new Proposition();

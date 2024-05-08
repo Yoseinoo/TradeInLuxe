@@ -61,6 +61,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $points = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $notifications = null;
+
     #[ORM\Column]
     private ?bool $isEnabled = true;
 
@@ -250,6 +253,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // Vous pouvez choisir de lever une exception ou de simplement ignorer l'opération
             // Ici, je lève une exception si les points à retirer sont supérieurs aux points actuels
             throw new \InvalidArgumentException('Cannot remove more points than available.');
+        }
+
+        return $this;
+    }
+
+    public function getNotifications(): ?int
+    {
+        return $this->notifications;
+    }
+
+    public function setNotifications(int $notifications): static
+    {
+        $this->notifications = $notifications;
+
+        return $this;
+    }
+
+    public function addNotifications(int $notification): static
+    {
+        $currentNotifications = $this->getNotifications();
+
+        if ($currentNotifications !== null) {
+            $this->setNotifications($currentNotifications + $notification);
+        } else {
+            $this->setNotifications($notification);
         }
 
         return $this;

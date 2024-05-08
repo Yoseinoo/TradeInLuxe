@@ -40,7 +40,9 @@
 		</li>
 		<li>
 			<a href="{{path('app_echanges_profil')}}" {% if current is defined and current == 'echanges' %} class="current" {% endif %}>
-				{# Mettre une condition si dans la table user il  y a des notifications montre la notif<span class="sidebarNotification" id="targetNotification"></span> #}
+				{% if notifications is defined  and (notifications != 0 or notifications != null) %}
+					<span class="sidebarNotification" id="targetNotification">{{notifications}}</span>
+				{% endif %}
 				<svg {% if current is defined and current == 'echanges' %} class="current" {% endif %} width="35" height="35" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
   					<path d="M12 8h2.5V2L22 9.5 14.5 17v-5H9V6.5L2 14l7 8v-6h2.5"></path>
 				</svg>
