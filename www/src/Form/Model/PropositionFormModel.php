@@ -21,6 +21,8 @@ class PropositionFormModel
     #[Assert\NotBlank(message:'La taille est requise.')]
     #[Assert\Length(min:1, max:5, minMessage: 'La taille doit comporter au moins {{ limit }} caractères.',maxMessage: 'La taille doit comporter moins de {{ limit }} caractères.')]
     public $taille;
+    #[Assert\NotBlank(message:'Le genre est requis.')]
+    public $genre;
     #[Assert\NotBlank(message:'Les photos sont requises.')]
     public $photos;
 

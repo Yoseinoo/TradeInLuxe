@@ -41,8 +41,9 @@ class EchangeController extends AbstractController
             $article->setPathImage($produit->getPathImage());
             $caracterisqtiques = [
                 'Marque' => $produit->getCaracteristiques()['Marque'],
-                'Taille' =>$formData->taille,
-                'Etat' => $formData->etat->getName()
+                'Taille' =>$formData->taille->getName(),
+                'Etat' => $formData->etat->getName(),
+                'Genre' => $formData->genre
             ];
             $article->setCaracteristiques($caracterisqtiques);
 

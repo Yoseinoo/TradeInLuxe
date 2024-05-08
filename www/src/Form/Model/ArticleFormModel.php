@@ -16,6 +16,8 @@ class ArticleFormModel
     public Etat $etat;
     #[Assert\NotBlank(message:'La taille est requise.')]
     public $taille;
+    #[Assert\NotBlank(message:'Le genre est requis.')]
+    public $genre;
     #[Assert\NotBlank(message:'Les photos sont requises.')]
     public $photos;
 
@@ -40,6 +42,9 @@ class ArticleFormModel
         $this->taille = $taille;
     }
 
+    public function setGenre($genre){
+        $this->genre= $genre;
+    }
 
     public function setPhotos(array $photos = null)
     {

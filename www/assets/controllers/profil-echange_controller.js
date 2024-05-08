@@ -3,81 +3,88 @@ import Swal from "sweetalert2";
 
 export default class extends Controller {
   connect() {
-    const buttonDeletes = this.element.querySelectorAll(".produitContentGridActionDelete");
-    const buttonValidates = this.element.querySelectorAll(".produitContentGridActionValidate");
+    const buttonDeletes = this.element.querySelectorAll(
+      ".produitContentGridActionDelete"
+    );
+    const buttonValidates = this.element.querySelectorAll(
+      ".produitContentGridActionValidate"
+    );
 
     buttonDeletes.forEach((buttonDelete) => {
-        buttonDelete.addEventListener("click", () => {
-            let texte = 'demande';
-            if(buttonDelete.textContent == 'Refuser'){
-                texte = 'offre'
-            }
-            this.sendFormDataDelete(texte);
-        });
+      buttonDelete.addEventListener("click", () => {
+        let texte = "demande";
+        if (buttonDelete.textContent == "Refuser") {
+          texte = "offre";
+        }
+        this.sendFormDataDelete(texte);
+      });
     });
 
     buttonValidates.forEach((buttonValidate) => {
-        buttonValidate.addEventListener("click", () => {
-            const isTransporteurButton = buttonValidate.hasAttribute('button-transporteur') && buttonValidate.getAttribute('button-transporteur') === 'transporteur';
-        
-            if (!isTransporteurButton) {
-                this.sendFormDataValidate();
-            }
-        });
-    });
+      buttonValidate.addEventListener("click", () => {
+        const isTransporteurButton =
+          buttonValidate.hasAttribute("button-transporteur") &&
+          buttonValidate.getAttribute("button-transporteur") === "transporteur";
 
+        if (!isTransporteurButton) {
+          this.sendFormDataValidate();
+        }
+      });
+    });
   }
-sendFormDataDelete(texte) {
+  sendFormDataDelete(texte) {
     let form = this.element.querySelector("form.produitContentGridAction");
     if (!form) {
-        form = this.element.querySelector("form.containerPreviewFormAction");
+      form = this.element.querySelector("form.containerPreviewFormAction");
     }
-    if (texte === 'offre') {
-        const inputHiddenAccept = form.querySelector("[name^='acceptOffreId']");
-        if (inputHiddenAccept) {
+
+    Swal.fire({
+      title: "Êtes-vous sûr de vouloir supprimer cette " + texte + "?",
+      text: "Cette action est irréversible !",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Annuler",
+      confirmButtonText: "Oui, supprimer !",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (texte === "offre") {
+          const inputHiddenAccept = form.querySelector(
+            "[name^='acceptOffreId']"
+          );
+          if (inputHiddenAccept) {
             inputHiddenAccept.remove();
+          }
         }
-    }
-    Swal.fire({
-        title: 'Êtes-vous sûr de vouloir supprimer cette '+texte+ '?',
-        text: "Cette action est irréversible !",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'Annuler',
-        confirmButtonText: 'Oui, supprimer !'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            form.submit();
-        }
+        form.submit();
+      }
     });
-}
+  }
 
-sendFormDataValidate() {
+  sendFormDataValidate() {
     let form = this.element.querySelector("form.produitContentGridAction");
     if (!form) {
-        form = this.element.querySelector("form.containerPreviewFormAction");
+      form = this.element.querySelector("form.containerPreviewFormAction");
     }
-    const inputHiddenAccept = form.querySelector("[name^='deleteOffreId']");
-    if (inputHiddenAccept) {
-        inputHiddenAccept.remove();
-    }
-
 
     Swal.fire({
-        title: 'Êtes-vous sûr de vouloir valider cette offre ?',
-        text: "Cette action est irréversible !",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'Annuler',
-        confirmButtonText: 'Oui, valider !'
+      title: "Êtes-vous sûr de vouloir valider cette offre ?",
+      text: "Cette action est irréversible !",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Annuler",
+      confirmButtonText: "Oui, valider !",
     }).then((result) => {
-        if (result.isConfirmed) {
-            form.submit();
+      if (result.isConfirmed) {
+        const inputHiddenAccept = form.querySelector("[name^='deleteOffreId']");
+        if (inputHiddenAccept) {
+          inputHiddenAccept.remove();
         }
+        form.submit();
+      }
     });
-}
+  }
 }

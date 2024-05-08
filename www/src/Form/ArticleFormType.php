@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -55,6 +56,22 @@ class ArticleFormType extends AbstractType
             'choice_value' => 'name',
             'placeholder' => '-- Merci de sélectionner --',
             'choices' => $this->tailleRepository->getAll('categorie='.$idCategorie.'&deleted=false&isEnabled=true&orderby=rank'),
+        ])
+        ->add('genre', ChoiceType::class, [
+            'label' => 'Genre',
+            'label_attr' => [
+                'class' => 'formulaireCardFormLabel'
+            ],
+            'attr' => [
+                'class' => 'formulaireCardFormInput',
+            ],
+            'required' => true,
+            'placeholder' => '-- Merci de sélectionner --',
+            'choices' => [
+                'Homme' => 'Homme',
+                'Femme' => 'Femme',
+                'Mixte' => 'Mixte'
+            ]
         ])
         ->add('etat', EntityType::class,[
             'label' => 'Etat',

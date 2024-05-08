@@ -22,7 +22,7 @@
 				<h1 class="formulaireCardTitle">Proposer un article à échanger</h1>
 				{{ form_start(form, {'attr': {'class': 'formulaireCardForm'}}) }}
 
-                {{ form_label(form.name)}}
+				{{ form_label(form.name)}}
 				{{ form_widget(form.name)}}
 				{% if form.name.vars.errors|length > 0 %}
 					<div class="errorMessage">
@@ -30,7 +30,7 @@
 					</div>
 				{% endif %}
 
-                {{ form_label(form.marque)}}
+				{{ form_label(form.marque)}}
 				{{ form_widget(form.marque)}}
 				{% if form.marque.vars.errors|length > 0 %}
 					<div class="errorMessage">
@@ -50,6 +50,13 @@
 				{% if form.taille.vars.errors|length > 0 %}
 					<div class="errorMessage">
 						{{ form_errors(form.taille) }}
+					</div>
+				{% endif %}
+				{{ form_label(form.genre)}}
+				{{ form_widget(form.genre)}}
+				{% if form.genre.vars.errors|length > 0 %}
+					<div class="errorMessage">
+						{{ form_errors(form.genre) }}
 					</div>
 				{% endif %}
 				{{ form_label(form.etat)}}

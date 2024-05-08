@@ -210,7 +210,8 @@ class ArticleController extends AbstractController
             $caracterisqtiques = [
                 'Marque' => $formData->marque,
                 'Taille' =>$formData->taille,
-                'Etat' => $formData->etat->getName()
+                'Etat' => $formData->etat->getName(),
+                'Genre' => $formData->genre
             ];
             $article->setCaracteristiques($caracterisqtiques);
 

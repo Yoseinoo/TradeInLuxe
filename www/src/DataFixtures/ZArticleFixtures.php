@@ -36,7 +36,8 @@ class ZArticleFixtures extends Fixture implements FixtureGroupInterface
                 'name' => 'Sneaker LV Rush', 'description' => "Dévoilée lors du défilé Croisière 2024, cette sneaker LV Rush présente un mélange de matières dont du cuir de veau lisse et velours. Le directeur artistique, Nicolas Ghesquière, s'est inspiré des chaussures de trail pour la concevoir. Elle intègre parmi d'autres détails phares un accessoire LV Circle métallique et une semelle extérieure en forme de vague.", "image" => "rush1.avif", 'caracteristiques' => [
                     'Marque' => 'Louis Vuitton',
                     'Taille' => '36',
-                    'Etat' => 'Neuf'
+                    'Etat' => 'Neuf',
+                    'Genre'=> 'Homme'
                 ],
                 'photos' => [
                     'rush1.avif', 'rush2.avif', 'rush3.avif', 'rush4.avif'
@@ -48,7 +49,8 @@ class ZArticleFixtures extends Fixture implements FixtureGroupInterface
                 'name' => 'Sneaker LV Rush', 'description' => "Dévoilée lors du défilé Croisière 2024, cette sneaker LV Rush présente un mélange de matières dont du cuir de veau lisse et velours. Le directeur artistique, Nicolas Ghesquière, s'est inspiré des chaussures de trail pour la concevoir. Elle intègre parmi d'autres détails phares un accessoire LV Circle métallique et une semelle extérieure en forme de vague.", "image" => "rush1.avif", 'caracteristiques' => [
                     'Marque' => 'Louis Vuitton',
                     'Taille' => '36',
-                    'Etat' => 'Très bon état'
+                    'Etat' => 'Très bon état',
+                    'Genre' => 'Mixte'
                 ],
                 'photos' => [
                     'rush1.avif', 'rush2.avif', 'rush3.avif', 'rush4.avif'

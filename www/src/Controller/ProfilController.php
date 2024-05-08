@@ -45,10 +45,12 @@ class ProfilController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
         $notifications = $user->getNotifications();
+        $nombreDemandes = count($this->articleRepository->findBy(['isEnabled'=>true,'isValidated'=>false,'deletedAt'=>null,'points'=>null]));
         return $this->render('profil/index.html.twig', [
             'user' => $user,
             'current' => 'profil',
-            'notifications' => $notifications
+            'notifications' => $notifications,
+            'nombreDemandes' => $nombreDemandes
         ]);
     }
 
@@ -59,6 +61,7 @@ class ProfilController extends AbstractController
         $user = $this->getUser();
         
         $notifications = $user->getNotifications();
+        $nombreDemandes = count($this->articleRepository->findBy(['isEnabled'=>true,'isValidated'=>false,'deletedAt'=>null,'points'=>null]));
 
         if ($request->isMethod('POST')) {
             $params = $request->request->all();
@@ -73,7 +76,8 @@ class ProfilController extends AbstractController
         return $this->render('profil/'.$template, [
             'current' => 'favoris',
             'favoris' =>  $favoris,
-            'notifications' => $notifications
+            'notifications' => $notifications,
+            'nombreDemandes' => $nombreDemandes
         ]);
     }
 
@@ -84,6 +88,7 @@ class ProfilController extends AbstractController
         $user = $this->getUser();
 
         $notifications = $user->getNotifications();
+        $nombreDemandes = count($this->articleRepository->findBy(['isEnabled'=>true,'isValidated'=>false,'deletedAt'=>null,'points'=>null]));
         
         if ($request->isMethod('POST')) {
             $params = $request->request->all();
@@ -111,7 +116,8 @@ class ProfilController extends AbstractController
         return $this->render('profil/'.$template, [
             'current' => 'articles',
             'articles' => $articles,
-            'notifications' => $notifications
+            'notifications' => $notifications,
+            'nombreDemandes' => $nombreDemandes
         ]);
     }
 
@@ -127,6 +133,8 @@ class ProfilController extends AbstractController
         $formModel->setEtat($etat);
         $taille = $this->tailleRepository->findOneBy(['name' =>$oldArticle->getCaracteristiques()['Taille'], 'categorie' => $oldArticle->getCategorie()]);
         $formModel->setTaille($taille);
+        $genre = $oldArticle->getCaracteristiques();
+        $formModel->setGenre($genre['Genre']);
         $form = $this->createForm(ArticleFormType::class, $formModel,['action' => $this->generateUrl('app_update_article_profil',[
             'idArticle' => $id,
         ]),'categorie' => $oldArticle->getCategorie()->getId()]);
@@ -141,7 +149,8 @@ class ProfilController extends AbstractController
             $caracterisqtiques = [
                 'Marque' => $oldArticle->getCaracteristiques()['Marque'],
                 'Taille' =>$formData->taille,
-                'Etat' => $formData->etat->getName()
+                'Etat' => $formData->etat->getName(),
+                'Genre' => $formData->genre
             ];
             $oldArticle->setCaracteristiques($caracterisqtiques);
 
