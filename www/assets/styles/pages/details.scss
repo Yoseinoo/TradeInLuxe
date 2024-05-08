@@ -114,7 +114,6 @@
                         width: 100%;
                     }
                     &Button{
-                        width: 100%;
                         text-decoration: none;
                         text-align: center;
                         font-family: $font-family-primary;
@@ -128,6 +127,11 @@
                         &:hover{
                             background-color: $bg-color-secondary;
                             cursor: pointer;
+                        }
+                    }
+                    form{
+                        .detailsContainerProduitCardActionButton{
+                            width: 100%;
                         }
                     }
                 }

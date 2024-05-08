@@ -1,0 +1,81 @@
+{% macro photoForm(photo) %}
+	{{ form_widget(photo.photo, {attr:{'data-form-collection-target':'field'}})}}
+	{% if photo.photo.vars.errors|length > 0 %}
+		<div class="errorMessage">
+			{{ form_errors(photo.photo) }}
+		</div>
+	{% endif %}
+{% endmacro %}
+
+{% import _self as formMacros %}
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe -
+	{{title}}
+{% endblock %}
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+	{{ include('partials/_categories.html.twig') }}
+	<main>
+		<section class="details">
+			<div class="formulaireCard">
+				<h1 class="formulaireCardTitle">Proposer un article à échanger</h1>
+				{{ form_start(form, {'attr': {'class': 'formulaireCardForm'}}) }}
+
+                {{ form_label(form.name)}}
+				{{ form_widget(form.name)}}
+				{% if form.name.vars.errors|length > 0 %}
+					<div class="errorMessage">
+						{{ form_errors(form.name) }}
+					</div>
+				{% endif %}
+
+                {{ form_label(form.marque)}}
+				{{ form_widget(form.marque)}}
+				{% if form.marque.vars.errors|length > 0 %}
+					<div class="errorMessage">
+						{{ form_errors(form.marque) }}
+					</div>
+				{% endif %}
+
+				{{ form_label(form.description)}}
+				{{ form_widget(form.description)}}
+				{% if form.description.vars.errors|length > 0 %}
+					<div class="errorMessage">
+						{{ form_errors(form.description) }}
+					</div>
+				{% endif %}
+				{{ form_label(form.taille)}}
+				{{ form_widget(form.taille)}}
+				{% if form.taille.vars.errors|length > 0 %}
+					<div class="errorMessage">
+						{{ form_errors(form.taille) }}
+					</div>
+				{% endif %}
+				{{ form_label(form.etat)}}
+				{{ form_widget(form.etat)}}
+				{% if form.etat.vars.errors|length > 0 %}
+					<div class="errorMessage">
+						{{ form_errors(form.etat) }}
+					</div>
+				{% endif %}
+				{{ form_label(form.photos)}}
+				<div {{ stimulus_controller('form-collection') }} data-form-collection-autoload-value="true" data-form-collection-max-items-value="4" data-form-collection-prototype-value="{{ formMacros.photoForm(form.photos.vars.prototype)|json_encode }}">
+					<div data-form-collection-target="fields" class="fields">
+
+						{% do form.photos.setRendered %}
+						{% for photo in form.photos %}
+							{{ formMacros.photoForm(photo) }}
+						{% endfor %}
+					</div>
+				</div>
+
+				{{ form_widget(form.submit)}}
+				{{ form_end(form) }}
+			</div>
+
+		</section>
+
+	</main>
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}

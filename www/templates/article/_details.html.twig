@@ -178,8 +178,11 @@
 					</div>
 
 					<hr>
-					{% if  app.user.id != article.user.id and proposition == null %}
-						<button class="detailsContainerProduitCardActionButton">Proposer un article</button>
+					{% if  app.user and app.user.id != article.user.id and proposition == null %}
+						<form action="{{path('app_article_echange_article',{'id': article.produit.id,'idArticle': article.id})}}" method="post" {{stimulus_controller('proposition')}}>
+							
+							<button type="submit" class="detailsContainerProduitCardActionButton">Proposer un article</button>
+						</form>
 						
 						{% if app.user.points >= article.points  %}
 							<form action="{{path('app_article_echange_points',{'id': article.produit.id,'idArticle': article.id})}}" method="post" {{stimulus_controller('proposition')}}>

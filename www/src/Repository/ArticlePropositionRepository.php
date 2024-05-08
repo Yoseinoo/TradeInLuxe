@@ -20,6 +20,13 @@ class ArticlePropositionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ArticleProposition::class);
     }
+    public function save(ArticleProposition $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
 
 //    /**
 //     * @return ArticleProposition[] Returns an array of ArticleProposition objects

@@ -34,7 +34,7 @@
 					</div>
 					<div>
 						<div class="produitContentGridCard">
-							<img src="{{asset('build/images/uploads/proposition/articles/' ~ offre.articleProposition.pathImage )}}" class="produitContentGridCardImage" alt="Image 1">
+							<img src="{{asset('build/images/uploads/propositions/articles/' ~ offre.articleProposition.photos[0] )}}" class="produitContentGridCardImage" alt="Image 1">
 							<p class="produitContentGridCardName">
 								{{offre.articleProposition.name}}
 							</p>
@@ -134,16 +134,13 @@
 			<div class="profilEchangeContainer">
 
 				<div class="produitContentGrid">
-					<div>
-
+				<div>
 						<div class="produitContentGridCard">
-
-
-							<img src="{{asset('build/images/uploads/articles/' ~ proposition.article.pathImage )}}" class="produitContentGridCardImage" alt="Image 1">
+							<img src="{{asset('build/images/uploads/propositions/articles/' ~ proposition.articleProposition.photos[0] )}}" class="produitContentGridCardImage" alt="Image 1">
 							<p class="produitContentGridCardName">
-								{{proposition.article.name}}
+								{{proposition.articleProposition.name}}
 							</p>
-							<span>{{proposition.article.caracteristiques.Marque}}</span>
+							<span>{{proposition.articleProposition.caracteristiques.Marque}}</span>
 						</div>
 					</div>
 					<div class="iconEchange">
@@ -151,15 +148,21 @@
 							<path d="M12 8h2.5V2L22 9.5 14.5 17v-5H9V6.5L2 14l7 8v-6h2.5"></path>
 						</svg>
 					</div>
+
 					<div>
-						<div class="produitContentGridCard">
-							<img src="{{asset('build/images/uploads/proposition/articles/' ~ proposition.articleProposition.pathImage )}}" class="produitContentGridCardImage" alt="Image 1">
+
+						<a class="produitContentGridCard" href="{{path('app_article_detail', {'id':proposition.article.produit.id, 'idArticle' : proposition.article.id })}}">
+
+
+							<img src="{{asset('build/images/uploads/articles/' ~ proposition.article.pathImage )}}" class="produitContentGridCardImage" alt="Image 1">
 							<p class="produitContentGridCardName">
-								{{proposition.articleProposition.name}}
+								{{proposition.article.name}}
 							</p>
-							<span>{{proposition.articleProposition.caracteristiques.Marque}}</span>
-						</div>
+							<span>{{proposition.article.caracteristiques.Marque}}</span>
+						</a>
 					</div>
+					
+					
 
 				</div>
 			</div>

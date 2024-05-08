@@ -8,8 +8,8 @@ export default class extends Controller {
     event.preventDefault();
 
     Swal.fire({
-      title: "Êtes-vous sûr?",
-      text: "Voulez-vous vraiment utiliser vos points?",
+      title: "Êtes-vous sûr ?",
+      text: "Voulez-vous vraiment utiliser vos points ?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Oui",

@@ -2,16 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\Proposition;
+use App\Entity\ArticleProposition;
 use App\Entity\User;
 use Pagerfanta\Pagerfanta;
+use App\Entity\Proposition;
 use App\Repository\EtatRepository;
+use App\Repository\UserRepository;
 use App\Repository\TailleRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\CategorieRepository;
+use App\Form\Model\PropositionFormModel;
+use App\Form\PropositionArticleFormType;
+use App\Repository\ArticlePropositionRepository;
 use App\Repository\PropositionRepository;
-use App\Repository\UserRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +32,8 @@ class ArticleController extends AbstractController
         private TailleRepository $tailleRepository,
         private EtatRepository $etatRepository,
         private UserRepository $userRepository,
-        private PropositionRepository $propositionRepository
+        private PropositionRepository $propositionRepository,
+        private ArticlePropositionRepository $articlePropositionRepository
     ) {
     }
 
@@ -177,6 +182,88 @@ class ArticleController extends AbstractController
         
         return $this->render('article/', [
             'title' => 'Détails',
+        ]);
+    }
+
+    #[Route('/article-echange-article/{id}/{idArticle}', name: 'app_article_echange_article', methods:['POST'])]
+    public function propositionArticle(Request $request): Response
+    {
+        
+
+        $formModel = new PropositionFormModel();
+        $form = $this->createForm(PropositionArticleFormType::class, $formModel);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $formData = $form->getData();
+
+            $article = new ArticleProposition();
+            $article->setName($formData->name);
+            $article->setDescription($formData->description);
+            $article->setEtat($formData->etat->getName());
+            $article->setUser($this->getUser());
+            
+            $caracterisqtiques = [
+                'Marque' => $formData->marque,
+                'Taille' =>$formData->taille,
+                'Etat' => $formData->etat->getName()
+            ];
+            $article->setCaracteristiques($caracterisqtiques);
+
+             
+             foreach($formData->photos as $photo){
+                 /** @var UploadedFile $file */
+             $file = $photo->photo;
+            
+             $randomString = uniqid();
+             $fileName =  $randomString.'_'.$file->getClientOriginalName();
+             $file->move($this->getParameter('uploaded_file_directory').'/propositions/articles/',$fileName);
+             $photos[] =  $fileName ;
+             }
+
+             $article->setPhotos($photos);
+             $this->articlePropositionRepository->save($article,true);
+             $articleProposition = $this->articlePropositionRepository->findOneBy(['id'=>$article->getId()]);
+             ;
+            
+             $idParams = $request->attributes->get('id');
+             $idArticleParams = $request->attributes->get('idArticle');
+             $articleVitrine = $this->articleRepository->findOneBy(['id'=> $idArticleParams,'deletedAt'=>null]);
+             $proprietaire = $articleVitrine->getUser();
+
+             
+            $proposition = new Proposition();
+            $proposition->setProprietaire($proprietaire);
+            $proposition->setArticle($articleVitrine);
+            $proposition->setDemandeur($this->getUser());
+            $proposition->setArticleProposition($articleProposition);
+
+
+
+            try {
+                $this->propositionRepository->save($proposition,true);
+
+                $this->addFlash(
+                    'success',
+                    'Succès !|Votre proposition a bien été envoyé.|success'
+                );
+                return $this->redirectToRoute('app_article_detail', [
+                    'id' => $idParams,
+                    'idArticle' => $idArticleParams
+                ]);
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'danger',
+                    'Oops...|Une erreur s\'est produite.|error'
+                );
+            }
+
+        }
+        
+        return $this->render('article/formEchangeArticle.html.twig', [
+            'title' => 'Proposer un article',
+            'form' => $form
         ]);
     }
 }
