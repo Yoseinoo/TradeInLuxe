@@ -23,7 +23,7 @@ class ArticlePhotosFormType extends AbstractType
                 'label_attr' => [
                     'class' => 'formulaireCardFormLabel'
                 ],
-                'required' => true,
+                'required' =>  $options['required'],
                 'constraints' => [
                     new Image([
                         'mimeTypes' => [
@@ -42,6 +42,7 @@ class ArticlePhotosFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ArticlePhotoModel::class,
+            'required' => true, 
         ]);
     }
 }

@@ -1,0 +1,51 @@
+{% for flashMessage in app.flashes('success') %}
+				{% set parts = flashMessage|split('|') %}
+				<div data-controller="message" data-message-type-value="{{ parts[2] }}" data-message-title-value="{{ parts[0] }}" data-message-message-value="{{ parts[1] }}"></div>
+			{% endfor %}
+			{% for flashMessage in app.flashes('danger') %}
+				{% set parts = flashMessage|split('|') %}
+				<div data-controller="message" data-message-type-value="{{ parts[2] }}" data-message-title-value="{{ parts[0] }}" data-message-message-value="{{ parts[1] }}"></div>
+			{% endfor %}
+
+{% if pager|length %}
+	
+<div class="produitContentGrid" {{stimulus_controller('articles')}}>
+		{% for produit in pager %}
+			<div>
+				<div class="produitContentGridEtat">
+					<a class="produitContentGridEtatButton" href="{{path('app_article', {'id' : produit.id })}}">Voir</a>
+				</div>
+				<div class="produitContentGridCard">
+
+
+					<img src="{{ asset('build/images/uploads/produits/' ~ produit.pathImage) }}" class="produitContentGridCardImage" alt="Image 1">
+					<p class="produitContentGridCardName">
+						{{ produit.name | slice(0, 40) }}
+						{% if produit.name | length > 40 %}...
+						{% endif %}
+					</p>
+					<span>{{produit.caracteristiques.Marque}}</span>
+				</div>
+                <form method="post" action="{{path('app_admin_gestion')}}" class="produitContentGridAction" id="formGestion">
+					<input type="hidden" value="{{produit.id}}" id="inputHidden_{{produit.id}}">
+					<a class="produitContentGridActionUpdate" id="buttonUpdate_{{produit.id}}">Mettre à jour</a>
+					<a class="produitContentGridActionDelete" id="buttonDelete_{{produit.id}}">Supprimer</a>
+
+				</form>
+			</div>
+		{% endfor %}
+
+	</div>
+
+	{% if pager.haveToPaginate %}
+		<div class="containerPagination">
+			{% set pager_with_translated_labels = pagerfanta(pager)|replace({'Previous': 'Précédent', 'Next': 'Suivant'}) %}
+			{{ pager_with_translated_labels|raw }}
+		</div>
+	{% endif %}
+{% else %}
+	<div class="noresult">
+		<h3 class="noresultTitle">Désolé, aucun résultat n’a été trouvé</h3>
+		<p class="noresultTexte">Il n'y a aucun produit à gérer.</p>
+	</div>
+{% endif %}

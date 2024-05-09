@@ -15,6 +15,31 @@
             color: $muted;
             font-style: italic;
         }
+        &Choice{
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            &Button{
+                color: $valid;
+                border: 1px solid $valid;
+                text-decoration: none;
+                font-size: 14px;
+                padding: 8px;
+                transition: background-color 0.2s;
+                width: 100%;
+                text-align: center;
+                &:hover{
+                    background-color: $valid;
+                    color: $white;
+                    cursor: pointer;
+                }
+            }
+              .selected{
+            background-color: $valid;
+            color: $white;
+        }  
+        }
+        
 
         &Content {
             display: flex;
@@ -96,6 +121,63 @@
             
         }
     }
+    .containerPagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 64px;
+
+        .pagination {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .pagination__item {
+            background-color: $white;
+            border: 1px solid #dddddd;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: default;
+        }
+
+        .pagination__item--current-page {
+            background-color: $bg-color-primary;
+            color: $white;
+        }
+
+        a {
+            text-decoration: none;
+            color: $secondary;
+
+            &:hover {
+                cursor: pointer;
+                background-color: $bg-color-primary;
+                color: $white;
+            }
+        }
+    }
+}
+
+.retour{
+    display: flex;
+    justify-content: center;
+    font-family: $font-family-primary;
+    &Action{
+        width: 60%;
+        &Button{
+            text-align: center;
+            background-color: $white;
+            color: $secondary;
+            border: 1px solid #dddddd;
+            padding: 8px 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            &:hover {
+                cursor: pointer;
+                background-color: $bg-color-primary;
+                color: $white;
+            }
+        }
+    }
 }
 
 @media (max-width: 430px) {
@@ -108,11 +190,13 @@
             &Content{
                 &Image{
                 width: 50%;
+                }            
             }
-            
-        }
         &Texte {
             padding-left: 0;
+        }
+        &Choice{
+            flex-wrap: wrap; 
         }
         }
         .formulaireCard{
@@ -149,6 +233,16 @@
             &Card{
                 width: 70%;
             }
+        }
+        .produitContentGridCard{
+            height: 270px;
+        }
+    }
+    .retour{
+        justify-content: flex-end;
+        &Action{
+            text-align: end;
+            padding: 0 12px;
         }
     }
 }

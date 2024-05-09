@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ProduitFormModel
 {
     #[Assert\NotBlank(message:'Le nom est requis.')]
-    #[Assert\Length(min:2, max:35, minMessage: 'Le nom doit comporter au moins {{ limit }} caractères.',maxMessage: 'Le nom doit comporter moins de {{ limit }} caractères.')]
+    #[Assert\Length(min:2, max:50, minMessage: 'Le nom doit comporter au moins {{ limit }} caractères.',maxMessage: 'Le nom doit comporter moins de {{ limit }} caractères.')]
     public string $name;
     #[Assert\NotBlank(message:'La catégorie est requise.')]
     public Categorie $categorie;

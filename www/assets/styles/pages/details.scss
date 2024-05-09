@@ -1,6 +1,19 @@
 .details{
     @extend .containerDescription;
     &Container{
+        .filAriane{
+            font-family: $font-family-primary;
+            color:$muted;
+            &Link{
+                text-align: center;
+                color:$muted;
+                font-size: 14px;
+                text-decoration: none;
+            }
+            .currentLink{
+                text-decoration: underline;
+            }
+        }
         &Content{
             &Subtitle{
                 font-size: 22px;

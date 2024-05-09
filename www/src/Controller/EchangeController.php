@@ -90,7 +90,8 @@ class EchangeController extends AbstractController
 
         return $this->render('article/form.html.twig', [
             'title' => 'Echange',
-            'form' => $form
+            'form' => $form,
+            'id' =>$id
         ]);
     }
 }

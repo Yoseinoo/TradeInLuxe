@@ -14,7 +14,7 @@
 				<div class="produitContentGridCard">
 
 
-					<img src="{{ asset('build/images/produits/' ~ article.produit.pathImage) }}" class="produitContentGridCardImage" alt="Image 1">
+					<img src="{{ asset('build/images/uploads/produits/' ~ article.produit.pathImage) }}" class="produitContentGridCardImage" alt="Image 1">
 					<p class="produitContentGridCardName">
 						{{ article.produit.name | slice(0, 40) }}
 						{% if article.produit.name | length > 40 %}...
@@ -29,6 +29,6 @@
 {% else %}
 	<div class="noresult">
 		<h3 class="noresultTitle">Désolé, aucun résultat n’a été trouvé</h3>
-		<p class="noresultTexte">Il n'y a aucunes demandes de validation en attente.</p>
+		<p class="noresultTexte">Il n'y a aucune demande de validation en attente.</p>
 	</div>
 {% endif %}

@@ -78,6 +78,7 @@
 				</div>
 
 				{{ form_widget(form.submit)}}
+				<a href="{{path('app_article_detail', {'id':id, 'idArticle' : idArticle } )}}" class="retourActionButton">Annuler</a>
 				{{ form_end(form) }}
 			</div>
 

@@ -267,10 +267,14 @@ class ArticleController extends AbstractController
             }
 
         }
+        $idParams = $request->attributes->get('id');
+        $idArticleParams = $request->attributes->get('idArticle');
         
         return $this->render('article/formEchangeArticle.html.twig', [
             'title' => 'Proposer un article',
-            'form' => $form
+            'form' => $form,
+            'id' => $idParams,
+            'idArticle' => $idArticleParams
         ]);
     }
 }

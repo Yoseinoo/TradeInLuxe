@@ -1,5 +1,9 @@
 {% if article is not defined %}
 	<div class="detailsContainer">
+	<div class="filAriane">
+			<a href="{{path('app_accueil')}}" class="filArianeLink" >Accueil</a> >
+			<a href="{{path('app_article', {'id':produit.id } )}}" class="filArianeLink currentLink" >{{produit.name}}</a> >
+		</div>
 		<div class="detailsContainerContent">
 			<h1 class="detailsContainerContentTitle">{{produit.name}}</h1>
 			<p class="detailsContainerContentSubtitle">{{produit.caracteristiques.Marque}}</p>
@@ -85,6 +89,12 @@
 	</div>
 {% else %}
 	<div class="detailsContainer">
+		<div class="filAriane">
+			<a href="{{path('app_accueil')}}" class="filArianeLink" >Accueil</a> >
+			<a href="{{path('app_article', {'id':produit.id } )}}" class="filArianeLink" >{{produit.name}}</a> >
+			<a href="{{path('app_article_detail', {'id':produit.id, 'idArticle' : article.id } )}}" class="filArianeLink currentLink" >{{article.user.firstname ~ ' ' ~ article.user.lastname}}</a>
+		</div>
+			
 		<div class="detailsContainerContent">
 			<h1 class="detailsContainerContentTitle">{{produit.name}}</h1>
 			<p class="detailsContainerContentSubtitle">{{produit.caracteristiques.Marque}}</p>

@@ -30,7 +30,7 @@ class ProduitFormType extends AbstractType
             'attr' => [
                 'class' => 'formulaireCardFormInput',
                 'minLenght' => 2,
-                'maxLenght' => 35
+                'maxLenght' => 50
             ],
             'label' => 'Nom de l\'article',
             'label_attr' => [
@@ -115,7 +115,7 @@ class ProduitFormType extends AbstractType
         ->add('photos', CollectionType::class, [
             'entry_type' => ArticlePhotosFormType::class,
             'by_reference' => false,
-            'entry_options' =>['label' => false],
+            'entry_options' =>['label' => false, 'required' => $options['required']],
             'allow_add' =>true,
         ])
         ->add('submit', SubmitType::class, [
@@ -130,6 +130,7 @@ class ProduitFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ProduitFormModel::class,
+            'required' => true
         ]);
     }
 }

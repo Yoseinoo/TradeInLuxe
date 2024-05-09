@@ -32,7 +32,7 @@ class PropositionArticleFormType extends AbstractType
             'attr' => [
                 'class' => 'formulaireCardFormInput',
                 'minLenght' => 2,
-                'maxLenght' => 35
+                'maxLenght' => 50
             ],
             'label' => 'Nom de l\'article',
             'label_attr' => [
