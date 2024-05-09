@@ -1,8 +1,16 @@
 {% if article is not defined %}
 	<div class="detailsContainer">
-	<div class="filAriane">
+		<div class="filAriane">
+			{% if produit.categorie.name == 'Chaussures'%}
+			{% set route = 'app_chaussures' %}
+			{% elseif produit.categorie.name == 'Sacs' %}
+			{% set route = 'app_sacs' %}
+			{% else %}
+			{% set route = 'app_vetements' %}
+			{% endif %}
 			<a href="{{path('app_accueil')}}" class="filArianeLink" >Accueil</a> >
-			<a href="{{path('app_article', {'id':produit.id } )}}" class="filArianeLink currentLink" >{{produit.name}}</a> >
+			<a href="{{path(route)}}" class="filArianeLink" >{{produit.categorie.name}}</a> >
+			<a href="{{path('app_article', {'id':produit.id } )}}" class="filArianeLink currentLink" >{{produit.name}}</a> 
 		</div>
 		<div class="detailsContainerContent" {{stimulus_controller('favoris')}}>
 			<h1 class="detailsContainerContentTitle">{{produit.name}}</h1>
@@ -99,10 +107,18 @@
 {% else %}
 	<div class="detailsContainer">
 		<div class="filAriane">
+			{% if produit.categorie.name == 'Chaussures'%}
+			{% set route = 'app_chaussures' %}
+			{% elseif produit.categorie.name == 'Sacs' %}
+			{% set route = 'app_sacs' %}
+			{% else %}
+			{% set route = 'app_vetements' %}
+			{% endif %}
 			<a href="{{path('app_accueil')}}" class="filArianeLink" >Accueil</a> >
+			<a href="{{path(route)}}" class="filArianeLink" >{{produit.categorie.name}}</a> >
 			<a href="{{path('app_article', {'id':produit.id } )}}" class="filArianeLink" >{{produit.name}}</a> >
 			<a href="{{path('app_article_detail', {'id':produit.id, 'idArticle' : article.id } )}}" class="filArianeLink currentLink" >{{article.user.firstname ~ ' ' ~ article.user.lastname}}</a>
-		</div>
+		</div>		
 			
 		<div class="detailsContainerContent">
 			<h1 class="detailsContainerContentTitle">{{produit.name}}</h1>
