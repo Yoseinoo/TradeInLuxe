@@ -312,3 +312,15 @@
             }
         }
 }
+@media (max-width: 360px) {
+    .details .slider-nav .slick-track img {
+        width: 65px !important;
+    }
+    .detailsContainerProduitImage{
+        width: 340px;
+        height: 390px;
+    }
+    .articleContentGrid{
+        grid-gap: 100px;
+    }
+}

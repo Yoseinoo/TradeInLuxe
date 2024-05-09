@@ -246,3 +246,58 @@
         }
     }
 }
+
+@media (max-width: 360px) {
+    .profilContainer {
+        width: 70%;
+    }
+
+    .profil .formulaireCard textarea {
+        max-width: 195px;
+        min-width: 195px;
+    }
+    .profil .detailsContainerProduitCard {
+        width: 65%;
+    }
+    .profil .detailsContainerProduitImage {
+        width: 290px;
+    }
+
+    .profil{
+        .containerPagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 64px;
+    
+            .pagination {
+                display: flex;
+                gap: 6px;
+                align-items: center;
+            }
+    
+            .pagination__item {
+                background-color: $white;
+                border: 1px solid #dddddd;
+                padding: 5px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                cursor: default;
+            }
+    
+            .pagination__item--current-page {
+                background-color: $bg-color-primary;
+                color: $white;
+            }
+    
+            a {
+                text-decoration: none;
+                color: $secondary;
+    
+                &:hover {
+                    cursor: pointer;
+                    background-color: $bg-color-primary;
+                    color: $white;
+                }
+            }
+        }
+    }
+}
