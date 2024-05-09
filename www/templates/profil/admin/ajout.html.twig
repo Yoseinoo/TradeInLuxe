@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TradeInLuxe -
+	{{title}}
+{% endblock %}
+{% block body %}
+	{{ include('partials/_navbar.html.twig') }}
+
+	<main>
+		{{ include('partials/_sidebar.html.twig') }}
+
+		<section class="profil">
+			{% for flashMessage in app.flashes('success') %}
+				{% set parts = flashMessage|split('|') %}
+				<div data-controller="message" data-message-type-value="{{ parts[2] }}" data-message-title-value="{{ parts[0] }}" data-message-message-value="{{ parts[1] }}"></div>
+			{% endfor %}
+			{% for flashMessage in app.flashes('danger') %}
+				{% set parts = flashMessage|split('|') %}
+				<div data-controller="message" data-message-type-value="{{ parts[2] }}" data-message-title-value="{{ parts[0] }}" data-message-message-value="{{ parts[1] }}"></div>
+			{% endfor %}
+			<div class="profilContainer">
+				<h1 class="profilContainerTitle">Gestion des produits</h1>
+				<p class="profilContainerSubtitle">Ajouter, modifier ou supprimer des produits depuis cette section.</p>
+				<div class="profilContainerChoice">
+					<a {% if currentChoice == 'ajout' %} class="profilContainerChoiceButton selected"{% else %}href="{{path('app_admin_ajout')}}" class="profilContainerChoiceButton"{% endif %}>Ajouter un produit</a>
+					<a {% if currentChoice == 'gestion' %} class="profilContainerChoiceButton selected"{% else %}href="{{path('app_admin_gestion')}}" class="profilContainerChoiceButton"{% endif %}>Gérer les produits</a>
+				</div>
+			</div>
+		</section>
+		<section class="retour">
+		<div class="retourAction">
+			<a href="{{path('app_admin_ajout')}}" class="retourActionButton">Retour</a>
+		</div>
+			
+		</section>
+		
+		{% if currentChoice == 'ajout' %}
+		<section class="profil">
+			<div class="profilContainer">
+				{{ include('profil/admin/_form.html.twig') }}
+			</div>
+		</section>
+		{% else %}
+		<section class="profil">
+			<div class="profilContainer" id="targetUpdateProduit">
+			{% if formUpdate is defined and formUpdate == true %}
+				{{ include('profil/admin/_updateForm.html.twig') }}
+			{% else %}
+				{{ include('profil/admin/_listProduits.html.twig') }}
+			{% endif %}
+			</div>
+		</section>
+		{% endif %}
+	</main>
+	{{ include('partials/_footer.html.twig') }}
+{% endblock %}

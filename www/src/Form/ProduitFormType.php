@@ -2,11 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Etat;
-use App\Entity\Taille;
-use App\Repository\EtatRepository;
-use App\Form\Model\ArticleFormModel;
-use App\Repository\TailleRepository;
+use App\Entity\Categorie;
+use App\Form\Model\ProduitFormModel;
+use App\Repository\CategorieRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,20 +15,53 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class ArticleFormType extends AbstractType
+class ProduitFormType extends AbstractType
 {
 
     public function __construct(
-        private EtatRepository $etatRepository,
-        private TailleRepository $tailleRepository,
+        private CategorieRepository $categorieRepository,
     ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $idCategorie=$options['categorie'];
         $builder
-  
+        ->add('name', TextType::class, [
+            'attr' => [
+                'class' => 'formulaireCardFormInput',
+                'minLenght' => 2,
+                'maxLenght' => 50
+            ],
+            'label' => 'Nom de l\'article',
+            'label_attr' => [
+                'class' => 'formulaireCardFormLabel'
+            ],
+        ])
+        ->add('categorie', EntityType::class,[
+            'label' => 'Catégorie',
+            'label_attr' => [
+                'class' => 'formulaireCardFormLabel'
+            ],
+            'attr' => [
+                'class' => 'formulaireCardFormInput',
+            ],
+            'class' => Categorie::class,
+            'required' => true,
+            'choice_label' => fn (Categorie $categorie) => $categorie->getName(),
+            'placeholder' => '-- Merci de sélectionner --',
+            'choices' => $this->categorieRepository->getAll('deleted=false&isEnabled=true'),
+        ])
+        ->add('marque', TextType::class, [
+            'attr' => [
+                'class' => 'formulaireCardFormInput',
+                'minLenght' => 2,
+                'maxLenght' => 35
+            ],
+            'label' => 'Marque',
+            'label_attr' => [
+                'class' => 'formulaireCardFormLabel'
+            ],
+        ])
         ->add('description', TextareaType::class, [
             'attr' => [
                 'class' => 'formulaireCardFormInput',
@@ -42,20 +73,28 @@ class ArticleFormType extends AbstractType
                 'class' => 'formulaireCardFormLabel'
             ],
         ])
-        ->add('taille', EntityType::class,[
+        ->add('taille', TextType::class, [
+            'attr' => [
+                'class' => 'formulaireCardFormInput',
+                'minLenght' => 1,
+                'maxLenght' => 5,
+                'placeholder' => 'ex: 36,37 ou XS, S...'
+            ],
             'label' => 'Taille',
             'label_attr' => [
                 'class' => 'formulaireCardFormLabel'
             ],
+        ])
+        ->add('couleur', TextType::class, [
             'attr' => [
                 'class' => 'formulaireCardFormInput',
+                'minLenght' => 1,
+                'maxLenght' => 10,
             ],
-            'class' => Taille::class,
-            'required' => true,
-            'choice_label' => fn (Taille $taille) => $taille->getName(),
-            'choice_value' => 'name',
-            'placeholder' => '-- Merci de sélectionner --',
-            'choices' => $this->tailleRepository->getAll('categorie='.$idCategorie.'&deleted=false&isEnabled=true&orderby=rank'),
+            'label' => 'Couleur',
+            'label_attr' => [
+                'class' => 'formulaireCardFormLabel'
+            ],
         ])
         ->add('genre', ChoiceType::class, [
             'label' => 'Genre',
@@ -73,25 +112,10 @@ class ArticleFormType extends AbstractType
                 'Mixte' => 'Mixte'
             ]
         ])
-        ->add('etat', EntityType::class,[
-            'label' => 'Etat',
-            'label_attr' => [
-                'class' => 'formulaireCardFormLabel'
-            ],
-            'attr' => [
-                'class' => 'formulaireCardFormInput',
-            ],
-            'class' => Etat::class,
-            'required' => true,
-            'choice_label' => fn (Etat $etat) => $etat->getName(),
-            'choice_value' => 'name',
-            'placeholder' => '-- Merci de sélectionner --',
-            'choices' => $this->etatRepository->getAll('deleted=false&isEnabled=true&orderby=rank'),
-        ])
         ->add('photos', CollectionType::class, [
             'entry_type' => ArticlePhotosFormType::class,
             'by_reference' => false,
-            'entry_options' =>['label' => false],
+            'entry_options' =>['label' => false, 'required' => $options['required']],
             'allow_add' =>true,
         ])
         ->add('submit', SubmitType::class, [
@@ -105,8 +129,8 @@ class ArticleFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ArticleFormModel::class,
-            'categorie' => null
+            'data_class' => ProduitFormModel::class,
+            'required' => true
         ]);
     }
 }

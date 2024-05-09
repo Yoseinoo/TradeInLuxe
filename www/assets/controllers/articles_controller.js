@@ -47,14 +47,18 @@ export default class extends Controller {
     const form = this.element.querySelector("form.produitContentGridAction");
     const url = form.getAttribute("action");
     const urlPreview = form.getAttribute("url-preview");
-    const target = document.getElementById("targetArticleUpdate");
+    const target = document.getElementById("targetArticleUpdate") ?? document.getElementById("targetUpdateProduit") ;
     const inputId = "inputHidden_" + buttonId.split("_")[1];
     const inputHidden = document.getElementById(inputId);
     const articleId = inputHidden.value;
     const formData = new FormData();
-    formData.append("article", articleId);
+    let type = 'article';
+    if (form.id == 'formGestion') {
+      type = 'produit';
+    }
+    formData.append(type, articleId);
     formData.append("action", 'update');
-
+console.log(type,   articleId    ,target, form.id   , urlPreview )
     Swal.fire({
         title: 'Êtes-vous sûr de vouloir modifier cet élément ?',
         text: "Cela est sans risque !",
@@ -76,9 +80,12 @@ export default class extends Controller {
                 success: (response) => {
                     if (target) {
                         $(target).html(response);
-                        this.setPreview(articleId, urlPreview);
+                        if(form.id !== 'formGestion'){
+                            this.setPreview(articleId, urlPreview);
+                        }
+                        
                       }
-                    console.log("Succès de la requête AJAX de suppression");
+                    console.log("Succès de la requête AJAX d'update");
                 },
                 error: function (error) {
                     console.error("Erreur lors de la requête AJAX de suppression :", error);
@@ -93,12 +100,16 @@ export default class extends Controller {
   sendFormDataDelete(buttonId) {
     const form = this.element.querySelector("form.produitContentGridAction");
     const url = form.getAttribute("action");
-    const target = document.getElementById("targetArticle");
+    const target = document.getElementById("targetArticle") ?? document.getElementById("targetUpdateProduit") ;
     const inputId = "inputHidden_" + buttonId.split("_")[1];
     const inputHidden = document.getElementById(inputId);
     const articleId = inputHidden.value;
     const formData = new FormData();
-    formData.append("article", articleId);
+    let type = 'article';
+    if (form.id == 'formGestion') {
+      type = 'produit';
+    }
+    formData.append(type, articleId);
     formData.append("action", 'delete');
 
     Swal.fire({

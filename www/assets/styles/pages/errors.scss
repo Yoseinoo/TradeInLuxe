@@ -1,0 +1,49 @@
+.erreur{
+    &Container{
+        font-family: $font-family-primary;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        &Title{
+            font-size: 64px;
+        }
+        &Image{
+            width: 20%;
+        }
+        &Texte{
+            font-size: 24px;
+            font-weight: 600;
+        }
+        &Button{
+            padding: 8px;
+            color: $secondary;
+            text-decoration: none;
+            border: 1px solid #dddddd;
+            padding: 8px 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            &:hover{
+                background-color: $bg-color-primary;
+                color: $white;
+            }
+        }
+    }
+}
+@media (max-width: 430px) {
+    .erreur{
+        height: 100vh;
+        &Container{
+            height: 100%;
+            justify-content: center;
+            &Title{
+                font-size: 50px;
+            }
+            &Image{
+                width: 50%;
+            }
+            &Texte{
+                text-align: center;
+                font-size: 18px;
+            }
+        }
+    }
+}

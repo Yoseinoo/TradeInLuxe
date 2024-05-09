@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class PropositionFormModel
 {
     #[Assert\NotBlank(message:'Le nom est requis.')]
-    #[Assert\Length(min:2, max:35, minMessage: 'Le nom doit comporter au moins {{ limit }} caractères.',maxMessage: 'Le nom doit comporter moins de {{ limit }} caractères.')]
+    #[Assert\Length(min:2, max:50, minMessage: 'Le nom doit comporter au moins {{ limit }} caractères.',maxMessage: 'Le nom doit comporter moins de {{ limit }} caractères.')]
     public string $name;
     #[Assert\NotBlank(message:'La marque est requise.')]
     #[Assert\Length(min:2, max:35, minMessage: 'La marque doit comporter au moins {{ limit }} caractères.',maxMessage: 'La marque doit comporter moins de {{ limit }} caractères.')]
@@ -21,6 +21,8 @@ class PropositionFormModel
     #[Assert\NotBlank(message:'La taille est requise.')]
     #[Assert\Length(min:1, max:5, minMessage: 'La taille doit comporter au moins {{ limit }} caractères.',maxMessage: 'La taille doit comporter moins de {{ limit }} caractères.')]
     public $taille;
+    #[Assert\NotBlank(message:'Le genre est requis.')]
+    public $genre;
     #[Assert\NotBlank(message:'Les photos sont requises.')]
     public $photos;
 

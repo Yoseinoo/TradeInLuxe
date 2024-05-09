@@ -17,7 +17,7 @@
 					<a class="produitContentGridCard" href="{{path('app_article', {'id':favori.produit.id } )}}">
 
 
-						<img src="{{ asset('build/images/produits/' ~ favori.produit.pathImage) }}" class="produitContentGridCardImage" alt="Image 1">
+						<img src="{{ asset('build/images/uploads/produits/' ~ favori.produit.pathImage) }}" class="produitContentGridCardImage" alt="Image 1">
 						<p class="produitContentGridCardName">
 							{{ favori.produit.name | slice(0, 40) }}
 							{% if favori.produit.name | length > 40 %}...

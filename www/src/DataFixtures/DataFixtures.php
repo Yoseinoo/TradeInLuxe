@@ -73,7 +73,7 @@ class DataFixtures extends Fixture implements FixtureGroupInterface
                         'Marque' => 'Louis Vuitton',
                         'Taille' => '36',
                         'Couleur' => 'Noir',
-                        'Genre' => 'Autres'
+                        'Genre' => 'Mixte'
                     ],
                     'photos' => [
                         'trainer1.avif', 'trainer2.avif', 'trainer3.avif', 'trainer4.avif'
@@ -242,7 +242,7 @@ class DataFixtures extends Fixture implements FixtureGroupInterface
                     'Marque' => 'Louis Vuitton',
                     'Taille' => 'M',
                     'Couleur' => 'Rouge',
-                    'Genre' => 'Autres'
+                    'Genre' => 'Mixte'
                 ],
                 'photos' => [
                     'varsity1.avif', 'varsity2.avif', 'varsity3.avif','varsity4.avif'

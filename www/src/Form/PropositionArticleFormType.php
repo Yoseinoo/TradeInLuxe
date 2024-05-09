@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -31,7 +32,7 @@ class PropositionArticleFormType extends AbstractType
             'attr' => [
                 'class' => 'formulaireCardFormInput',
                 'minLenght' => 2,
-                'maxLenght' => 35
+                'maxLenght' => 50
             ],
             'label' => 'Nom de l\'article',
             'label_attr' => [
@@ -71,6 +72,22 @@ class PropositionArticleFormType extends AbstractType
             'label_attr' => [
                 'class' => 'formulaireCardFormLabel'
             ],
+        ])
+        ->add('genre', ChoiceType::class, [
+            'label' => 'Genre',
+            'label_attr' => [
+                'class' => 'formulaireCardFormLabel'
+            ],
+            'attr' => [
+                'class' => 'formulaireCardFormInput',
+            ],
+            'required' => true,
+            'placeholder' => '-- Merci de sélectionner --',
+            'choices' => [
+                'Homme' => 'Homme',
+                'Femme' => 'Femme',
+                'Mixte' => 'Mixte'
+            ]
         ])
         ->add('etat', EntityType::class,[
             'label' => 'Etat',

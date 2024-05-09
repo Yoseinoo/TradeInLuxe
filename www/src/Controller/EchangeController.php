@@ -41,8 +41,9 @@ class EchangeController extends AbstractController
             $article->setPathImage($produit->getPathImage());
             $caracterisqtiques = [
                 'Marque' => $produit->getCaracteristiques()['Marque'],
-                'Taille' =>$formData->taille,
-                'Etat' => $formData->etat->getName()
+                'Taille' =>$formData->taille->getName(),
+                'Etat' => $formData->etat->getName(),
+                'Genre' => $formData->genre
             ];
             $article->setCaracteristiques($caracterisqtiques);
 
@@ -89,7 +90,8 @@ class EchangeController extends AbstractController
 
         return $this->render('article/form.html.twig', [
             'title' => 'Echange',
-            'form' => $form
+            'form' => $form,
+            'id' =>$id
         ]);
     }
 }

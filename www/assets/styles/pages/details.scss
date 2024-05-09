@@ -1,7 +1,23 @@
 .details{
     @extend .containerDescription;
     &Container{
+        .filAriane{
+            font-family: $font-family-primary;
+            color:$muted;
+            &Link{
+                text-align: center;
+                color:$muted;
+                font-size: 14px;
+                text-decoration: none;
+            }
+            .currentLink{
+                text-decoration: underline;
+            }
+        }
         &Content{
+            .produitContentGridLike{
+                top: 60px;
+               } 
             &Subtitle{
                 font-size: 22px;
                 color: $muted;
@@ -265,6 +281,11 @@
 @media (max-width: 430px) {
     .details {
         &Container{
+            &Content{
+               .produitContentGridLike{
+                 top: 0;
+               } 
+            }
             &Produit {
                 flex-wrap: wrap;  
                 gap: 64px;  

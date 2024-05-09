@@ -15,6 +15,7 @@ use App\Repository\CategorieRepository;
 use App\Form\Model\PropositionFormModel;
 use App\Form\PropositionArticleFormType;
 use App\Repository\ArticlePropositionRepository;
+use App\Repository\FavorisRepository;
 use App\Repository\PropositionRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +34,8 @@ class ArticleController extends AbstractController
         private EtatRepository $etatRepository,
         private UserRepository $userRepository,
         private PropositionRepository $propositionRepository,
-        private ArticlePropositionRepository $articlePropositionRepository
+        private ArticlePropositionRepository $articlePropositionRepository,
+        private FavorisRepository $favorisRepository
     ) {
     }
 
@@ -57,12 +59,23 @@ class ArticleController extends AbstractController
         $data = $this->getFiltres($idCategorie);
         $pagerfanta = $this->getProduitsPager($id, $page, $formData);
 
+        $user = $this->getUser();
+        $favoris = null;
+        if($user){
+            $resultats = $this->favorisRepository->findBy(['user' => $user]);
+
+            foreach($resultats as $favori){
+                $favoris [] = $favori->getProduit()->getId();
+            }
+        }
+
         return $this->render('article/'.$template, [
             'title' => 'Détails',
             'produit' => $produit,
             'pager' => $pagerfanta,
             'filtresParType' => $data['filtresParType'],
-            'selected' => $formData
+            'selected' => $formData,
+            'favoris' => $favoris
         ]);
     }
 
@@ -210,7 +223,8 @@ class ArticleController extends AbstractController
             $caracterisqtiques = [
                 'Marque' => $formData->marque,
                 'Taille' =>$formData->taille,
-                'Etat' => $formData->etat->getName()
+                'Etat' => $formData->etat->getName(),
+                'Genre' => $formData->genre
             ];
             $article->setCaracteristiques($caracterisqtiques);
 
@@ -266,10 +280,14 @@ class ArticleController extends AbstractController
             }
 
         }
+        $idParams = $request->attributes->get('id');
+        $idArticleParams = $request->attributes->get('idArticle');
         
         return $this->render('article/formEchangeArticle.html.twig', [
             'title' => 'Proposer un article',
-            'form' => $form
+            'form' => $form,
+            'id' => $idParams,
+            'idArticle' => $idArticleParams
         ]);
     }
 }

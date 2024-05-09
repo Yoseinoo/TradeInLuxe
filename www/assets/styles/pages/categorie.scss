@@ -408,6 +408,12 @@
 
             &Grid {
                 grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                &Like{
+                    svg:hover{
+                        stroke: #2e2e2e;
+                        fill: $white;
+                    }
+                }
             }
         }
     }

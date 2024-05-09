@@ -1,5 +1,4 @@
-<form
-	method="post" class="produitFiltreForm" {{stimulus_controller('form-filtre')}}>
+<form method="post" class="produitFiltreForm" {{stimulus_controller('form-filtre')}}>
 
 	{% for type, filtres in filtresParType %}
 		<div class="produitFiltre{{ type == 'Tailles' ? type : 'Type'}}{{title == 'Vêtements' and type == 'Tailles' ? 'Vetements' : '' }}" {{stimulus_controller('categorie')}}>
@@ -26,8 +25,8 @@
 				<label for="Genres_femme">Femme</label>
 			</li>
 			<li>
-				<input type="checkbox" id="Genres_autre" name="Genres[]" value="Autres" {% if selected['Genres'] is defined %} {% if 'Autres' in selected['Genres'] %} checked {% endif %} {% endif %}>
-				<label for="Genres_autre">Autres</label>
+				<input type="checkbox" id="Genres_autre" name="Genres[]" value="Mixte" {% if selected['Genres'] is defined %} {% if 'Mixte' in selected['Genres'] %} checked {% endif %} {% endif %}>
+				<label for="Genres_autre">Mixte</label>
 			</li>
 		</ul>
 	</div>
