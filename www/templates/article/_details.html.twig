@@ -15,6 +15,7 @@
 		<div class="detailsContainerContent" {{stimulus_controller('favoris')}}>
 			<h1 class="detailsContainerContentTitle">{{produit.name}}</h1>
 			<p class="detailsContainerContentSubtitle">{{produit.caracteristiques.Marque}}</p>
+			{% if app.user %}
 			<form method="post" action="{{path('app_favoris')}}" class="produitContentGridLike" > 
 						<input type="checkbox" id="likeCheckbox_{{produit.id}}" name="favorite[]" class="produitContentGridLikeInput" value="{{ produit.id}}" {% if produit.id in favoris %} checked {% endif %}>
 						<label for="likeCheckbox_{{produit.id}}">
@@ -23,6 +24,7 @@
 							</svg>
 						</label>
 					</form>
+					{% endif %}
 		</div>
 		<div class="detailsContainerProduit">
 			<div class="detailsContainerProduitImage">
