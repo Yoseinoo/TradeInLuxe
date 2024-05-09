@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Erreur 403 - Accès refusé
+{% endblock %}
+{% block body %}
+	<section class="erreur">
+		<div class="erreurContainer">
+			<h1 class="erreurContainerTitle">ERREUR 403</h1>
+			<img src="{{ asset('build/images/logo/denied.svg') }}" alt="image erreur" class="erreurContainerImage">
+			<p class="erreurContainerTexte">Vous n'êtes pas autorisé à accéder à cette page.</p>
+
+			<a href="{{ path('app_accueil') }}" class="erreurContainerButton">Page d'accueil</a>
+		</div>
+	</section>
+{% endblock %}
+
