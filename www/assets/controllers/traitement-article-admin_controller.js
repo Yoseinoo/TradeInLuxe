@@ -63,7 +63,7 @@ sendFormDataValidate() {
             let pointsInput = form.querySelector("#points");
             let points = pointsInput.value.trim();
 
-            if (points !== "" && !isNaN(parseInt(points))) {
+            if (points !== "" && !isNaN(parseInt(points)) && points >= 1) {
                 if (inputHiddenDelete) {
                     inputHiddenDelete.remove();
                 }
