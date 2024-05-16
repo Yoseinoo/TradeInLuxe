@@ -7,8 +7,9 @@
 						<p class="produitContentGridEtatWait">État : En attente de validation</p>
 					{% else %}
 						<p class="produitContentGridEtatValidate">État : Validé</p>
+						<a class="produitContentGridEtatButton" href="{{path('app_article_detail', {'id':article.produit.id, 'idArticle' : article.id })}}">Voir</a>
 					{% endif %}
-					<a class="produitContentGridEtatButton" href="{{path('app_article_detail', {'id':article.produit.id, 'idArticle' : article.id })}}">Voir</a>
+
 				</div>
 				<div class="produitContentGridCard">
 
