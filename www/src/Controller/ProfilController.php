@@ -339,10 +339,13 @@ class ProfilController extends AbstractController
        $user->setNotifications(0);
        $this->userRepository->save($user,true);
 
+       $nombreDemandes = count($this->articleRepository->findBy(['isEnabled'=>true,'isValidated'=>false,'deletedAt'=>null,'points'=>null]));
+
         return $this->render('profil/echanges.html.twig', [
             'current' => 'echanges',
             'offres' => $offres,
-            'mesPropositions' => $mesPropositions
+            'mesPropositions' => $mesPropositions,
+            'nombreDemandes' => $nombreDemandes
         ]);
     }
 

@@ -226,12 +226,13 @@ class AdminController extends AbstractController
                 );
             }
         }
-        
+        $nombreDemandes = count($this->articleRepository->findBy(['isEnabled'=>true,'isValidated'=>false,'deletedAt'=>null,'points'=>null]));
         return $this->render('profil/admin/ajout.html.twig', [
             'title' => 'Ajouter un nouveau produit',
             'current' => 'ajout',
             'currentChoice' => 'ajout',
             'form' => $form,
+            'nombreDemandes' => $nombreDemandes
         ]);
     }
 
@@ -306,12 +307,13 @@ class AdminController extends AbstractController
         }
 
         $pagerfanta = $this->getProduitsPager($page);
-               
+        $nombreDemandes = count($this->articleRepository->findBy(['isEnabled'=>true,'isValidated'=>false,'deletedAt'=>null,'points'=>null]));
         return $this->render('profil/admin/ajout.html.twig', [
             'title' => 'Gestion des produits',
             'current' => 'ajout',
             'currentChoice' => 'gestion',
-            'pager' => $pagerfanta
+            'pager' => $pagerfanta,
+            'nombreDemandes' => $nombreDemandes
         ]);
     }
 
