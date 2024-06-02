@@ -5,10 +5,6 @@
 
 TradeInLuxe est une plateforme d'échange en ligne pour les articles de luxe, développée en collaboration avec l'École Internationale de Marketing du Luxe (EIML). Le projet vise à permettre aux utilisateurs d'échanger des articles de luxe entre particuliers, avec une vérification effectuée par les experts de TradeInLuxe. Le système inclut également un système de points pour évaluer les articles et faciliter les échanges entre utilisateurs.
 
-# Essayer 🧪
-
-## 👉 [TradeInLuxe](https://tradeinluxe.martinsimon-dev.com/) 
-
 ## Fonctionnalités 💻
 
 - **Échange d'articles de luxe :** Les utilisateurs peuvent proposer des articles de luxe à échanger avec d'autres utilisateurs de la plateforme. Les échanges sont vérifiés par les experts de TradeInLuxe pour garantir l'authenticité et la qualité des articles.
